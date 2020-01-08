@@ -11,7 +11,7 @@ public class Drivetrain implements Subsystem {
 
     private Drivetrain() {
         left = new Transmission(TransmissionSide.left, Constants.LEFT_MASTER_PORT, Constants.LEFT_SLAVE_ONE, Constants.LEFT_SLAVE_TWO);
-        right = new Transmission(TransmissionSide.right, Constants.RIGHT_MASTER_PORT, Constants.LEFT_SLAVE_ONE, Constants.LEFT_SLAVE_TWO);
+        right = new Transmission(TransmissionSide.right, Constants.RIGHT_MASTER_PORT, Constants.RIGHT_SLAVE_ONE, Constants.RIGHT_SLAVE_TWO);
         drivetrain.setDefaultCommand(new UseDrivetrain());
     }
     public static synchronized Drivetrain getInstance() {
