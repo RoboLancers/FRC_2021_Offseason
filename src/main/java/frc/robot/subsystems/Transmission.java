@@ -1,8 +1,7 @@
-package frc.robot;
+package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
-import frc.robot.subsystems.TransmissionSide;
 
 public class Transmission {
     private CANSparkMax master, follow1, follow2;
@@ -16,7 +15,7 @@ public class Transmission {
         follow1.follow(master);
         follow2.follow(master);
 
-        if(side == TransmissionSide.left){
+        if(side == TransmissionSide.LEFT){
             master.setInverted(true);
         }else{
 
