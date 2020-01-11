@@ -9,9 +9,9 @@ public class Drivetrain implements Subsystem {
     private Transmission left, right;
     private static Drivetrain drivetrain;
 
-    private Drivetrain() {
-        left = new Transmission(TransmissionSide.LEFT, Constants.LEFT_MASTER_PORT, Constants.LEFT_SLAVE_ONE, Constants.LEFT_SLAVE_TWO);
-        right = new Transmission(TransmissionSide.RIGHT, Constants.RIGHT_MASTER_PORT, Constants.RIGHT_SLAVE_ONE, Constants.RIGHT_SLAVE_TWO);
+    public Drivetrain() {
+        left = new Transmission(TransmissionSide.LEFT, Constants.Drivetrain.Left.MASTER, Constants.Drivetrain.Left.SLAVE_ONE, Constants.Drivetrain.Left.SLAVE_TWO);
+        right = new Transmission(TransmissionSide.RIGHT, Constants.Drivetrain.Left.MASTER, Constants.Drivetrain.Right.SLAVE_ONE, Constants.Drivetrain.Right.SLAVE_TWO);
         drivetrain.setDefaultCommand(new UseDrivetrain());
     }
     public static synchronized Drivetrain getInstance() {
