@@ -8,19 +8,13 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.ColorShim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.subsystems.ColorSensor;
 
 import java.util.Set;
 
 public class UseColorSensor implements Command {
     private ColorSensor instance;
-
-    private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-    private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-    private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-    private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
-
-
 
     public UseColorSensor() {
         this.instance = ColorSensor.getInstance();
@@ -29,25 +23,12 @@ public class UseColorSensor implements Command {
 
     @Override
     public void execute() {
-//        Color detectedColor = ColorSensor.getInstance().getColor();
-//        ColorMatchResult match = ColorSensor.getInstance().matchClosestColor(detectedColor);
-//
-//        double IR = ColorSensor.getInstance().getIR();
-//        String colorString;
-//
-//        if (match.color == kBlueTarget) {
-//            colorString = "Blue";
-//        } else if (match.color == kRedTarget) {
-//            colorString = "Red";
-//        } else if (match.color == kGreenTarget) {
-//            colorString = "Green";
-//        } else if (match.color == kYellowTarget) {
-//            colorString = "Yellow";
-//        } else {
-//            colorString = "Unknown";
-//        }
+        ColorMatch matcher = instance.colorMatcher;
 
+        Color detectedColor = ColorSensor.getInstance().getColor();
+        ColorMatchResult match = matcher.matchClosestColor(detectedColor);
 
+        double IR = ColorSensor.getInstance().getIR();
 
     }
 
