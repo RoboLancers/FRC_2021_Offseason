@@ -7,15 +7,10 @@
 
 package frc.robot;
 
-import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
-import com.revrobotics.ColorSensorV3;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Limelight;
 
@@ -39,6 +34,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
   }
 
   /**
@@ -59,13 +55,15 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Red", ColorSensor.getInstance().getColor().red);
     SmartDashboard.putNumber("Green", ColorSensor.getInstance().getColor().green);
     SmartDashboard.putNumber("Blue", ColorSensor.getInstance().getColor().blue);
-//    SmartDashboard.putNumber("Confidence", match.confidence);
-//    SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putString("Detected Color", ColorSensor.getInstance().getColorString());
     SmartDashboard.putNumber("IR", ColorSensor.getInstance().getIR());
-    SmartDashboard.putNumber("proximity", ColorSensor.getInstance().getProximity());
 
-    SmartDashboard.putNumber("Turning Offset", RobotContainer.limelight.getXOffset());
-    SmartDashboard.putNumber("Distance Offset", RobotContainer.limelight.getYOffset());
+//    SmartDashboard.putNumber("Turning Offset", Limelight.getInstance().getXOffset());
+//    SmartDashboard.putNumber("Distance Offset", Limelight.getInstance().getYOffset());
+      SmartDashboard.putNumber("Red", ColorSensor.getInstance().getRawColor().red);
+      SmartDashboard.putNumber("Green", ColorSensor.getInstance().getRawColor().green);
+      SmartDashboard.putNumber("Blue", ColorSensor.getInstance().getRawColor().blue);
+
 
   }
 

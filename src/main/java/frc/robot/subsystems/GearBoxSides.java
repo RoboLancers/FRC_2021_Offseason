@@ -1,5 +1,5 @@
 package frc.robot.subsystems;
 
-public enum TransmissionSide {
+public enum GearBoxSides {
     LEFT, RIGHT
 }
