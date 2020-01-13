@@ -18,14 +18,14 @@ package frc.robot;
 public final class Constants {
     public final class Drivetrain{
         public final class Left{
-            public static final int MASTER = 0;
-            public static final int SLAVE_ONE = 1;
-            public static final int SLAVE_TWO = 2;
+            public static final int MASTER = 1;
+            public static final int SLAVE_ONE = 2;
+            public static final int SLAVE_TWO = 5;
         }
         public final class Right{
-            public static final int MASTER = 3;
-            public static final int SLAVE_ONE = 4;
-            public static final int SLAVE_TWO = 5;
+            public static final int MASTER = 13;
+            public static final int SLAVE_ONE = 12;
+            public static final int SLAVE_TWO = 6;
         }
 
 
