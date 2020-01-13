@@ -10,10 +10,10 @@ public class Transmission {
     Transmission(TransmissionSide side, int masterPort, int follow1Port, int follow2Port) {
         master = new CANSparkMax(masterPort, CANSparkMaxLowLevel.MotorType.kBrushless);
         follow1 = new CANSparkMax(follow1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
-        follow2 = new CANSparkMax(follow2Port, CANSparkMaxLowLevel.MotorType.kBrushless);
+//        follow2 = new CANSparkMax(follow2Port, CANSparkMaxLowLevel.MotorType.kBrushless);
 
         follow1.follow(master);
-        follow2.follow(master);
+//        follow2.follow(master);
 
         if(side == TransmissionSide.LEFT){
             master.setInverted(true);
