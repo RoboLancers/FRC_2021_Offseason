@@ -11,7 +11,7 @@ public class Limelight implements Subsystem {
     private static Limelight instance;
     private double target, x, y, area;
 
-    Limelight() {
+    public Limelight() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
         target = table.getEntry("tv").getDouble(0.0);
         x = table.getEntry("tx").getDouble(0.0);
@@ -48,12 +48,5 @@ public class Limelight implements Subsystem {
     public double getArea() {
         area = table.getEntry("ta").getDouble(0.0);
         return area;
-    }
-
-    public static synchronized Limelight getInstance() {
-        if (instance == null) {
-            instance = new Limelight();
-        }
-        return instance;
     }
 }
