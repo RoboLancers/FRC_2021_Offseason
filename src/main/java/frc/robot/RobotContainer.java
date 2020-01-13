@@ -11,8 +11,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.TargetAiming;
+import frc.robot.commands.UseDrivetrain;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Limelight;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -24,9 +28,15 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
+  public static final Drivetrain drivetrain = new Drivetrain();
+  public static final Limelight limelight = new Limelight();
+
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private final InstantCommand TargetAim = new InstantCommand();
+  public final Command useDrivetrain = new UseDrivetrain();
+  public final Command targetAim = new TargetAiming(drivetrain);
+
+  public static final XboxController xboxController = new XboxController(0);
 
 
 
@@ -35,6 +45,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
+    drivetrain.setDefaultCommand(useDrivetrain);
     configureButtonBindings();
   }
 
@@ -45,6 +56,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
   }
 
 
