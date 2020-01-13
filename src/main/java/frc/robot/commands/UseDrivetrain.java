@@ -7,22 +7,24 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.OI;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class UseDrivetrain implements Command {
-    private Set<Subsystem> subsystems;
+    Set<Subsystem> subsystems;
     private final Drivetrain drivetrain;
     double throttle, turn, leftPower, rightPower;
 
-    public UseDrivetrain(Drivetrain drivetrain) {
-        this.drivetrain = drivetrain;
+    public UseDrivetrain() {
+        subsystems = new HashSet<Subsystem>();
+        drivetrain = RobotContainer.drivetrain;
         subsystems.add(RobotContainer.drivetrain);
     }
 
     @Override
     public void execute() {
-        throttle = OI.getXboxController().getY(GenericHID.Hand.kLeft);
-        turn = OI.getXboxController().getX(GenericHID.Hand.kRight);
+        throttle = RobotContainer.xboxController.getY(GenericHID.Hand.kLeft);
+        turn = RobotContainer.xboxController.getX(GenericHID.Hand.kRight);
 
         leftPower = throttle - turn;
         rightPower = throttle + turn;

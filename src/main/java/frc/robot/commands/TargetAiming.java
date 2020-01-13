@@ -6,6 +6,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Limelight;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class TargetAiming implements Command {
@@ -17,6 +18,7 @@ public class TargetAiming implements Command {
     double allowedDistanceError = 20;
 
     public TargetAiming(Drivetrain drivetrain) {
+        subsystems = new HashSet<Subsystem>();
         this.drivetrain = drivetrain;
         subsystems.add(RobotContainer.drivetrain);
     }
