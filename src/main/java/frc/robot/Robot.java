@@ -7,15 +7,11 @@
 
 package frc.robot;
 
-import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
-import com.revrobotics.ColorSensorV3;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Limelight;
 
 /**
@@ -29,16 +25,6 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private final I2C.Port i2cport = I2C.Port.kOnboard;
-
-  private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cport);
-  private final ColorMatch colorMatcher = new ColorMatch();
-
-  private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-  private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-  private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-  private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -49,10 +35,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    colorMatcher.addColorMatch(kBlueTarget);
-    colorMatcher.addColorMatch(kGreenTarget);
-    colorMatcher.addColorMatch(kRedTarget);
-    colorMatcher.addColorMatch(kYellowTarget);
   }
 
   /**
@@ -70,36 +52,18 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    Color detectedColor = colorSensor.getColor();
-    ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
+    SmartDashboard.putNumber("Red", ColorSensor.getInstance().getColor().red);
+    SmartDashboard.putNumber("Green", ColorSensor.getInstance().getColor().green);
+    SmartDashboard.putNumber("Blue", ColorSensor.getInstance().getColor().blue);
+    SmartDashboard.putString("Detected Color", ColorSensor.getInstance().getColorString());
+    SmartDashboard.putNumber("IR", ColorSensor.getInstance().getIR());
 
-    double IR = colorSensor.getIR();
-    String colorString;
+//    SmartDashboard.putNumber("Turning Offset", Limelight.getInstance().getXOffset());
+//    SmartDashboard.putNumber("Distance Offset", Limelight.getInstance().getYOffset());
+      SmartDashboard.putNumber("Red", ColorSensor.getInstance().getRawColor().red);
+      SmartDashboard.putNumber("Green", ColorSensor.getInstance().getRawColor().green);
+      SmartDashboard.putNumber("Blue", ColorSensor.getInstance().getRawColor().blue);
 
-    if (match.color == kBlueTarget) {
-      colorString = "Blue";
-    } else if (match.color == kRedTarget) {
-      colorString = "Red";
-    } else if (match.color == kGreenTarget) {
-      colorString = "Green";
-    } else if (match.color == kYellowTarget) {
-      colorString = "Yellow";
-    } else {
-      colorString = "Unknown";
-    }
-
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putString("Detected Color", colorString);
-    SmartDashboard.putNumber("IR", IR);
-
-    int proximity = colorSensor.getProximity();
-
-    SmartDashboard.putNumber("Proximity", proximity);
-    SmartDashboard.putNumber("Turning Offset", Limelight.getInstance().getXOffset());
-    SmartDashboard.putNumber("Distance Offset", Limelight.getInstance().getYOffset());
 
   }
 
