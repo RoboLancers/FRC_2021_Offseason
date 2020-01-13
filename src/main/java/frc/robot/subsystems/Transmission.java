@@ -17,8 +17,6 @@ public class Transmission {
 
         if(side == TransmissionSide.LEFT){
             master.setInverted(true);
-        }else{
-
         }
     }
 

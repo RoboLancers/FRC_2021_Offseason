@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.OI;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,8 +28,8 @@ public class UseDrivetrain implements Command {
         leftPower = throttle - turn;
         rightPower = throttle + turn;
 
-        drivetrain.getLeftMasterMotor().set(leftPower);
-        drivetrain.getRightMasterMotor().set(rightPower);
+        drivetrain.getLeftTransmission().getMaster().set(leftPower);
+        drivetrain.getRightTransmission().getMaster().set(rightPower);
     }
     @Override
     public boolean isFinished() {
