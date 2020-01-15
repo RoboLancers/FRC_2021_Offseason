@@ -6,20 +6,20 @@ import frc.robot.Constants;
 import frc.robot.commands.UseDrivetrain;
 
 public class Drivetrain implements Subsystem {
-    private Transmission left, right;
+    private GearBox left, right;
     private static Drivetrain drivetrain;
 
     public Drivetrain() {
-        left = new Transmission(TransmissionSide.LEFT, Constants.Drivetrain.Left.MASTER, Constants.Drivetrain.Left.SLAVE_ONE, Constants.Drivetrain.Left.SLAVE_TWO);
-        right = new Transmission(TransmissionSide.RIGHT, Constants.Drivetrain.Right.MASTER, Constants.Drivetrain.Right.SLAVE_ONE, Constants.Drivetrain.Right.SLAVE_TWO);
+        left = new GearBox(GearBoxSides.LEFT, Constants.Drivetrain.Left.MASTER, Constants.Drivetrain.Left.SLAVE_ONE, Constants.Drivetrain.Left.SLAVE_TWO);
+        right = new GearBox(GearBoxSides.RIGHT, Constants.Drivetrain.Right.MASTER, Constants.Drivetrain.Right.SLAVE_ONE, Constants.Drivetrain.Right.SLAVE_TWO);
 
     }
 
-    public Transmission getLeftTransmission() {
+    public GearBox getLeft() {
         return left;
     }
 
-    public Transmission getRightTransmission() {
+    public GearBox getRight() {
         return right;
     }
 

@@ -28,8 +28,8 @@ public class UseDrivetrain implements Command {
         leftPower = throttle - turn;
         rightPower = throttle + turn;
 
-        drivetrain.getLeftTransmission().getMaster().set(leftPower);
-        drivetrain.getRightTransmission().getMaster().set(rightPower);
+        drivetrain.getLeft().getMaster().set(leftPower);
+        drivetrain.getRight().getMaster().set(rightPower);
     }
     @Override
     public boolean isFinished() {
