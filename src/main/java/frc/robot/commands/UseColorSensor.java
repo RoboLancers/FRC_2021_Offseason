@@ -9,31 +9,33 @@ import edu.wpi.first.wpilibj.util.ColorShim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ColorSensor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class UseColorSensor implements Command {
-    private ColorSensor instance;
+    Set<Subsystem> subsystems;
 
     public UseColorSensor() {
-        this.instance = ColorSensor.getInstance();
+        subsystems = new HashSet<Subsystem>();
     }
 
 
     @Override
     public void execute() {
-        ColorMatch matcher = instance.colorMatcher;
+        ColorMatch matcher = RobotContainer.colorSensor.colorMatcher;
 
-        Color detectedColor = ColorSensor.getInstance().getColor();
+        Color detectedColor = RobotContainer.colorSensor.getColor();
         ColorMatchResult match = matcher.matchClosestColor(detectedColor);
 
-        double IR = ColorSensor.getInstance().getIR();
+        double IR = RobotContainer.colorSensor.getIR();
 
     }
 
     @Override
     public Set<Subsystem> getRequirements() {
-        return null;
+        return subsystems;
     }
 }

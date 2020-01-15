@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TargetAiming;
+import frc.robot.commands.UseColorSensor;
 import frc.robot.commands.UseDrivetrain;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -30,11 +32,13 @@ public class RobotContainer {
 
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Limelight limelight = new Limelight();
+  public static final ColorSensor colorSensor = new ColorSensor();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   public final Command useDrivetrain = new UseDrivetrain();
   public final Command targetAim = new TargetAiming(drivetrain);
+  public final Command useColorSensor = new UseColorSensor();
 
   public static final XboxController xboxController = new XboxController(0);
 

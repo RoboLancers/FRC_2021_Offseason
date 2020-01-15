@@ -11,15 +11,12 @@ import frc.robot.Constants;
 import static com.revrobotics.ColorSensorV3.*;
 
 public class ColorSensor implements Subsystem {
-    private static ColorSensor instance;
 
     public ColorSensorV3 colorSensor;
     public ColorMatch colorMatcher;
 
-    I2C.Port i2cport = I2C.Port.kOnboard;
-
-    ColorSensor() {
-        colorSensor = new ColorSensorV3(i2cport);
+    public ColorSensor() {
+        colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
         colorMatcher = new ColorMatch();
 
         colorMatcher.addColorMatch(Constants.ColorSensor.kBlueTarget);
@@ -37,12 +34,12 @@ public class ColorSensor implements Subsystem {
     }
 
     public RawColor getRawColor(){
-        return instance.getRawColor();
+        return colorSensor.getRawColor();
     }
 
     public String getColorString(){
 
-        Color detectedColor = ColorSensor.getInstance().getColor();
+        Color detectedColor = colorSensor.getColor();
         ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
         String colorString;
 
@@ -59,18 +56,5 @@ public class ColorSensor implements Subsystem {
         }
 
         return colorString;
-
     }
-
-
-   public static synchronized ColorSensor getInstance() {
-       if(instance == null) {
-           instance = new ColorSensor();
-       }
-       return instance;
-
-   }
-
-
-
 }

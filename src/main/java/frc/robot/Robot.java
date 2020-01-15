@@ -52,17 +52,17 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    SmartDashboard.putNumber("Red", ColorSensor.getInstance().getColor().red);
-    SmartDashboard.putNumber("Green", ColorSensor.getInstance().getColor().green);
-    SmartDashboard.putNumber("Blue", ColorSensor.getInstance().getColor().blue);
-    SmartDashboard.putString("Detected Color", ColorSensor.getInstance().getColorString());
-    SmartDashboard.putNumber("IR", ColorSensor.getInstance().getIR());
+    SmartDashboard.putNumber("Red", RobotContainer.colorSensor.getColor().red);
+    SmartDashboard.putNumber("Green", RobotContainer.colorSensor.getColor().green);
+    SmartDashboard.putNumber("Blue", RobotContainer.colorSensor.getColor().blue);
+    SmartDashboard.putString("Detected Color", RobotContainer.colorSensor.getColorString());
+    SmartDashboard.putNumber("IR", RobotContainer.colorSensor.getIR());
 
 //    SmartDashboard.putNumber("Turning Offset", Limelight.getInstance().getXOffset());
 //    SmartDashboard.putNumber("Distance Offset", Limelight.getInstance().getYOffset());
-      SmartDashboard.putNumber("Red", ColorSensor.getInstance().getRawColor().red);
-      SmartDashboard.putNumber("Green", ColorSensor.getInstance().getRawColor().green);
-      SmartDashboard.putNumber("Blue", ColorSensor.getInstance().getRawColor().blue);
+//      SmartDashboard.putNumber("Red", ColorSensor.getInstance().getRawColor().red);
+//      SmartDashboard.putNumber("Green", ColorSensor.getInstance().getRawColor().green);
+//      SmartDashboard.putNumber("Blue", ColorSensor.getInstance().getRawColor().blue);
 
 
   }
