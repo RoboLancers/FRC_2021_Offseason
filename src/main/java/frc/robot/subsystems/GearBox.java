@@ -23,4 +23,10 @@ public class GearBox {
     public CANSparkMax getMaster(){
         return master;
     }
+
+    public void resetEncoder() {
+        master.getEncoder().setPosition(0);
+        follow1.getEncoder().setPosition(0);
+        follow2.getEncoder().setPosition(0);
+    }
 }
