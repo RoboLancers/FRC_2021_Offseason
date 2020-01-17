@@ -30,14 +30,14 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  public static final Drivetrain drivetrain = new Drivetrain();
-  public static final Limelight limelight = new Limelight();
+  //public static final Drivetrain drivetrain = new Drivetrain();
+  //public static final Limelight limelight = new Limelight();
   public static final ColorSensor colorSensor = new ColorSensor();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  public final Command useDrivetrain = new UseDrivetrain();
-  public final Command targetAim = new TargetAiming(drivetrain);
+  //public final Command useDrivetrain = new UseDrivetrain();
+  //public final Command targetAim = new TargetAiming(drivetrain);
   public final Command useColorSensor = new UseColorSensor();
 
   public static final XboxController xboxController = new XboxController(0);
@@ -49,7 +49,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-    drivetrain.setDefaultCommand(useDrivetrain);
+   // drivetrain.setDefaultCommand(useDrivetrain);
     configureButtonBindings();
   }
 
