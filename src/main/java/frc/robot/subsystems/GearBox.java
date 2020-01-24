@@ -41,7 +41,11 @@ public class GearBox {
     }
 
     public double getDistance() {
-        return getEncoderCount() / Constants.Odometry.ENCODER_COUNT;
+        return getEncoderCount() / Constants.Robot.ENCODER_COUNT;
+    }
+
+    public double getVelocity() {
+        return master.getEncoder().getVelocity();
     }
 
 }

@@ -31,6 +31,7 @@ public class RobotContainer {
   public static final Limelight limelight = new Limelight();
   public static final ColorSensor colorSensor = new ColorSensor();
   public static final Gyro gyro = new Gyro();
+  public static final Odometry odometry = new Odometry();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
