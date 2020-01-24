@@ -2,17 +2,16 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.UseDrivetrain;
+import frc.robot.RobotContainer;
 
-public class Drivetrain implements Subsystem {
+public class Drivetrain extends SubsystemBase{
     private GearBox left, right;
-    private static Drivetrain drivetrain;
 
     public Drivetrain() {
         left = new GearBox(GearBoxSides.LEFT, Constants.Drivetrain.Left.MASTER, Constants.Drivetrain.Left.SLAVE_ONE, Constants.Drivetrain.Left.SLAVE_TWO);
         right = new GearBox(GearBoxSides.RIGHT, Constants.Drivetrain.Right.MASTER, Constants.Drivetrain.Right.SLAVE_ONE, Constants.Drivetrain.Right.SLAVE_TWO);
-
     }
 
     public GearBox getLeft() {
@@ -27,7 +26,16 @@ public class Drivetrain implements Subsystem {
         return left.getMaster();
     }
 
-    public  CANSparkMax getRightMasterMotor() {
+    public CANSparkMax getRightMasterMotor() {
         return right.getMaster();
     }
+
+    public double getLeftEncoder(){
+        return left.getEncoderCount();
+    }
+
+    public double getRightEncoder(){
+        return right.getEncoderCount();
+    }
+
 }
