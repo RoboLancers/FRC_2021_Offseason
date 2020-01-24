@@ -19,6 +19,11 @@ import edu.wpi.first.wpilibj.util.Color;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public final class Robot{
+        public static final int ENCODER_COUNT = 42;
+        public static final double RAMP_RATE = 0.3;
+
+    }
     public final class Drivetrain{
         public final class Left{
             public static final int MASTER = 4;
@@ -39,6 +44,13 @@ public final class Constants {
     }
 
     public final class Odometry{
-
+        public static final double MAX_VELOCITY = 10;
+        public static final double MAX_VELOCITY_SIDE = 0;
+        public static final double ANGULAR_VELOCITY = 0;
+        public static final double ROBOT_WIDTH = 28;
+        public static final double kSTATIC = 0;
+        public static final double kVELOCITY = 7;
+        public static final double kACCELERATION = 5;
+        public static final double MAX_VOLTAGE = 10;
     }
 }
