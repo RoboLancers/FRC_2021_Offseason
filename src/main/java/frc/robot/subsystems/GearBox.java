@@ -2,21 +2,29 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import frc.robot.Constants;
 
 public class GearBox {
-    private CANSparkMax master, follow1, follow2;
+    private CANSparkMax master, slave1, follow2;
 
 
-    GearBox(GearBoxSides side, int masterPort, int follow1Port, int follow2Port) {
+    GearBox(GearBoxSides side, int masterPort, int slave1Port, int follow2Port) {
         master = new CANSparkMax(masterPort, CANSparkMaxLowLevel.MotorType.kBrushless);
-        follow1 = new CANSparkMax(follow1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
-//        follow2 = new CANSparkMax(follow2Port, CANSparkMaxLowLevel.MotorType.kBrushless);
+        slave1 = new CANSparkMax(slave1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
+//        slave2 = new CANSparkMax(follow2Port, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-        follow1.follow(master);
-//        follow2.follow(master);
+        master.restoreFactoryDefaults();
+        slave1.restoreFactoryDefaults();
+//        slave2.restorFactoryDefaults();
+
+        slave1.follow(master);
+//        slave2.follow(master);
+
+        master.setOpenLoopRampRate(Constants.Robot.RAMP_RATE);
+        slave1.setOpenLoopRampRate(Constants.Robot.RAMP_RATE);
 
         if(side == GearBoxSides.LEFT){
-            master.setInverted(true);
+           master.setInverted(true);
         }
     }
 
@@ -26,7 +34,14 @@ public class GearBox {
 
     public void resetEncoder() {
         master.getEncoder().setPosition(0);
-        follow1.getEncoder().setPosition(0);
-        follow2.getEncoder().setPosition(0);
     }
+
+    public double getEncoderCount(){
+        return master.getEncoder().getPosition();
+    }
+
+    public double getDistance() {
+        return getEncoderCount() / Constants.Odometry.ENCODER_COUNT;
+    }
+
 }
