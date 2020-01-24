@@ -26,10 +26,10 @@ public class UseColorSensor implements Command {
     }
 
 
-    //RobotContainer.colorSensor.updateDash();
+
     @Override
     public void execute() {
-        
+        RobotContainer.colorSensor.updateDash();
     }
 
     @Override

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.UseColorSensor;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Limelight;
 
@@ -35,6 +36,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
+
   }
 
   /**
@@ -52,17 +54,10 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    SmartDashboard.putNumber("Red", RobotContainer.colorSensor.getColor().red);
-    SmartDashboard.putNumber("Green", RobotContainer.colorSensor.getColor().green);
-    SmartDashboard.putNumber("Blue", RobotContainer.colorSensor.getColor().blue);
-    SmartDashboard.putString("Detected Color", RobotContainer.colorSensor.getColorString());
-    SmartDashboard.putNumber("IR", RobotContainer.colorSensor.getIR());
+    RobotContainer.colorSensor.updateDash();
 
 //    SmartDashboard.putNumber("Turning Offset", Limelight.getInstance().getXOffset());
 //    SmartDashboard.putNumber("Distance Offset", Limelight.getInstance().getYOffset());
-//      SmartDashboard.putNumber("Red", ColorSensor.getInstance().getRawColor().red);
-//      SmartDashboard.putNumber("Green", ColorSensor.getInstance().getRawColor().green);
-//      SmartDashboard.putNumber("Blue", ColorSensor.getInstance().getRawColor().blue);
 
 
   }
@@ -107,6 +102,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
   }
 
   /**
