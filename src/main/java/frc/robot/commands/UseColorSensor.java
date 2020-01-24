@@ -17,21 +17,19 @@ import java.util.Set;
 
 public class UseColorSensor implements Command {
     Set<Subsystem> subsystems;
+    boolean wrongColor = false;
 
     public UseColorSensor() {
+
         subsystems = new HashSet<Subsystem>();
+        subsystems.add(RobotContainer.colorSensor);
     }
 
 
+    //RobotContainer.colorSensor.updateDash();
     @Override
     public void execute() {
-        ColorMatch matcher = RobotContainer.colorSensor.colorMatcher;
-
-        Color detectedColor = RobotContainer.colorSensor.getColor();
-        ColorMatchResult match = matcher.matchClosestColor(detectedColor);
-
-        double IR = RobotContainer.colorSensor.getIR();
-
+        
     }
 
     @Override
