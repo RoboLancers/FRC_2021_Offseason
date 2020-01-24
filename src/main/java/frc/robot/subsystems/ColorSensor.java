@@ -15,8 +15,8 @@ import static com.revrobotics.ColorSensorV3.*;
 
 public class ColorSensor extends SubsystemBase {
 
-    public ColorSensorV3 colorSensor;
-    public ColorMatch colorMatcher;
+    private ColorSensorV3 colorSensor;
+    private ColorMatch colorMatcher;
 
     public ColorSensor() {
         colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
@@ -42,6 +42,14 @@ public class ColorSensor extends SubsystemBase {
 
     public double getIR(){
         return colorSensor.getIR();
+    }
+
+    public Color getColor() {
+        return colorSensor.getColor();
+    }
+
+    public ColorMatch getColorMatcher(){
+        return colorMatcher;
     }
 
     public void updateDash(){
