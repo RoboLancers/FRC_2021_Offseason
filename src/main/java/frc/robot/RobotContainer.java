@@ -14,11 +14,8 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TargetAiming;
 import frc.robot.commands.UseColorSensor;
 import frc.robot.commands.UseDrivetrain;
-import frc.robot.subsystems.ColorSensor;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Limelight;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -30,14 +27,15 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  //public static final Drivetrain drivetrain = new Drivetrain();
-  //public static final Limelight limelight = new Limelight();
+  public static final Drivetrain drivetrain = new Drivetrain();
+  public static final Limelight limelight = new Limelight();
   public static final ColorSensor colorSensor = new ColorSensor();
+  public static final Gyro gyro = new Gyro();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  //public final Command useDrivetrain = new UseDrivetrain();
-  //public final Command targetAim = new TargetAiming(drivetrain);
+  public final Command useDrivetrain = new UseDrivetrain();
+  public final Command targetAim = new TargetAiming(drivetrain);
   public final Command useColorSensor = new UseColorSensor();
 
   public static final XboxController xboxController = new XboxController(0);
@@ -49,7 +47,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-   // drivetrain.setDefaultCommand(useDrivetrain);
+    drivetrain.setDefaultCommand(useDrivetrain);
     configureButtonBindings();
   }
 
