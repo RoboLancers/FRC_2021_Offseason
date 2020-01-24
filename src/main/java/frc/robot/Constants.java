@@ -21,20 +21,20 @@ import edu.wpi.first.wpilibj.util.Color;
 public final class Constants {
     public final class Drivetrain{
         public final class Left{
-            public static final int MASTER = 1;
-            public static final int SLAVE_ONE = 2;
+            public static final int MASTER = 4;
+            public static final int SLAVE_ONE = 3;
             public static final int SLAVE_TWO = 5;
         }
         public final class Right{
-            public static final int MASTER = 13;
-            public static final int SLAVE_ONE = 12;
+            public static final int MASTER = 1;
+            public static final int SLAVE_ONE = 2;
             public static final int SLAVE_TWO = 6;
         }
     }
     public static final class ColorSensor{
         public static final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
         public static final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-        public static final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+        public static final Color kRedTarget = ColorMatch.makeColor(0.413, 0.378, 0.162);
         public static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
     }
 
