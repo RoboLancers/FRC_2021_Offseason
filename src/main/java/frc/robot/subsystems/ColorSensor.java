@@ -7,12 +7,13 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 import static com.revrobotics.ColorSensorV3.*;
 
-public class ColorSensor implements Subsystem {
+public class ColorSensor extends SubsystemBase {
 
     public ColorSensorV3 colorSensor;
     public ColorMatch colorMatcher;
