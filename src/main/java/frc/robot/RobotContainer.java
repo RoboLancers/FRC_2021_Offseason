@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.manipulators.Climber;
 import frc.robot.subsystems.manipulators.intake.Intake;
 import frc.robot.subsystems.manipulators.spinner.Spinner;
+import frc.robot.subsystems.misc.ColorSensor;
+import frc.robot.subsystems.misc.Gyro;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
