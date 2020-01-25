@@ -38,7 +38,8 @@ public final class Constants {
     }
     public static final class Manipulator {
         public final class Climber {
-            public static final int CLIMBER_PORT = 7;
+            public static final int NEO_PORT = 7;
+            public static final int TALONSRX_PORT = 8;
             public static final double CLIMBER_RAMP_RATE = 0.30;
         }
     }
