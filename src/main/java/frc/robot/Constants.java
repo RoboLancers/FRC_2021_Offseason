@@ -42,6 +42,9 @@ public final class Constants {
             public static final int TALONSRX_PORT = 8;
             public static final double CLIMBER_RAMP_RATE = 0.30;
         }
+        public final class Spinner {
+            public static final int SPINNER_PORT = 9;
+        }
     }
     public static final class ColorSensor{
         public static final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
