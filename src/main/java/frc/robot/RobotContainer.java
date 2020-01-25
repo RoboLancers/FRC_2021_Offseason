@@ -16,6 +16,9 @@ import frc.robot.commands.UseColorSensor;
 import frc.robot.commands.UseDrivetrain;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.manipulators.Climber;
+import frc.robot.subsystems.manipulators.intake.Intake;
+import frc.robot.subsystems.manipulators.spinner.Spinner;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -34,6 +37,7 @@ public class RobotContainer {
   public static final Odometry odometry = new Odometry();
   public static final Climber climber = new Climber();
   public static final Spinner spinner = new Spinner();
+  public static final Intake intake = new Intake();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
