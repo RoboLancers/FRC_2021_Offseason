@@ -46,11 +46,13 @@ public final class Constants {
             public static final int SPINNER_PORT = 9;
         }
     }
-    public static final class ColorSensor{
+    public static final class Sensors {
         public static final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
         public static final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
         public static final Color kRedTarget = ColorMatch.makeColor(0.413, 0.378, 0.162);
         public static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+
+        public static final int PIGEON_PORT = 1;
     }
 
     public final class Odometry{
