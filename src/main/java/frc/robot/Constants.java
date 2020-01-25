@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.util.Color;
 public final class Constants {
     public final class Robot{
         public static final int ENCODER_COUNT = 42;
-        public static final double RAMP_RATE = 0.3;
+        public static final double RAMP_RATE = 0.30;
 
     }
     public final class Drivetrain{
@@ -34,6 +34,12 @@ public final class Constants {
             public static final int MASTER = 1;
             public static final int SLAVE_ONE = 2;
             public static final int SLAVE_TWO = 6;
+        }
+    }
+    public static final class Manipulator {
+        public final class Climber {
+            public static final int CLIMBER_PORT = 7;
+            public static final double CLIMBER_RAMP_RATE = 0.30;
         }
     }
     public static final class ColorSensor{
