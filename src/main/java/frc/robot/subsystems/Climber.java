@@ -1,28 +1,37 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
-    private CANSparkMax climber;
+    //The Neo Motor is used to pull the hook down
+    //The 775 Motor is used to lift the hook up
+    private CANSparkMax down;
+    private TalonSRX up;
 
     public Climber(){
-        climber = new CANSparkMax(Constants.Manipulator.Climber.CLIMBER_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        down = new CANSparkMax(Constants.Manipulator.Climber.NEO_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        up = new TalonSRX(Constants.Manipulator.Climber.TALONSRX_PORT);
 
-        climber.setOpenLoopRampRate(Constants.Manipulator.Climber.CLIMBER_RAMP_RATE);
+        down.setOpenLoopRampRate(Constants.Manipulator.Climber.CLIMBER_RAMP_RATE);
     }
 
-    public double getPosition() {
-        return climber.getEncoder().getPosition();
+    public double getPostion() {
+        return down.getEncoder().getPosition();
     }
 
     public void resetEncoders() {
-        climber.getEncoder().setPosition(0);
+        down.getEncoder().setPosition(0);
     }
 
-    public CANSparkMax getMaster() {
-        return climber;
+    public CANSparkMax getDownMotor() {
+        return down;
+    }
+
+    public TalonSRX getUpMotor(){
+        return up;
     }
 }
