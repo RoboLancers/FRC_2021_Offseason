@@ -44,6 +44,8 @@ public final class Constants {
         }
         public final class Spinner {
             public static final int SPINNER_PORT = 9;
+            public static final int SPINNER_PIVOT_PORT_DOWN = 10;
+            public static final int SPINNER_PIVOT_PORT_UP = 11;
         }
     }
     public static final class Sensors {
