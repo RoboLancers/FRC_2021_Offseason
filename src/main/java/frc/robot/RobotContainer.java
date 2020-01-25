@@ -33,6 +33,7 @@ public class RobotContainer {
   public static final Gyro gyro = new Gyro();
   public static final Odometry odometry = new Odometry();
   public static final Climber climber = new Climber();
+  public static final Spinner spinner = new Spinner();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
