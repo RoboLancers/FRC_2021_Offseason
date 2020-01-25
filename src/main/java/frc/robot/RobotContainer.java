@@ -41,6 +41,8 @@ public class RobotContainer {
   public static final Spinner spinner = new Spinner();
   public static final SpinnerPivot spinnerPivot = new SpinnerPivot();
   public static final Intake intake = new Intake();
+  public static final Shooter shooter = new Shooter();
+  public static final IntakePivot intakePivot = new IntakePivot();
 
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
