@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
@@ -33,5 +34,9 @@ public class Climber extends SubsystemBase {
 
     public TalonSRX getUpMotor(){
         return up;
+    }
+
+    public void set(int power) {
+        up.set(ControlMode.PercentOutput, power);
     }
 }
