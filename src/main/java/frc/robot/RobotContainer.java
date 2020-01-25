@@ -39,7 +39,9 @@ public class RobotContainer {
   public static final Odometry odometry = new Odometry();
   public static final Climber climber = new Climber();
   public static final Spinner spinner = new Spinner();
+  public static final SpinnerPivot spinnerPivot = new SpinnerPivot();
   public static final Intake intake = new Intake();
+
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
