@@ -23,10 +23,10 @@ public class ColorSensor extends SubsystemBase {
         colorMatcher = new ColorMatch();
         colorMatcher.setConfidenceThreshold(0.75);
 
-        colorMatcher.addColorMatch(Constants.ColorSensor.kBlueTarget);
-        colorMatcher.addColorMatch(Constants.ColorSensor.kGreenTarget);
-        colorMatcher.addColorMatch(Constants.ColorSensor.kRedTarget);
-        colorMatcher.addColorMatch(Constants.ColorSensor.kYellowTarget);
+        colorMatcher.addColorMatch(Constants.Sensors.kBlueTarget);
+        colorMatcher.addColorMatch(Constants.Sensors.kGreenTarget);
+        colorMatcher.addColorMatch(Constants.Sensors.kRedTarget);
+        colorMatcher.addColorMatch(Constants.Sensors.kYellowTarget);
 
     }
 
@@ -64,13 +64,13 @@ public class ColorSensor extends SubsystemBase {
 
         ColorMatchResult match = colorMatcher.matchColor(colorSensor.getColor());
 
-        if (match.color == Constants.ColorSensor.kBlueTarget) {
+        if (match.color == Constants.Sensors.kBlueTarget) {
             return "Blue " + match.confidence;
-        } else if (match.color == Constants.ColorSensor.kRedTarget) {
+        } else if (match.color == Constants.Sensors.kRedTarget) {
             return "Red " + match.confidence;
-        } else if (match.color == Constants.ColorSensor.kGreenTarget) {
+        } else if (match.color == Constants.Sensors.kGreenTarget) {
             return "Green " + match.confidence;
-        } else if (match.color == Constants.ColorSensor.kYellowTarget) {
+        } else if (match.color == Constants.Sensors.kYellowTarget) {
             return "Yellow " + match.confidence;
         } else {
             return "Unknown";
