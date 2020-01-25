@@ -52,6 +52,10 @@ public final class Constants {
             public static final int INTAKE_PIVOT_PORT_UP = 13;
             public static final int INTAKE_PIVOT_PORT_DOWN = 14;
         }
+        public final class Shooter{
+            public static final int SHOOTER_MASTER_PORT = 15;
+            public static final int SHOOTER_SLAVE_PORT = 16;
+        }
     }
     public static final class Sensors {
         public static final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
