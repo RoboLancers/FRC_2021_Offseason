@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.subsystems.Intake;
 
 public enum IntakePivotState {
-    UP(DoubleSolenoid.Value.kForward), DOWN(DoubleSolenoid.Value.kReverse), NEUTRAL(DoubleSolenoid.Value.kOff);
+    INTAKEUP(DoubleSolenoid.Value.kForward), INTAKEDOWN(DoubleSolenoid.Value.kReverse), INTAKENEUTRAL(DoubleSolenoid.Value.kOff);
 
     private DoubleSolenoid.Value value;
 
