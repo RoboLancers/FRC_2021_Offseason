@@ -8,7 +8,7 @@ import frc.robot.Constants;
 public class Climber extends SubsystemBase {
     private CANSparkMax climber;
 
-    Climber(){
+    public Climber(){
         climber = new CANSparkMax(Constants.Manipulator.Climber.CLIMBER_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
 
         climber.setOpenLoopRampRate(Constants.Manipulator.Climber.CLIMBER_RAMP_RATE);
