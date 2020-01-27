@@ -58,8 +58,8 @@ public final class Constants {
             public static final int SHOOTER_SLAVE_PORT = 16;
         }
         public final class GearShifter{
-            public static final int GEAR_SHIFTER_FAST = 17;
-            public static final int GEAR_SHIFTER_SLOW = 18;
+            public static final int GEAR_SHIFTER_HIGH = 17;
+            public static final int GEAR_SHIFTER_LOW = 18;
         }
     }
     public static final class Sensors {
