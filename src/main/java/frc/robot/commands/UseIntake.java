@@ -16,6 +16,7 @@ public class UseIntake extends CommandBase {
 
     @Override
     public void execute(){
+        intake.getMainMotor().set(ControlMode.PercentOutput, 0.7);
         intake.getMotor().set(ControlMode.PercentOutput, 0.7);
         }
 
