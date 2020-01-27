@@ -49,6 +49,7 @@ public final class Constants {
         }
         public final class Intake {
             public static final int INTAKE_PORT = 12;
+            public static final int INTAKE2_PORT = 19;
             public static final int INTAKE_PIVOT_PORT_UP = 13;
             public static final int INTAKE_PIVOT_PORT_DOWN = 14;
         }
