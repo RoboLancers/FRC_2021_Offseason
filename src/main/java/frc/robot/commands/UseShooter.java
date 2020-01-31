@@ -1,4 +1,8 @@
 package frc.robot.commands;
 
-public class UseShooter  {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+public class UseShooter extends CommandBase {
+    
+
 }
