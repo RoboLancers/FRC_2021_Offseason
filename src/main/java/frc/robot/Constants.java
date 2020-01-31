@@ -22,6 +22,7 @@ public final class Constants {
     public final class Robot{
         public static final int ENCODER_COUNT = 42;
         public static final double RAMP_RATE = 0.30;
+        public static final int REV_PRESSURE_SENSOR_PORT = 19;
 
     }
     public final class Drivetrain{
@@ -56,6 +57,7 @@ public final class Constants {
         public final class Shooter{
             public static final int SHOOTER_MASTER_PORT = 15;
             public static final int SHOOTER_SLAVE_PORT = 16;
+            public static final int SHOOTER_LOADER_PORT = 18;
         }
         public final class GearShifter{
             public static final int GEAR_SHIFTER_HIGH = 17;
