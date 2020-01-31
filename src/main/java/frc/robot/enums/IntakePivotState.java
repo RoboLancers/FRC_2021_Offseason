@@ -1,7 +1,6 @@
 package frc.robot.enums;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import frc.robot.subsystems.Intake;
 
 public enum IntakePivotState {
     INTAKEUP(DoubleSolenoid.Value.kForward), INTAKEDOWN(DoubleSolenoid.Value.kReverse), INTAKENEUTRAL(DoubleSolenoid.Value.kOff);
