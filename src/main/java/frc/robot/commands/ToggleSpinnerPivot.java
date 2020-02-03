@@ -21,8 +21,6 @@ public class ToggleSpinnerPivot extends InstantCommand {
     }
 
 
-
-
     @Override
     public void initialize(){
 
