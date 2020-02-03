@@ -1,9 +1,7 @@
-package frc.robot.subsystems;
+package frc.robot.autonomous;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Transform2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
@@ -12,7 +10,6 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class Odometry {
-
     DifferentialDriveOdometry odometry;
     DifferentialDriveKinematics kinematics;
     DifferentialDriveWheelSpeeds wheelSpeeds;
@@ -38,7 +35,7 @@ public class Odometry {
     }
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        return wheelSpeeds;
+        return new DifferentialDriveWheelSpeeds(RobotContainer.drivetrain.getLeft().getVelocity(), RobotContainer.drivetrain.getRight().getVelocity());
     }
 
     public DifferentialDriveKinematics getKinematics() {
