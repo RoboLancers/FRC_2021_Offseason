@@ -20,6 +20,7 @@ import frc.robot.subsystems.manipulators.Shooter;
 import frc.robot.subsystems.manipulators.intake.Intake;
 import frc.robot.subsystems.manipulators.intake.IntakePivot;
 import frc.robot.subsystems.manipulators.spinner.Spinner;
+import frc.robot.subsystems.manipulators.spinner.SpinnerPivot;
 import frc.robot.subsystems.misc.ColorSensor;
 import frc.robot.subsystems.misc.Gyro;
 
@@ -40,11 +41,11 @@ public class RobotContainer {
   public static final Odometry odometry = new Odometry();
   public static final Climber climber = new Climber();
   public static final Spinner spinner = new Spinner();
-  public static final SpinnerPivot spinnerPivot = new SpinnerPivot();
   public static final Intake intake = new Intake();
   public static final Shooter shooter = new Shooter();
   public static final IntakePivot intakePivot = new IntakePivot();
   public static final GearShifter gearShifter = new GearShifter();
+  public static final SpinnerPivot spinnerPivot = new SpinnerPivot();
 
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
