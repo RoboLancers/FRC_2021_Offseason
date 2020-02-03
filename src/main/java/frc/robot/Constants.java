@@ -77,10 +77,10 @@ public final class Constants {
         public static final double MAX_VELOCITY = 10;
         public static final double MAX_VELOCITY_SIDE = 0;
         public static final double ANGULAR_VELOCITY = 0;
-        public static final double ROBOT_WIDTH = 28;
-        public static final double kSTATIC = 0.166;
-        public static final double kVELOCITY = 0.0697;
-        public static final double kACCELERATION = 0.00804;
+        public static final double ROBOT_WIDTH = 2.3;
+        public static final double kSTATIC = 0.173;
+        public static final double kVELOCITY = 0.837;
+        public static final double kACCELERATION = 0.0886;
         public static final double MAX_VOLTAGE = 10;
     }
 
