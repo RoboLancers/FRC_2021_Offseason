@@ -22,6 +22,7 @@ public final class Constants {
     public final class Robot{
         public static final int ENCODER_COUNT = 42;
         public static final double RAMP_RATE = 0.30;
+        public static final int REV_PRESSURE_SENSOR_PORT = 19;
 
     }
     public final class Drivetrain{
@@ -56,6 +57,7 @@ public final class Constants {
         public final class Shooter{
             public static final int SHOOTER_MASTER_PORT = 15;
             public static final int SHOOTER_SLAVE_PORT = 16;
+            public static final int SHOOTER_LOADER_PORT = 18;
         }
         public final class GearShifter{
             public static final int GEAR_SHIFTER_HIGH = 17;
@@ -76,9 +78,14 @@ public final class Constants {
         public static final double MAX_VELOCITY_SIDE = 0;
         public static final double ANGULAR_VELOCITY = 0;
         public static final double ROBOT_WIDTH = 28;
-        public static final double kSTATIC = 0;
-        public static final double kVELOCITY = 7;
-        public static final double kACCELERATION = 5;
+        public static final double kSTATIC = 0.166;
+        public static final double kVELOCITY = 0.0697;
+        public static final double kACCELERATION = 0.00804;
         public static final double MAX_VOLTAGE = 10;
+    }
+
+    public final class Trajectory{
+        public static final double MAX_VELOCITY_CONSTRAINT = 7;
+        public static final double MAX_ACCELERATION_CONSTRAINT = 5;
     }
 }

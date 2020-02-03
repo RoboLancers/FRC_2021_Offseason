@@ -1,6 +1,7 @@
-package frc.robot.subsystems.manipulators;
+package frc.robot.subsystems.manipulators.shooter;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -10,7 +11,6 @@ public class Shooter extends SubsystemBase {
     public Shooter() {
         master = new TalonSRX(Constants.Manipulator.Shooter.SHOOTER_MASTER_PORT);
         slave = new TalonSRX(Constants.Manipulator.Shooter.SHOOTER_SLAVE_PORT);
-
         loader = new TalonSRX(Constants.Manipulator.Shooter.SHOOTER_LOADER_PORT);
 
         slave.follow(master);
@@ -21,7 +21,7 @@ public class Shooter extends SubsystemBase {
         return master;
     }
 
-    public TalonSRX getLoader() {
+    public TalonSRX getLoader(){
         return loader;
     }
 }

@@ -16,7 +16,10 @@ import frc.robot.commands.UseDrivetrain;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.manipulators.Climber;
+import frc.robot.subsystems.manipulators.Shooter;
 import frc.robot.subsystems.manipulators.intake.Intake;
+import frc.robot.subsystems.manipulators.intake.IntakePivot;
+import frc.robot.subsystems.manipulators.spinner.Spinner;
 import frc.robot.subsystems.misc.ColorSensor;
 import frc.robot.subsystems.misc.Gyro;
 
