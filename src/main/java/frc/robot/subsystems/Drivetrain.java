@@ -38,4 +38,9 @@ public class Drivetrain extends SubsystemBase{
         return right.getEncoderCount();
     }
 
+    public void setVoltage(double leftVoltage, double rightVoltage) {
+        left.setVoltage(leftVoltage);
+        right.setVoltage(rightVoltage);
+    }
+
 }
