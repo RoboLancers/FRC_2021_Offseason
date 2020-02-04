@@ -23,7 +23,7 @@ public class GearBox {
         master.setOpenLoopRampRate(Constants.Robot.RAMP_RATE);
         slave1.setOpenLoopRampRate(Constants.Robot.RAMP_RATE);
 
-        if(side == GearBoxSides.LEFT){
+        if(side == GearBoxSides.RIGHT){
            master.setInverted(true);
         }
     }
@@ -48,4 +48,12 @@ public class GearBox {
         return master.getEncoder().getVelocity();
     }
 
+    public void setVoltage(double voltage) {
+        master.setVoltage(voltage);
+    }
+
+    public void restoreFactoryDefaults() {
+        master.restoreFactoryDefaults();
+        slave1.restoreFactoryDefaults();
+    }
 }
