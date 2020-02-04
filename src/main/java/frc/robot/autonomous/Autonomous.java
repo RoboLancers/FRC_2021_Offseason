@@ -14,7 +14,7 @@ public class Autonomous extends RamseteCommand{
     public Autonomous(Trajectory trajectory) {
         super(trajectory,
                 RobotContainer.odometry::getPose2dFeet,
-                new RamseteController(0,0),
+                new RamseteController(Constants.Trajectory.kBETA, Constants.Trajectory.kZETA),
                 new SimpleMotorFeedforward(Constants.Odometry.kSTATIC,
                         Constants.Odometry.kVELOCITY,
                         Constants.Odometry.kACCELERATION),

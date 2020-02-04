@@ -87,5 +87,7 @@ public final class Constants {
     public final class Trajectory{
         public static final double MAX_VELOCITY_CONSTRAINT = 7;
         public static final double MAX_ACCELERATION_CONSTRAINT = 5;
+        public static final double kBETA = 2.0;
+        public static final double kZETA = 0.7;
     }
 }
