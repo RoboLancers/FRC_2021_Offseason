@@ -16,11 +16,11 @@ import java.util.List;
 
 public class Trajectories {
     static DifferentialDriveVoltageConstraint voltageConstraint = new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(Constants.Odometry.kSTATIC,
-                    Constants.Odometry.kVELOCITY,
-                    Constants.Odometry.kACCELERATION),
+            new SimpleMotorFeedforward(Constants.Trajectory.kSTATIC,
+                    Constants.Trajectory.kVELOCITY,
+                    Constants.Trajectory.kACCELERATION),
             RobotContainer.odometry.kinematics,
-            Constants.Odometry.MAX_VOLTAGE);
+            Constants.Trajectory.MAX_VOLTAGE);
 
     static TrajectoryConfig config = new TrajectoryConfig(Constants.Trajectory.MAX_VELOCITY_CONSTRAINT,
             Constants.Trajectory.MAX_ACCELERATION_CONSTRAINT)
@@ -30,6 +30,13 @@ public class Trajectories {
     public static Trajectory straightForward = TrajectoryGenerator.generateTrajectory(Arrays.asList(
             new Pose2d(0, 0, new Rotation2d(0)),
             new Pose2d(3, 0, new Rotation2d(0))
+            ),
+            config
+    );
+
+    public static Trajectory circle = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+            new Pose2d(0,0,new Rotation2d(0)),
+            new Pose2d(3,0, new Rotation2d(Rotation2d.fromDegrees(90).getRadians()))
             ),
             config
     );

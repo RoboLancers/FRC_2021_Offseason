@@ -2,13 +2,14 @@ package frc.robot.subsystems.misc;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 import frc.robot.Constants;
+import frc.robot.RobotMap;
 
 public class Gyro {
     PigeonIMU pigeonIMU;
     double[] yawPitchRoll;
 
     public Gyro() {
-        pigeonIMU = new PigeonIMU(Constants.Sensors.PIGEON_PORT);
+        pigeonIMU = new PigeonIMU(RobotMap.Sensors.PIGEON_PORT);
         yawPitchRoll = new double[3];
     }
 

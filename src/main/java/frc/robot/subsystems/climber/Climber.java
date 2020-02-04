@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotMap;
 
 public class Climber extends SubsystemBase {
     //The Neo Motor is used to pull the hook down
@@ -14,10 +15,10 @@ public class Climber extends SubsystemBase {
     private TalonSRX up;
 
     public Climber(){
-        down = new CANSparkMax(Constants.Manipulator.Climber.NEO_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
-        up = new TalonSRX(Constants.Manipulator.Climber.TALONSRX_PORT);
+        down = new CANSparkMax(RobotMap.Manipulator.Climber.NEO_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        up = new TalonSRX(RobotMap.Manipulator.Climber.TALONSRX_PORT);
 
-        down.setOpenLoopRampRate(Constants.Manipulator.Climber.CLIMBER_RAMP_RATE);
+        down.setOpenLoopRampRate(RobotMap.Manipulator.Climber.CLIMBER_RAMP_RATE);
     }
 
     public double getPostion() {

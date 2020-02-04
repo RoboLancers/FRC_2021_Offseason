@@ -3,14 +3,15 @@ package frc.robot.subsystems.drivetrain;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotMap;
 import frc.robot.subsystems.drivetrain.enums.GearBoxSides;
 
 public class Drivetrain extends SubsystemBase{
     private GearBox left, right;
 
     public Drivetrain() {
-        left = new GearBox(GearBoxSides.LEFT, Constants.Drivetrain.Left.MASTER, Constants.Drivetrain.Left.SLAVE_ONE, Constants.Drivetrain.Left.SLAVE_TWO);
-        right = new GearBox(GearBoxSides.RIGHT, Constants.Drivetrain.Right.MASTER, Constants.Drivetrain.Right.SLAVE_ONE, Constants.Drivetrain.Right.SLAVE_TWO);
+        left = new GearBox(GearBoxSides.LEFT, RobotMap.Drivetrain.Left.MASTER, RobotMap.Drivetrain.Left.SLAVE_ONE, RobotMap.Drivetrain.Left.SLAVE_TWO);
+        right = new GearBox(GearBoxSides.RIGHT, RobotMap.Drivetrain.Right.MASTER, RobotMap.Drivetrain.Right.SLAVE_ONE, RobotMap.Drivetrain.Right.SLAVE_TWO);
     }
 
     public GearBox getLeft() {
