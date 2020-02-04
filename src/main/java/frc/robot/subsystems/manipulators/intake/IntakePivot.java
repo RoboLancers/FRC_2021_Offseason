@@ -3,7 +3,7 @@ package frc.robot.subsystems.manipulators.intake;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.enums.IntakePivotState;
+import frc.robot.subsystems.manipulators.intake.enums.IntakePivotState;
 
 public class IntakePivot extends SubsystemBase {
 

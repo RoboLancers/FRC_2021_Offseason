@@ -1,8 +1,9 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.drivetrain;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import frc.robot.Constants;
+import frc.robot.subsystems.drivetrain.enums.GearBoxSides;
 
 public class GearBox {
     private CANSparkMax master, slave1, follow2;

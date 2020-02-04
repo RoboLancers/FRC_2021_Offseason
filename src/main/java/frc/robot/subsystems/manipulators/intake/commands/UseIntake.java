@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.subsystems.manipulators.intake.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.XboxController;

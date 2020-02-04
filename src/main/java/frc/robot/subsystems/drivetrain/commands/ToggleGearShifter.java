@@ -1,10 +1,9 @@
-package frc.robot.commands;
+package frc.robot.subsystems.drivetrain.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.RobotContainer;
-import frc.robot.enums.GearShifterState;
-import frc.robot.subsystems.GearShifter;
-import static frc.robot.RobotContainer.gearShifter;
+import frc.robot.subsystems.drivetrain.enums.GearShifterState;
+import frc.robot.subsystems.drivetrain.GearShifter;
+
 public class ToggleGearShifter extends InstantCommand {
     private final GearShifter gearShifter;
     public ToggleGearShifter(final GearShifter gearShifter) {

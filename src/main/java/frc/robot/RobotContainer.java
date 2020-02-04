@@ -9,12 +9,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.TargetAiming;
-import frc.robot.commands.UseColorSensor;
-import frc.robot.commands.UseDrivetrain;
-import frc.robot.subsystems.*;
+import frc.robot.autonomous.Odometry;
+import frc.robot.subsystems.drivetrain.GearShifter;
+import frc.robot.subsystems.drivetrain.commands.TargetAiming;
+import frc.robot.subsystems.misc.commands.UseColorSensor;
+import frc.robot.subsystems.drivetrain.commands.UseDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.manipulators.Climber;
 import frc.robot.subsystems.manipulators.Shooter;
 import frc.robot.subsystems.manipulators.intake.Intake;
@@ -23,6 +24,7 @@ import frc.robot.subsystems.manipulators.spinner.Spinner;
 import frc.robot.subsystems.manipulators.spinner.SpinnerPivot;
 import frc.robot.subsystems.misc.ColorSensor;
 import frc.robot.subsystems.misc.Gyro;
+import frc.robot.subsystems.misc.Limelight;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -32,7 +34,6 @@ import frc.robot.subsystems.misc.Gyro;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Limelight limelight = new Limelight();
@@ -46,9 +47,6 @@ public class RobotContainer {
   public static final IntakePivot intakePivot = new IntakePivot();
   public static final GearShifter gearShifter = new GearShifter();
   public static final SpinnerPivot spinnerPivot = new SpinnerPivot();
-
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   public final Command useDrivetrain = new UseDrivetrain();
   public final Command targetAim = new TargetAiming(drivetrain);
@@ -85,6 +83,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }

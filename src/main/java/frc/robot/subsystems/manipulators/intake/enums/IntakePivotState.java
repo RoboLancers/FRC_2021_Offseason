@@ -1,4 +1,4 @@
-package frc.robot.enums;
+package frc.robot.subsystems.manipulators.intake.enums;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 

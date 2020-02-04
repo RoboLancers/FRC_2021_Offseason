@@ -1,4 +1,4 @@
-package frc.robot.enums;
+package frc.robot.subsystems.manipulators.spinner.enums;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
