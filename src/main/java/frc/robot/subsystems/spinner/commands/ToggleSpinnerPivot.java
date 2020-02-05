@@ -1,8 +1,8 @@
-package frc.robot.subsystems.manipulators.spinner.commands;
+package frc.robot.subsystems.spinner.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.subsystems.manipulators.spinner.enums.SpinnerPivotState;
+import frc.robot.subsystems.spinner.enums.SpinnerPivotState;
 
 import java.util.Set;
 

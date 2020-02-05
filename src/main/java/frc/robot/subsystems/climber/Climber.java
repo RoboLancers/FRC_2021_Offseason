@@ -1,4 +1,4 @@
-package frc.robot.subsystems.manipulators.climber;
+package frc.robot.subsystems.climber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;

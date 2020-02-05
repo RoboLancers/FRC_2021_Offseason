@@ -1,8 +1,7 @@
-package frc.robot.subsystems.manipulators.intake;
+package frc.robot.subsystems.intake;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 

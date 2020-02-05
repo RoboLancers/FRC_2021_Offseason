@@ -1,11 +1,9 @@
-package frc.robot.subsystems.manipulators.intake.commands;
+package frc.robot.subsystems.intake.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.manipulators.intake.Intake;
+import frc.robot.subsystems.intake.Intake;
 
 
 public class UseIntake extends CommandBase {

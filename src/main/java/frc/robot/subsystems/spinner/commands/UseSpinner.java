@@ -1,4 +1,4 @@
-package frc.robot.subsystems.manipulators.spinner.commands;
+package frc.robot.subsystems.spinner.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;

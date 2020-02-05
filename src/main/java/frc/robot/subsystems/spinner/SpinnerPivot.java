@@ -1,9 +1,9 @@
-package frc.robot.subsystems.manipulators.spinner;
+package frc.robot.subsystems.spinner;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.manipulators.spinner.enums.SpinnerPivotState;
+import frc.robot.subsystems.spinner.enums.SpinnerPivotState;
 
 public class SpinnerPivot extends SubsystemBase {
 

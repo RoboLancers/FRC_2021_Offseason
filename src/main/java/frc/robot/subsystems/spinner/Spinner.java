@@ -1,4 +1,4 @@
-package frc.robot.subsystems.manipulators.spinner;
+package frc.robot.subsystems.spinner;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;

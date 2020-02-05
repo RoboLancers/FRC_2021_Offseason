@@ -1,9 +1,9 @@
-package frc.robot.subsystems.manipulators.intake.commands;
+package frc.robot.subsystems.intake.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.manipulators.intake.enums.IntakePivotState;
+import frc.robot.subsystems.intake.enums.IntakePivotState;
 
-import frc.robot.subsystems.manipulators.intake.IntakePivot;
+import frc.robot.subsystems.intake.IntakePivot;
 
 public class ToggleIntakePivot extends InstantCommand {
 
