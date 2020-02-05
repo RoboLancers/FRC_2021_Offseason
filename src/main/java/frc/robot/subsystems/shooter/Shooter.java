@@ -25,16 +25,11 @@ public class Shooter extends SubsystemBase {
         this.speed = 0;
     }
 
-    public TalonSRX getMaster() {
-        return master;
-    }
-
-    public TalonSRX getLoader() {
-        return loader;
-    }
-
     public void setShooterSpeed(double speed){
-        this.speed = speed;
+        if(this.speed >= 0 && this.speed <= 1){
+            this.speed += speed;
+        }
+        //MUST CHECK BOUNDS ******************************************************
     }
 
     public void doRunShooter(boolean running){
