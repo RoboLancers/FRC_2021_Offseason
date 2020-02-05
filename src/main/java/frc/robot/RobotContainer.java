@@ -43,7 +43,6 @@ public class RobotContainer {
   public static final Climber climber = new Climber();
   public static final Spinner spinner = new Spinner();
   public static final Intake intake = new Intake();
-  public static final Shooter shooter = new Shooter();
   public static final IntakePivot intakePivot = new IntakePivot();
   public static final GearShifter gearShifter = new GearShifter();
   public static final SpinnerPivot spinnerPivot = new SpinnerPivot();
@@ -54,7 +53,7 @@ public class RobotContainer {
 
   public static final XboxController xboxController = new XboxController(0);
 
-
+  private final Shooter shooter;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -63,6 +62,7 @@ public class RobotContainer {
     // Configure the button bindings
     drivetrain.setDefaultCommand(useDrivetrain);
     configureButtonBindings();
+    this.shooter = new Shooter();
   }
 
   /**
@@ -72,6 +72,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+  //buttonWhenPressed /released(new changeShooterSpeed(this.shooter, 0.05));
+    //buttonWhenPressed/released(new changeShooterSpeed(this.shooter, -0.05));
 
   }
 
