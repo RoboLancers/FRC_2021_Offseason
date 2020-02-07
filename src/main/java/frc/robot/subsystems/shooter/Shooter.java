@@ -22,7 +22,7 @@ public class Shooter extends SubsystemBase {
         slave.follow(master);
 
         this.running = false;
-        this.speed = 0;
+        this.speed = 0.5;
     }
 
     public void setShooterSpeed(double speed){
