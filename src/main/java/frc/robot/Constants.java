@@ -35,13 +35,13 @@ public final class Constants {
         public static final double MAX_VELOCITY = 10;
         public static final double MAX_VELOCITY_SIDE = 0;
         public static final double ANGULAR_VELOCITY = 0;
-        public static final double ROBOT_WIDTH = 2.3;
+        public static final double ROBOT_WIDTH = 0.5991;
     }
 
     public final class Trajectory{
-        public static final double kSTATIC = 0.173;
-        public static final double kVELOCITY = 0.837;
-        public static final double kACCELERATION = 0.0886;
+        public static final double kSTATIC = 0.208;
+        public static final double kVELOCITY = 2.72;
+        public static final double kACCELERATION = 0.307;
         public static final double MAX_VOLTAGE = 10;
         public static final double MAX_VELOCITY_CONSTRAINT = 7;
         public static final double MAX_ACCELERATION_CONSTRAINT = 5;
