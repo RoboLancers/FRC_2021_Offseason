@@ -11,5 +11,16 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true
-  }
+  },
+  "java.test.config": [
+    {
+      "name": "WPILib Desktop Debug",
+      "workingDirectory": "C:/Users/student/IdeaProjects/FRC_2020/build/tmp/jniExtractDir",
+      "vmargs": [ "-Djava.library.path=C:/Users/student/IdeaProjects/FRC_2020/build/tmp/jniExtractDir" ],
+      "env": { "LD_LIBRARY_PATH": "C:/Users/student/IdeaProjects/FRC_2020/build/tmp/jniExtractDir" ,
+        "DYLD_LIBRARY_PATH": "C:/Users/student/IdeaProjects/FRC_2020/build/tmp/jniExtractDir" }
+
+    }
+  ],
+  "java.test.defaultConfig": "WPILib Desktop Debug"
 }
