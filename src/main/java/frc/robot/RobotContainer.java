@@ -8,7 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
+//import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.autonomous.Odometry;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drivetrain.GearShifter;
@@ -20,11 +20,13 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakePivot;
+import frc.robot.subsystems.shooter.commands.ChangeShooterSpeed;
 import frc.robot.subsystems.spinner.Spinner;
 import frc.robot.subsystems.spinner.SpinnerPivot;
 import frc.robot.subsystems.misc.ColorSensor;
 import frc.robot.subsystems.misc.Gyro;
 import frc.robot.subsystems.misc.Limelight;
+import frc.robot.utilities.XboxController;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -72,8 +74,10 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-  //buttonWhenPressed /released(new changeShooterSpeed(this.shooter, 0.05));
-    //buttonWhenPressed/released(new changeShooterSpeed(this.shooter, -0.05));
+  //buttonWhenPressed(new changeShooterSpeed(this.shooter, 0.05));
+    //buttonWhenPressed(new changeShooterSpeed(this.shooter, -0.05));
+    xboxController.whenPressed(XboxController.Button.RIGHT_BUMPER, new ChangeShooterSpeed(this.shooter, 0.05));
+    xboxController.whenPressed(XboxController.Button.LEFT_BUMPER, new ChangeShooterSpeed(this.shooter, 0.05));
 
   }
 
