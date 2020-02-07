@@ -36,6 +36,9 @@ public class Shooter extends SubsystemBase {
         this.running = running;
     }
 
+    public TalonSRX getLoaderMotor() {
+        return loader;
+    }
     public void restEncoder(){
         master.setSelectedSensorPosition(0);
     }
