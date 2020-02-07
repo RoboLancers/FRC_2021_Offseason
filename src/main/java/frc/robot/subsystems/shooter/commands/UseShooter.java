@@ -10,6 +10,7 @@ public class UseShooter extends CommandBase {
 
     public UseShooter(Shooter shooter){
         this.shooter = shooter;
+
         addRequirements(shooter);
     }
 
@@ -17,6 +18,15 @@ public class UseShooter extends CommandBase {
     @Override
     public void initialize(){
         this.shooter.doRunShooter(true);
+    }
+
+    @Override
+    public void execute(){
+//        if(this.shooter.){
+//            this.shooter.getLoaderMotor().set(ControlMode.PercentOutput, 0.5);
+//        } else {
+//            this.shooter.getLoaderMotor().set(ControlMode.PercentOutput, 0);
+//        }
     }
 
     @Override
