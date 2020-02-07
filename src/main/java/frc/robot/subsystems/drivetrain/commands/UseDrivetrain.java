@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.utilities.XboxController;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,14 +25,14 @@ public class UseDrivetrain extends CommandBase {
     @Override
     public void execute() {
 
-        if(Math.abs(RobotContainer.xboxController.getY(GenericHID.Hand.kLeft)) > 0.2) {
-            throttle = RobotContainer.xboxController.getY(GenericHID.Hand.kLeft);
+        if(Math.abs(RobotContainer.xboxController.getAxisValue(XboxController.Axis.LEFT_Y)) > 0.2) {
+            throttle = RobotContainer.xboxController.getAxisValue(XboxController.Axis.LEFT_Y);
         } else {
             throttle = 0;
         }
 
-        if(Math.abs(RobotContainer.xboxController.getX(GenericHID.Hand.kRight)) > 0.2) {
-            turn = RobotContainer.xboxController.getX(GenericHID.Hand.kRight);
+        if(Math.abs(RobotContainer.xboxController.getAxisValue(XboxController.Axis.RIGHT_X)) > 0.2) {
+            turn = RobotContainer.xboxController.getAxisValue(XboxController.Axis.RIGHT_X);
         } else {
             turn = 0;
         }
