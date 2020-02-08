@@ -5,12 +5,13 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotMap;
 
 public class Spinner extends SubsystemBase {
     private TalonSRX spinner;
 
     public Spinner() {
-        spinner = new TalonSRX(Constants.Manipulator.Spinner.SPINNER_PORT);
+        spinner = new TalonSRX(RobotMap.Manipulator.Spinner.SPINNER_PORT);
         spinner.setNeutralMode(NeutralMode.Brake);
     }
 
