@@ -7,8 +7,10 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.GenericHID;
 //import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.autonomous.Odometry;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drivetrain.GearShifter;
@@ -21,6 +23,7 @@ import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakePivot;
 import frc.robot.subsystems.shooter.commands.ChangeShooterSpeed;
+import frc.robot.subsystems.shooter.commands.UseShooter;
 import frc.robot.subsystems.spinner.Spinner;
 import frc.robot.subsystems.spinner.SpinnerPivot;
 import frc.robot.subsystems.misc.ColorSensor;
@@ -64,7 +67,12 @@ public class RobotContainer {
     // Configure the button bindings
     drivetrain.setDefaultCommand(useDrivetrain);
     configureButtonBindings();
-    this.shooter = new Shooter();
+
+    final TalonSRX master = new TalonSRX(RobotMap.Manipulator.Shooter.SHOOTER_MASTER_PORT);
+    final TalonSRX slave = new TalonSRX(RobotMap.Manipulator.Shooter.SHOOTER_SLAVE_PORT);
+
+    final TalonSRX loader = new TalonSRX(RobotMap.Manipulator.Shooter.SHOOTER_LOADER_PORT);
+    this.shooter = new Shooter(CommandScheduler.getInstance(), master, slave, loader);
   }
 
   /**
@@ -74,10 +82,9 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-  //buttonWhenPressed(new changeShooterSpeed(this.shooter, 0.05));
-    //buttonWhenPressed(new changeShooterSpeed(this.shooter, -0.05));
     xboxController.whenPressed(XboxController.Button.RIGHT_BUMPER, new ChangeShooterSpeed(this.shooter, 0.05));
-    xboxController.whenPressed(XboxController.Button.LEFT_BUMPER, new ChangeShooterSpeed(this.shooter, 0.05));
+    xboxController.whenPressed(XboxController.Button.LEFT_BUMPER, new ChangeShooterSpeed(this.shooter, -0.05));
+    xboxController.whileHeld(XboxController.Button.A, new UseShooter(this.shooter));
 
   }
 
