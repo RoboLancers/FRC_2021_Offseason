@@ -1,8 +1,6 @@
 package frc.robot.subsystems.shooter.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.shooter.Shooter;
 
 public class UseShooter extends CommandBase {
@@ -10,8 +8,8 @@ public class UseShooter extends CommandBase {
 
     public UseShooter(Shooter shooter){
         this.shooter = shooter;
-
         addRequirements(shooter);
+
     }
 
     //make it so PID makes targetSpeed stay on target
@@ -22,11 +20,6 @@ public class UseShooter extends CommandBase {
 
     @Override
     public void execute(){
-//        if(this.shooter.){
-//            this.shooter.getLoaderMotor().set(ControlMode.PercentOutput, 0.5);
-//        } else {
-//            this.shooter.getLoaderMotor().set(ControlMode.PercentOutput, 0);
-//        }
     }
 
     @Override
