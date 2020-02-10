@@ -48,4 +48,7 @@ public final class Constants {
         public static final double kBETA = 2.0;
         public static final double kZETA = 0.7;
     }
+    public final class Shooter{
+        public static final double shooterRPMTolerance = 5;
+    }
 }
