@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.LancerSubsystem;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.utilities.XboxController;
 
@@ -13,11 +14,13 @@ import java.util.Set;
 public class UseDrivetrain extends CommandBase {
     Set<Subsystem> subsystems;
     private final Drivetrain drivetrain;
+    private final XboxController xboxController;
     double throttle, turn, leftPower, rightPower;
 
-    public UseDrivetrain() {
+    public UseDrivetrain(Drivetrain subsystem, XboxController xboxController) {
         subsystems = new HashSet<>();
-        drivetrain = RobotContainer.drivetrain;
+        this.drivetrain = subsystem;
+        this.xboxController = xboxController;
         subsystems.add(drivetrain);
         addRequirements(drivetrain);
     }
@@ -25,24 +28,16 @@ public class UseDrivetrain extends CommandBase {
     @Override
     public void execute() {
 
-        if(Math.abs(RobotContainer.xboxController.getAxisValue(XboxController.Axis.LEFT_Y)) > 0.2) {
-            throttle = RobotContainer.xboxController.getAxisValue(XboxController.Axis.LEFT_Y);
-        } else {
-            throttle = 0;
-        }
+        throttle = xboxController.getAxisValue(XboxController.Axis.LEFT_Y);
+        turn = xboxController.getAxisValue(XboxController.Axis.RIGHT_X);
 
-        if(Math.abs(RobotContainer.xboxController.getAxisValue(XboxController.Axis.RIGHT_X)) > 0.2) {
-            turn = RobotContainer.xboxController.getAxisValue(XboxController.Axis.RIGHT_X);
-        } else {
-            turn = 0;
-        }
-
-        leftPower = throttle - turn;
-        rightPower = throttle + turn;
+        leftPower = throttle + turn;
+        rightPower = throttle - turn;
 
         drivetrain.getLeft().getMaster().set(leftPower);
         drivetrain.getRight().getMaster().set(rightPower);
     }
+
     @Override
     public boolean isFinished() {
         return false;

@@ -8,7 +8,7 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TargetAiming extends InstantCommand {
+public class HoldTargetAiming extends InstantCommand {
     Set<Subsystem> subsystems;
     Drivetrain drivetrain;
     double leftPower, rightPower, turningOffset, distanceOffset;
@@ -16,13 +16,14 @@ public class TargetAiming extends InstantCommand {
     double distancekP = 0.02;
     double allowedDistanceError = 20;
 
-    public TargetAiming(Drivetrain drivetrain) {
+    public HoldTargetAiming(Drivetrain drivetrain) {
         subsystems = new HashSet<Subsystem>();
         this.drivetrain = drivetrain;
-        subsystems.add(RobotContainer.drivetrain);
+        subsystems.add(this.drivetrain);
         addRequirements(drivetrain);
     }
 
+    @Override
     public void execute() {
         if (RobotContainer.limelight.hasTarget()) {
             turningOffset = RobotContainer.limelight.getXOffset();

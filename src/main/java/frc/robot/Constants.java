@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -22,6 +23,8 @@ public final class Constants {
     public final class Robot{
         public static final int ENCODER_COUNT = 42;
         public static final double RAMP_RATE = 0.30;
+        public static final double GEAR_RATIO = 10.75;
+        public static final double WHEEL_DIAMETER = 0.1524;
     }
 
     public static final class Sensors {
@@ -32,7 +35,7 @@ public final class Constants {
     }
 
     public final class Odometry{
-        public static final double MAX_VELOCITY = 10;
+        public static final double MAX_VELOCITY = 3.9624;
         public static final double MAX_VELOCITY_SIDE = 0;
         public static final double ANGULAR_VELOCITY = 0;
         public static final double ROBOT_WIDTH = 0.5991;
@@ -42,9 +45,11 @@ public final class Constants {
         public static final double kSTATIC = 0.208;
         public static final double kVELOCITY = 2.72;
         public static final double kACCELERATION = 0.307;
+
         public static final double MAX_VOLTAGE = 10;
-        public static final double MAX_VELOCITY_CONSTRAINT = 7;
-        public static final double MAX_ACCELERATION_CONSTRAINT = 5;
+        public static final double MAX_VELOCITY_CONSTRAINT = 2.72;
+        public static final double MAX_ACCELERATION_CONSTRAINT = 1.8288;
+
         public static final double kBETA = 2.0;
         public static final double kZETA = 0.7;
     }

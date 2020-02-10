@@ -9,7 +9,7 @@ public class GearBox {
     private CANSparkMax master, slave1, follow2;
 
 
-    GearBox(GearBoxSides side, int masterPort, int slave1Port, int follow2Port) {
+    public GearBox(GearBoxSides side, int masterPort, int slave1Port, int follow2Port) {
         master = new CANSparkMax(masterPort, CANSparkMaxLowLevel.MotorType.kBrushless);
         slave1 = new CANSparkMax(slave1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
 //        slave2 = new CANSparkMax(follow2Port, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -42,7 +42,7 @@ public class GearBox {
     }
 
     public double getDistance() {
-        return getEncoderCount() / Constants.Robot.ENCODER_COUNT;
+        return (getEncoderCount() / Constants.Robot.ENCODER_COUNT) * Constants.Robot.GEAR_RATIO * (Constants.Robot.WHEEL_DIAMETER * Math.PI);
     }
 
     public double getVelocity() {

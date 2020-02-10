@@ -1,44 +1,60 @@
 package frc.robot.autonomous;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.spline.PoseWithCurvature;
+import edu.wpi.first.wpilibj.spline.Spline;
+import edu.wpi.first.wpilibj.spline.SplineHelper;
+import edu.wpi.first.wpilibj.spline.SplineParameterizer;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryParameterizer;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class Trajectories {
-    static DifferentialDriveVoltageConstraint voltageConstraint = new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(Constants.Trajectory.kSTATIC,
-                    Constants.Trajectory.kVELOCITY,
-                    Constants.Trajectory.kACCELERATION),
-            RobotContainer.odometry.kinematics,
-            Constants.Trajectory.MAX_VOLTAGE);
+    final TrajectoryConfig config;
 
-    static TrajectoryConfig config = new TrajectoryConfig(Constants.Trajectory.MAX_VELOCITY_CONSTRAINT,
-            Constants.Trajectory.MAX_ACCELERATION_CONSTRAINT)
-            .setKinematics(RobotContainer.odometry.getKinematics())
-            .addConstraint(voltageConstraint);
+    public Trajectories(Odometry odometry) {
+        DifferentialDriveVoltageConstraint voltageConstraint = new DifferentialDriveVoltageConstraint(
+                new SimpleMotorFeedforward(Constants.Trajectory.kSTATIC,
+                        Constants.Trajectory.kVELOCITY,
+                        Constants.Trajectory.kACCELERATION),
+                odometry.getKinematics(),
+                Constants.Trajectory.MAX_VOLTAGE);
 
-    public static Trajectory straightForward = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-            new Pose2d(0, 0, new Rotation2d(0)),
-            new Pose2d(3, 0, new Rotation2d(0))
-            ),
-            config
-    );
+        this.config = new TrajectoryConfig(Constants.Trajectory.MAX_VELOCITY_CONSTRAINT,
+                Constants.Trajectory.MAX_ACCELERATION_CONSTRAINT)
+                .setKinematics(odometry.getKinematics())
+                .addConstraint(voltageConstraint)
+                .setStartVelocity(0)
+                .setEndVelocity(0);
+    }
 
-    public static Trajectory circle = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-            new Pose2d(0,0,new Rotation2d(0)),
-            new Pose2d(3,0, new Rotation2d(Rotation2d.fromDegrees(90).getRadians()))
-            ),
-            config
-    );
+    public Trajectory straightForward() {
+        return TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                new Pose2d(0, 0, new Rotation2d(0)),
+                new Pose2d(Units.feetToMeters(3), 0, new Rotation2d(0))),
+                this.config
+        );
+    }
 
+    public Trajectory circle() {
+        return TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                new Pose2d(0, 0, new Rotation2d(0)),
+//                new Pose2d(Units.feetToMeters(3), Units.feetToMeters(5), new Rotation2d(0)),
+                new Pose2d(6, -3, new Rotation2d(Units.degreesToRadians(-90)))),
+                this.config
+        );
+    }
 }

@@ -8,11 +8,11 @@ import frc.robot.subsystems.spinner.enums.SpinnerPivotState;
 
 public class SpinnerPivot extends SubsystemBase {
 
-    private DoubleSolenoid spinnerPivot;
-    private SpinnerPivotState spinnerPivotState;
+    private DoubleSolenoid spinnerPivot = null;
+    private SpinnerPivotState spinnerPivotState ;
 
     public SpinnerPivot(){
-        spinnerPivot = new DoubleSolenoid(RobotMap.Manipulator.Spinner.SPINNER_PIVOT_PORT_UP, RobotMap.Manipulator.Spinner.SPINNER_PIVOT_PORT_DOWN);
+//        spinnerPivot = new DoubleSolenoid(RobotMap.Manipulator.Spinner.SPINNER_PIVOT_PORT_UP, RobotMap.Manipulator.Spinner.SPINNER_PIVOT_PORT_DOWN);
         spinnerPivotState = SpinnerPivotState.NEUTRAL;
     }
 

@@ -18,7 +18,11 @@ public class Gyro {
     }
 
     public double getFusedHeading() {
-        return pigeonIMU.getFusedHeading();
+        double angle = pigeonIMU.getFusedHeading();
+//        while(Math.abs(angle) > 180) {
+//            angle = angle > 0 ? angle - 360 : angle + 360;
+//        }
+        return angle;
     }
 
     public double getYaw() {
