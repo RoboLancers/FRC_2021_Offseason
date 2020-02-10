@@ -1,5 +1,6 @@
 package frc.robot.subsystems.shooter.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.shooter.Shooter;
 
@@ -20,8 +21,14 @@ public class UseShooter extends CommandBase {
 
     @Override
     public void execute(){
+        shooter.setTargetRPM(9000);
+        if(!shooter.fastEnough()){
+            shooter.setMotorToTarget();
+        } else {
+            shooter.getLoaderMotor(ControlMode.PercentOutput, 1);
+        }
     }
-
+//ADD: IF FAST ENOUGH AND AIMED, THEN SHOOT
     @Override
     public void end(boolean interrupted){
         this.shooter.doRunShooter(false);
