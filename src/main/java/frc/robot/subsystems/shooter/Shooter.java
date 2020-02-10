@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants;
 import frc.robot.subsystems.LancerSubsystem;
 
 public class Shooter extends LancerSubsystem {
@@ -13,8 +14,8 @@ public class Shooter extends LancerSubsystem {
     private boolean running;
     private double speed;
     private double kP, kI, kD;
-    private final double targetRPM;
-    private double maths = (600.0/409600) * 3;
+    private double targetRPM;
+    private double maths = (600.0/409600) / 3;
 
     //WANT TO: Create encoders and PID
     public Shooter(CommandScheduler cm, TalonSRX master, TalonSRX slave, TalonSRX loader) {
@@ -32,14 +33,39 @@ public class Shooter extends LancerSubsystem {
 
         this.running = false;
         this.speed = 0.5;
-        this.targetRPM = 57600;
+
     }
 
     public TalonSRX getMaster(){
         return master;
     }
 
+    public void setTargetRPM(double newRPM){
+        this.targetRPM = newRPM;
+    }
+
+    public void setMotorToTarget(){
+        pidController.setSetpoint(targetRPM);
+
+        double output = pidController.calculate(getMaster().getSelectedSensorVelocity()*maths);
+        System.out.println(output);
+
+        this.speed = output/18370;
+
+        this.master.set(ControlMode.PercentOutput, this.speed);
+    }
+
     public void setShooterSpeed(double speed){
+        if(this.speed <= 0){
+            this.speed = 0;
+        } else if (this.speed >= 1){
+            this.speed = 1;
+        } else {
+            this.speed = speed;
+        }
+    }
+
+    public void changeShooterSpeed(double speed){
         if(this.speed <= 0){
             this.speed = 0;
         } else if (this.speed >= 1){
@@ -53,11 +79,14 @@ public class Shooter extends LancerSubsystem {
         this.running = running;
         if(running){
             this.pidController.reset();
-            this.pidController.enableContinuousInput(0, 115200);
         }
     }
 
-    public TalonSRX getLoaderMotor() {
+    public boolean fastEnough(){
+        return Math.abs(master.getSelectedSensorVelocity() - this.targetRPM) < Constants.Shooter.shooterRPMTolerance;
+    }
+
+    public TalonSRX getLoaderMotor(ControlMode controlMode, double speed) {
         return loader;
     }
     public void resetEncoder(){
@@ -66,18 +95,9 @@ public class Shooter extends LancerSubsystem {
 
     @Override
     public void periodic(){
-        if(this.running){
-            pidController.setSetpoint(targetRPM);
-
-            double output = pidController.calculate(getMaster().getSelectedSensorVelocity()*maths);
-            System.out.println(output);
-
-            this.speed = output/115200;
-
-            this.master.set(ControlMode.PercentOutput, this.speed);
-        } else{
-            this.master.set(ControlMode.PercentOutput, 0);
-        }
     }
 
 }
+//when autoing, use command groups, cant incorporate auto with periodic
+//when autoing or teleoping, ill have a while loop for whilepressed in order for me to set motor value to get rpm
+//when prompted to shoot call it multiple times
