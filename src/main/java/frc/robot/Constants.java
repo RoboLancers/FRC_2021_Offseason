@@ -34,6 +34,15 @@ public final class Constants {
         public static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
     }
 
+    public final class Intake {
+        public static final double INTAKE_POWER = 0.5;
+    }
+    public final class Shooter{
+        public static final double SHOOTER_RPM_TOLERANCE = 5;
+        public static final double RPM = (600.0/409600) / 3;
+        public static final double MAX_RPM = 18370;
+    }
+
     public final class Odometry{
         public static final double MAX_VELOCITY = 3.9624;
         public static final double MAX_VELOCITY_SIDE = 0;
@@ -53,7 +62,5 @@ public final class Constants {
         public static final double kBETA = 2.0;
         public static final double kZETA = 0.7;
     }
-    public final class Shooter{
-        public static final double shooterRPMTolerance = 5;
-    }
+
 }

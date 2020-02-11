@@ -10,12 +10,19 @@ package frc.robot;
 import frc.robot.autonomous.Autonomous;
 import frc.robot.autonomous.Odometry;
 import frc.robot.autonomous.Trajectories;
+import frc.robot.subsystems.climber.Climber;
+import frc.robot.subsystems.drivetrain.GearShifter;
 import frc.robot.subsystems.drivetrain.commands.HoldTargetAiming;
 import frc.robot.subsystems.drivetrain.commands.UseDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.intake.IntakePivot;
+import frc.robot.subsystems.misc.ColorSensor;
 import frc.robot.subsystems.misc.Gyro;
 import frc.robot.subsystems.misc.Limelight;
+import frc.robot.subsystems.spinner.Spinner;
+import frc.robot.subsystems.spinner.SpinnerPivot;
 import frc.robot.utilities.XboxController;
 
 /**
@@ -28,20 +35,20 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public static Drivetrain drivetrain;
-  public static final Limelight limelight = new Limelight();
-//  public static final ColorSensor colorSensor = new ColorSensor();
-  public static final Gyro gyro = new Gyro();
-//  public static final Climber climber = new Climber();
-//  public static final Spinner spinner = new Spinner();
-//  public static final Intake intake = new Intake();
-//  public static final IntakePivot intakePivot = new IntakePivot();
-//  public static final GearShifter gearShifter = new GearShifter();
-//  public static final SpinnerPivot spinnerPivot = new SpinnerPivot();
+  public static Limelight limelight;
+  public static ColorSensor colorSensor;
+  public static Gyro gyro;
+  public static Climber climber;
+  public static Spinner spinner;
+  public static Intake intake;
+  public static IntakePivot intakePivot;
+  public static GearShifter gearShifter;
+  public static SpinnerPivot spinnerPivot;
   public static Odometry odometry;
   public static Trajectories trajectories;
 
-  public static final XboxController driverXboxController = new XboxController(0, 0.2);
-  public static final XboxController manipulatorXboxController = new XboxController(1, 0.2);
+  public static XboxController driverXboxController = new XboxController(0, 0.2);
+  public static XboxController manipulatorXboxController = new XboxController(1, 0.2);
 
 //  private final Shooter shooter;
 
@@ -49,6 +56,17 @@ public class RobotContainer {
     drivetrain = new Drivetrain();
     odometry = new Odometry(drivetrain);
     trajectories = new Trajectories(odometry);
+    limelight = new Limelight();
+    gyro = new Gyro();
+    colorSensor = new ColorSensor();
+    climber = new Climber();
+    spinner = new Spinner();
+    intake = new Intake();
+    intakePivot = new IntakePivot();
+    gearShifter = new GearShifter();
+    spinnerPivot = new SpinnerPivot();
+
+
 
     // Configure the button bindings
     drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, driverXboxController));

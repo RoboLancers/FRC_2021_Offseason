@@ -8,12 +8,12 @@ import frc.robot.subsystems.drivetrain.enums.GearShifterState;
 
 public class GearShifter extends SubsystemBase {
 
-    private DoubleSolenoid gearShifter;
+    private DoubleSolenoid gearShifter = null;
 
     public GearShifterState state;
 
     public GearShifter(){
-        gearShifter = new DoubleSolenoid(RobotMap.Manipulator.GearShifter.GEAR_SHIFTER_HIGH, RobotMap.Manipulator.GearShifter.GEAR_SHIFTER_LOW);
+//        gearShifter = new DoubleSolenoid(RobotMap.Manipulator.GearShifter.GEAR_SHIFTER_HIGH, RobotMap.Manipulator.GearShifter.GEAR_SHIFTER_LOW);
         state = GearShifterState.HIGHGEAR;
     }
 

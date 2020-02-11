@@ -5,22 +5,21 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.LancerSubsystem;
 
-public class Shooter extends LancerSubsystem {
+public class Shooter extends SubsystemBase {
     private TalonSRX master, slave, loader;
     public PIDController pidController;
     private boolean running;
     private double speed;
     private double kP, kI, kD;
     private double targetRPM;
-    private double maths = (600.0/409600) / 3;
+    private double maths = Constants.Shooter.RPM;
 
     //WANT TO: Create encoders and PID
-    public Shooter(CommandScheduler cm, TalonSRX master, TalonSRX slave, TalonSRX loader) {
-        super(cm);
-
+    /**CHANGE TO VELOCITY OR POSITION CONTROL*/
+    public Shooter(TalonSRX master, TalonSRX slave, TalonSRX loader) {
         this.master = master;
         this.slave = slave;
         this.loader = loader;
@@ -48,9 +47,8 @@ public class Shooter extends LancerSubsystem {
         pidController.setSetpoint(targetRPM);
 
         double output = pidController.calculate(getMaster().getSelectedSensorVelocity()*maths);
-        System.out.println(output);
 
-        this.speed = output/18370;
+        this.speed = output/Constants.Shooter.MAX_RPM;
 
         this.master.set(ControlMode.PercentOutput, this.speed);
     }
@@ -83,7 +81,7 @@ public class Shooter extends LancerSubsystem {
     }
 
     public boolean fastEnough(){
-        return Math.abs(master.getSelectedSensorVelocity() - this.targetRPM) < Constants.Shooter.shooterRPMTolerance;
+        return Math.abs(master.getSelectedSensorVelocity() - this.targetRPM) < Constants.Shooter.SHOOTER_RPM_TOLERANCE;
     }
 
     public TalonSRX getLoaderMotor(ControlMode controlMode, double speed) {
