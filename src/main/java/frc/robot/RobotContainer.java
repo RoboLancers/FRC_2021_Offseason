@@ -21,6 +21,7 @@ import frc.robot.subsystems.intake.IntakePivot;
 import frc.robot.subsystems.misc.ColorSensor;
 import frc.robot.subsystems.misc.Gyro;
 import frc.robot.subsystems.misc.Limelight;
+import frc.robot.subsystems.misc.Pneumatics;
 import frc.robot.subsystems.spinner.Spinner;
 import frc.robot.subsystems.spinner.SpinnerPivot;
 import frc.robot.utilities.XboxController;
@@ -35,15 +36,17 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public static Drivetrain drivetrain;
-  public static Limelight limelight;
-  public static ColorSensor colorSensor;
-  public static Gyro gyro;
   public static Climber climber;
   public static Spinner spinner;
   public static Intake intake;
   public static IntakePivot intakePivot;
   public static GearShifter gearShifter;
   public static SpinnerPivot spinnerPivot;
+
+  public static Gyro gyro;
+  public static Pneumatics pneumatics;
+  public static Limelight limelight;
+  public static ColorSensor colorSensor;
   public static Odometry odometry;
   public static Trajectories trajectories;
 
@@ -65,7 +68,7 @@ public class RobotContainer {
     intakePivot = new IntakePivot();
     gearShifter = new GearShifter();
     spinnerPivot = new SpinnerPivot();
-
+    pneumatics = new Pneumatics();
 
 
     // Configure the button bindings

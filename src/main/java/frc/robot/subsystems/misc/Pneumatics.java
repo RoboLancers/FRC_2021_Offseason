@@ -4,32 +4,36 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Pneumatics extends SubsystemBase {
-
-    //private REVAnalogPressureSensor revAnalogPressureSensor;
-
     private Compressor compressor;
 
-    private Pneumatics() {
-        //revAnalogPressureSensor = new REVAnalogPressureSensor(RobotMap.MISC.REV_PRESSURE_SENSOR_PORT);
-
+    public Pneumatics(){
         compressor = new Compressor();
     }
 
-    public double getPressure() {
-        return 0; //revAnalogPressureSensor.getPressure();
+    /**
+     * Regulates the compressor
+     */
+    public void regulateCompressor(){
+        if(!compressor.getPressureSwitchValue() && !compressor.enabled()
+                && isCompressorSafeToUse()){
+            compressor.start();
+        }else if(compressor.getPressureSwitchValue() && compressor.enabled()
+                || !isCompressorSafeToUse()){
+            compressor.stop();
+        }
     }
 
-    public void start() {
-        compressor.start();
+    /**
+     * Checks if compressor is safe to use
+     * @return whether or not the compressor is safe to use
+     */
+    private boolean isCompressorSafeToUse(){
+        return !((compressor.getCompressorCurrentTooHighFault() && !compressor.getCompressorCurrentTooHighStickyFault()) ||
+                (compressor.getCompressorNotConnectedFault() && !compressor.getCompressorNotConnectedStickyFault()) ||
+                (compressor.getCompressorShortedFault() && !compressor.getCompressorShortedStickyFault()));
     }
 
-    public void stop() {
+    public void stopCompressor(){
         compressor.stop();
     }
-
-    //@Override
-    protected void initDefaultCommand() {
-        //setDefaultCommand(new PressureLimit());
-    }
-
 }
