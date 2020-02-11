@@ -36,6 +36,8 @@ public final class Constants {
 
     public final class Intake {
         public static final double INTAKE_POWER = 0.5;
+        public static final double AVERAGE_CURRENT = 12;
+        public static final double SPIKE_TOLERANCE= 7;
     }
     public final class Shooter{
         public static final double SHOOTER_RPM_TOLERANCE = 5;
