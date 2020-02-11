@@ -22,7 +22,12 @@ public class UseIntake extends CommandBase {
     public void execute(){
         intake.getIntakeMotor().set(ControlMode.PercentOutput, Constants.Intake.INTAKE_POWER);
         intake.getTransferMotor().set(ControlMode.PercentOutput, Constants.Intake.INTAKE_POWER);
+
+        if(intake.spiked()){
+            intake.getIntakeMotor().set(ControlMode.PercentOutput, -Constants.Intake.INTAKE_POWER);
+            intake.getTransferMotor().set(ControlMode.PercentOutput, -Constants.Intake.INTAKE_POWER);
         }
+    }
 
     @Override
     public boolean isFinished(){
