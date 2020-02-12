@@ -42,5 +42,12 @@ public class RobotMap {
     }
     public static final class Sensors{
         public static final int PIGEON_PORT = 1;
+
+        public final class IR{
+        public static final int TOP_IR_PORT = 2;
+        public static final int BOTTOM_IR_PORT = 3;
+        public static final int LEFT_IR_PORT = 4;
+        public static final int RIGHT_IR_PORT = 5;
+        }
     }
 }
