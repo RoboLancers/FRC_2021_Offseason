@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -15,7 +14,7 @@ public class Shooter extends SubsystemBase {
     private double speed;
     private double kP, kI, kD;
     private double targetRPM;
-    private double maths = Constants.Shooter.RPM;
+    private double maths = Constants.Shooter.CONVERSION_BOY;
 
     //WANT TO: Create encoders and PID
     /**CHANGE TO VELOCITY OR POSITION CONTROL*/
@@ -70,13 +69,6 @@ public class Shooter extends SubsystemBase {
             this.speed = 1;
         } else {
             this.speed += speed;
-        }
-    }
-
-    public void doRunShooter(boolean running){
-        this.running = running;
-        if(running){
-            this.pidController.reset();
         }
     }
 
