@@ -23,10 +23,10 @@ public class ToggleIntakePivot extends InstantCommand {
 
         //if all 4 ir sensors detect, pivot goes IntakePivotState,INTAKEUP
 
-        if(irSensor.isStorageFull() == true){
+        if(irSensor.isStorageFull()){
             intakePivot.set(IntakePivotState.INTAKEUP);
         } else{
-            intakePivot.set(IntakePivotState.INTAKENEUTRAL);
+            intakePivot.set(IntakePivotState.INTAKEDOWN);
         }
     }
 
