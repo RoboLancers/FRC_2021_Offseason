@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
     private TalonSRX master, slave, loader;
@@ -18,10 +19,10 @@ public class Shooter extends SubsystemBase {
 
     //WANT TO: Create encoders and PID
     /**CHANGE TO VELOCITY OR POSITION CONTROL*/
-    public Shooter(TalonSRX master, TalonSRX slave, TalonSRX loader) {
-        this.master = master;
-        this.slave = slave;
-        this.loader = loader;
+    public Shooter() {
+        master = new TalonSRX(RobotMap.Manipulator.Shooter.SHOOTER_MASTER_PORT);
+        slave = new TalonSRX(RobotMap.Manipulator.Shooter.SHOOTER_SLAVE_PORT);
+        loader = new TalonSRX(RobotMap.Manipulator.Shooter.SHOOTER_LOADER_PORT);
 
         master.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 
@@ -52,6 +53,10 @@ public class Shooter extends SubsystemBase {
         this.master.set(ControlMode.PercentOutput, this.speed);
     }
 
+    public void resetPID(){
+        this.pidController.reset();
+    }
+
     public void setShooterSpeed(double speed){
         if(this.speed <= 0){
             this.speed = 0;
@@ -76,7 +81,7 @@ public class Shooter extends SubsystemBase {
         return Math.abs(master.getSelectedSensorVelocity() - this.targetRPM) < Constants.Shooter.SHOOTER_RPM_TOLERANCE;
     }
 
-    public TalonSRX getLoaderMotor(ControlMode controlMode, double speed) {
+    public TalonSRX getLoaderMotor() {
         return loader;
     }
     public void resetEncoder(){
