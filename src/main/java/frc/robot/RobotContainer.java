@@ -12,6 +12,7 @@ import frc.robot.autonomous.Odometry;
 import frc.robot.autonomous.Trajectories;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drivetrain.GearShifter;
+import frc.robot.subsystems.drivetrain.commands.AutoTargetAiming;
 import frc.robot.subsystems.drivetrain.commands.HoldTargetAiming;
 import frc.robot.subsystems.drivetrain.commands.UseDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -20,6 +21,9 @@ import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakePivot;
 import frc.robot.subsystems.intake.commands.AutoIntakePivot;
 import frc.robot.subsystems.misc.*;
+import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.subsystems.shooter.commands.LoadNShoot;
+import frc.robot.subsystems.shooter.commands.RevUpShooter;
 import frc.robot.subsystems.spinner.Spinner;
 import frc.robot.subsystems.spinner.SpinnerPivot;
 import frc.robot.utilities.XboxController;
@@ -40,6 +44,7 @@ public class RobotContainer {
   public static IntakePivot intakePivot;
   public static GearShifter gearShifter;
   public static SpinnerPivot spinnerPivot;
+  public static Shooter shooter;
 
   public static Gyro gyro;
   public static Pneumatics pneumatics;
@@ -64,6 +69,7 @@ public class RobotContainer {
     climber = new Climber();
     spinner = new Spinner();
     intake = new Intake();
+    shooter = new Shooter();
     intakePivot = new IntakePivot();
     gearShifter = new GearShifter();
     spinnerPivot = new SpinnerPivot();
@@ -83,7 +89,11 @@ public class RobotContainer {
     //buttonWhenPressed(new changeShooterSpeed(this.shooter, -0.05));
 //    xboxController.whenPressed(XboxController.Button.RIGHT_BUMPER, new ChangeShooterSpeed(this.shooter, 0.05));
 //    xboxController.whenPressed(XboxController.Button.LEFT_BUMPER, new ChangeShooterSpeed(this.shooter, 0.05));
-    driverXboxController.whileHeld(XboxController.Button.A, new HoldTargetAiming(drivetrain, limelight));
+//    driverXboxController.whileHeld(XboxController.Button.A, new HoldTargetAiming(drivetrain, limelight));
+    driverXboxController.whileHeld(XboxController.Button.B,
+            new RevUpShooter(shooter, 9000)
+            .alongWith(new AutoTargetAiming(drivetrain, limelight))
+            .andThen(new LoadNShoot(shooter, intake)));
 
   }
 
