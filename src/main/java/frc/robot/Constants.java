@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Units;
@@ -36,12 +37,11 @@ public final class Constants {
 
     public final class Intake {
         public static final double INTAKE_POWER = 0.5;
-        public static final double AVERAGE_CURRENT = 12;
-        public static final double SPIKE_TOLERANCE= 7;
+        public static final double MAX_CURRENT = 20;
     }
     public final class Shooter{
         public static final double SHOOTER_RPM_TOLERANCE = 5;
-        public static final double RPM = (600.0/409600) / 3;
+        public static final double CONVERSION_BOY = (600.0/409600) / 3;
         public static final double MAX_RPM = 18370;
     }
 
