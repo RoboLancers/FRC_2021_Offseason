@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import frc.robot.autonomous.AutoTargetAiming;
 import frc.robot.autonomous.Autonomous;
 import frc.robot.autonomous.Odometry;
 import frc.robot.autonomous.Trajectories;
@@ -99,6 +100,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new Autonomous(odometry, drivetrain, trajectories.circle()).andThen(()-> drivetrain.setVoltage(0,0));
+    return new Autonomous(odometry, drivetrain, trajectories.straightForward()).andThen(()-> drivetrain.setVoltage(0,0));
   }
 }

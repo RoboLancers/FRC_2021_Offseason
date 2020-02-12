@@ -44,17 +44,24 @@ public class Trajectories {
     public Trajectory straightForward() {
         return TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(0, 0, new Rotation2d(0)),
-                new Pose2d(Units.feetToMeters(3), 0, new Rotation2d(0))),
+                new Pose2d(3, 0, new Rotation2d(0))),
                 this.config
         );
     }
 
-    public Trajectory circle() {
+    public Trajectory turnRight() {
         return TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(0, 0, new Rotation2d(0)),
-//                new Pose2d(Units.feetToMeters(3), Units.feetToMeters(5), new Rotation2d(0)),
                 new Pose2d(6, -3, new Rotation2d(Units.degreesToRadians(-90)))),
                 this.config
+        );
+    }
+
+    public Trajectory backward() {
+        return TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                new Pose2d(0, 0, new Rotation2d(0)),
+                new Pose2d(-6, 3, new Rotation2d(Units.degreesToRadians(-45)))),
+                this.config.setReversed(true)
         );
     }
 }

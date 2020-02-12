@@ -29,7 +29,7 @@ public class Odometry {
         odometry.update(Rotation2d.fromDegrees(RobotContainer.gyro.getFusedHeading()), this.drivetrain.getLeft().getDistance(), this.drivetrain.getRight().getDistance());
     }
 
-    public Pose2d getPose2dFeet(){
+    public Pose2d getPose2d(){
         return odometry.getPoseMeters();
     }
 

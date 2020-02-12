@@ -16,15 +16,15 @@ public class Autonomous extends RamseteCommand{
 
     public Autonomous(Odometry odometry, Drivetrain drivetrain, Trajectory trajectory) {
         super(trajectory,
-                odometry::getPose2dFeet,
+                odometry::getPose2d,
                 new RamseteController(Constants.Trajectory.kBETA, Constants.Trajectory.kZETA),
                 new SimpleMotorFeedforward(Constants.Trajectory.kSTATIC,
                         Constants.Trajectory.kVELOCITY,
                         Constants.Trajectory.kACCELERATION),
                 odometry.getKinematics(),
                 odometry::getWheelSpeeds,
-                new PIDController(0.0, 0, 0),
-                new PIDController(0.0, 0, 0),
+                new PIDController(0.005, 0, 0),
+                new PIDController(0.005, 0, 0),
                 drivetrain::setVoltage,
                 drivetrain);
     }
