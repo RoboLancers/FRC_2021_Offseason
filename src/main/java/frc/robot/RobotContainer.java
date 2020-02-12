@@ -18,10 +18,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakePivot;
-import frc.robot.subsystems.misc.ColorSensor;
-import frc.robot.subsystems.misc.Gyro;
-import frc.robot.subsystems.misc.Limelight;
-import frc.robot.subsystems.misc.Pneumatics;
+import frc.robot.subsystems.intake.commands.AutoIntakePivot;
+import frc.robot.subsystems.misc.*;
 import frc.robot.subsystems.spinner.Spinner;
 import frc.robot.subsystems.spinner.SpinnerPivot;
 import frc.robot.utilities.XboxController;
@@ -47,6 +45,7 @@ public class RobotContainer {
   public static Pneumatics pneumatics;
   public static Limelight limelight;
   public static ColorSensor colorSensor;
+  public static IRSensor irsensor;
   public static Odometry odometry;
   public static Trajectories trajectories;
 
@@ -69,10 +68,12 @@ public class RobotContainer {
     gearShifter = new GearShifter();
     spinnerPivot = new SpinnerPivot();
     pneumatics = new Pneumatics();
+    irsensor = new IRSensor();
 
 
     // Configure the button bindings
     drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, driverXboxController));
+    intakePivot.setDefaultCommand(new AutoIntakePivot(intakePivot, irsensor));
     configureButtonBindings();
 //    this.shooter = new Shooter();
   }
