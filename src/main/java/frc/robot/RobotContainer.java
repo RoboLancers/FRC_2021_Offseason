@@ -82,7 +82,7 @@ public class RobotContainer {
     //buttonWhenPressed(new changeShooterSpeed(this.shooter, -0.05));
 //    xboxController.whenPressed(XboxController.Button.RIGHT_BUMPER, new ChangeShooterSpeed(this.shooter, 0.05));
 //    xboxController.whenPressed(XboxController.Button.LEFT_BUMPER, new ChangeShooterSpeed(this.shooter, 0.05));
-    driverXboxController.whileHeld(XboxController.Button.A, new HoldTargetAiming(drivetrain));
+    driverXboxController.whileHeld(XboxController.Button.A, new HoldTargetAiming(drivetrain, limelight));
 
   }
 
