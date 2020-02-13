@@ -6,9 +6,7 @@ import frc.robot.RobotMap;
 import frc.robot.subsystems.intake.enums.IntakePivotState;
 
 public class IntakePivot extends SubsystemBase {
-
     private DoubleSolenoid intakePivot;
-
     public IntakePivotState state;
 
     public IntakePivot(){

@@ -9,7 +9,6 @@ import frc.robot.utilities.Utilities;
 public class GearBox {
     private CANSparkMax master, slave1, follow2;
 
-
     public GearBox(GearBoxSides side, int masterPort, int slave1Port, int follow2Port) {
         master = new CANSparkMax(masterPort, CANSparkMaxLowLevel.MotorType.kBrushless);
         slave1 = new CANSparkMax(slave1Port, CANSparkMaxLowLevel.MotorType.kBrushless);

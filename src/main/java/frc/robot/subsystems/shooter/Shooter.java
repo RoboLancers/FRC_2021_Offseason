@@ -84,6 +84,7 @@ public class Shooter extends SubsystemBase {
     public TalonSRX getLoaderMotor() {
         return loader;
     }
+
     public void resetEncoder(){
         master.setSelectedSensorPosition(0);
     }
@@ -91,7 +92,6 @@ public class Shooter extends SubsystemBase {
     @Override
     public void periodic(){
     }
-
 }
 //when autoing, use command groups, cant incorporate auto with periodic
 //when autoing or teleoping, ill have a while loop for whilepressed in order for me to set motor value to get rpm

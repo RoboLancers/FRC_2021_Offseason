@@ -7,10 +7,8 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -65,5 +63,4 @@ public final class Constants {
         public static final double kBETA = 2.0;
         public static final double kZETA = 0.7;
     }
-
 }

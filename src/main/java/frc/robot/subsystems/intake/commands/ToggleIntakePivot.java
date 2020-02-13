@@ -8,14 +8,12 @@ import frc.robot.subsystems.misc.IRSensor;
 
 /**STORAGE FULL SHOULD BE ITS OWN SEPARATE COMMAND*/
 public class ToggleIntakePivot extends InstantCommand {
-
     private final IntakePivot intakePivot;
     private IRSensor irSensor;
 
     public ToggleIntakePivot(final IntakePivot intakePivot ){
         this.intakePivot = intakePivot;
         addRequirements(intakePivot);
-
     }
 
     @Override
@@ -30,5 +28,4 @@ public class ToggleIntakePivot extends InstantCommand {
             intakePivot.set(IntakePivotState.INTAKEDOWN);
         }
     }
-
 }

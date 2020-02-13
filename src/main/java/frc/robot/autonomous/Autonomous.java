@@ -12,8 +12,6 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 public class Autonomous extends RamseteCommand{
-
-
     public Autonomous(Odometry odometry, Drivetrain drivetrain, Trajectory trajectory) {
         super(trajectory,
                 odometry::getPose2d,

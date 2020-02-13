@@ -30,7 +30,6 @@ public class AutoTargetAiming extends CommandBase {
             drivetrain.getLeft().getMaster().set(leftPower);
             drivetrain.getRight().getMaster().set(rightPower);
         }
-
     }
 
     @Override

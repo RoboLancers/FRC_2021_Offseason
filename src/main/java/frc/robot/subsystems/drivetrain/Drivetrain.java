@@ -2,7 +2,6 @@ package frc.robot.subsystems.drivetrain;
 
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.drivetrain.enums.GearBoxSides;
 

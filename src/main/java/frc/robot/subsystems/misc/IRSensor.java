@@ -2,13 +2,11 @@ package frc.robot.subsystems.misc;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.RobotMap;
-
+/**REDO NAMING*/
 public class IRSensor {
-
     private edu.wpi.first.wpilibj.DigitalInput rightIR, leftIR, topIR, bottomIR;
 
     public IRSensor(){
-
         rightIR = new DigitalInput(RobotMap.Sensors.IR.RIGHT_IR_PORT);
         leftIR = new DigitalInput(RobotMap.Sensors.IR.LEFT_IR_PORT);
         topIR = new DigitalInput(RobotMap.Sensors.IR.TOP_IR_PORT);
@@ -36,6 +34,5 @@ public class IRSensor {
             return true;
         }
             return false;
-
     }
 }

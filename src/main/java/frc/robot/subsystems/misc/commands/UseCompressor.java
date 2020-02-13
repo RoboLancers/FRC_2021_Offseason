@@ -5,6 +5,7 @@ import frc.robot.subsystems.misc.Pneumatics;
 
 public class UseCompressor extends CommandBase {
     private Pneumatics pneumatics;
+
     UseCompressor(Pneumatics pneumatics) {
         this.pneumatics = pneumatics;
         addRequirements(pneumatics);

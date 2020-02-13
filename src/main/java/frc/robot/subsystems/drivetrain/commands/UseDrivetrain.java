@@ -1,12 +1,8 @@
 package frc.robot.subsystems.drivetrain.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.utilities.XboxController;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class UseDrivetrain extends CommandBase {
     private final Drivetrain drivetrain;

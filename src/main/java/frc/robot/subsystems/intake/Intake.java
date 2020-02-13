@@ -31,7 +31,5 @@ public class Intake extends SubsystemBase {
             return false;
         }
     }
-
 //unjam balls, get transfer motor current values, take the highest average, and if motor spikes, revert motors
-
 }

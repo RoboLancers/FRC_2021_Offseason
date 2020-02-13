@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class XboxController extends BaseController {
-
     public enum Axis {
         LEFT_X(0),
         LEFT_Y(1, true),

@@ -10,17 +10,17 @@ import frc.robot.autonomous.AutoTargetAiming;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.misc.Limelight;
 import frc.robot.subsystems.shooter.Shooter;
-import frc.robot.subsystems.shooter.commands.UseShooter;
+import frc.robot.subsystems.shooter.commands.LoadNShoot;
+import frc.robot.subsystems.shooter.commands.RevUpShooter;
 
 public class ShootThreePowerCells extends SequentialCommandGroup {
-
     public ShootThreePowerCells(Drivetrain drivetrain, Shooter shooter, Intake intake, Odometry odometry, Limelight limelight) {
         new Autonomous(odometry, drivetrain, RobotContainer.trajectories.backward());
         new ParallelCommandGroup(
-                //reving up the shooter to get ready to shoot
+                new RevUpShooter(shooter, 54316351),
                 new AutoTargetAiming(drivetrain, limelight)
         );
-        new UseShooter(shooter, intake, 468145685);
+        new LoadNShoot(shooter, intake);
     }
 
 }

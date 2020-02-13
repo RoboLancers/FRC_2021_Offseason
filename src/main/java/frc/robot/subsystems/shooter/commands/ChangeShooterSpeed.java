@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.shooter.Shooter;
 
 public class ChangeShooterSpeed extends InstantCommand {
-
     private final Shooter shooter;
     private double speed;
 

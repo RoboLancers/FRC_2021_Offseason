@@ -6,15 +6,10 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
-
-import static com.revrobotics.ColorSensorV3.*;
 
 public class ColorSensor extends SubsystemBase {
-
     private ColorSensorV3 colorSensor;
     private ColorMatch colorMatcher;
 
@@ -33,9 +28,11 @@ public class ColorSensor extends SubsystemBase {
     public double getRed(){
         return colorSensor.getColor().red;
     }
+
     public double getGreen(){
         return colorSensor.getColor().green;
     }
+
     public double getBlue(){
         return colorSensor.getColor().blue;
     }
