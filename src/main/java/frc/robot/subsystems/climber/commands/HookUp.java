@@ -8,7 +8,7 @@ import frc.robot.subsystems.climber.Climber;
 import frc.robot.utilities.XboxController;
 
 //using 775 pro
-
+/**YOU HAVE AN UNUSED CLASS VARIABLE*/
 public class HookUp extends CommandBase {
     private Climber climber;
     private double hookPower;

@@ -1,5 +1,6 @@
 package frc.robot.subsystems.climber.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -9,12 +10,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UseClimber extends CommandBase {
+    private double power;
 
-    public UseClimber(){
+    public UseClimber(double power){
+        addRequirements(RobotContainer.climber);
+        this.power = power;
     }
 
     @Override
     public void execute() {
-        //RobotContainer.climber.getMaster().set();
+        RobotContainer.climber.getHookUpMotor().set(ControlMode.PercentOutput, power);
     }
 }

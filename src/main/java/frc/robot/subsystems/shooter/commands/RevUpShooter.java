@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.shooter.Shooter;
-
+/**SHOULD NOT REQUIRE A TARGET RPM*/
 public class RevUpShooter extends CommandBase {
     private final Shooter shooter;
     private double targetRPM;

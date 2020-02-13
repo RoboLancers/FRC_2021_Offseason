@@ -6,6 +6,7 @@ import frc.robot.subsystems.intake.enums.IntakePivotState;
 import frc.robot.subsystems.intake.IntakePivot;
 import frc.robot.subsystems.misc.IRSensor;
 
+/**STORAGE FULL SHOULD BE ITS OWN SEPARATE COMMAND*/
 public class ToggleIntakePivot extends InstantCommand {
 
     private final IntakePivot intakePivot;
