@@ -26,6 +26,7 @@ public final class Constants {
         public static final double RAMP_RATE = 0.30;
         public static final double GEAR_RATIO = 10.75;
         public static final double WHEEL_DIAMETER = 0.1524;
+        public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
     }
 
     public static final class Sensors {

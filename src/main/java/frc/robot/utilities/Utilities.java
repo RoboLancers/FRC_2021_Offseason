@@ -20,4 +20,8 @@ public class Utilities {
     public static double sqrtKeepSign(double value){
         return Math.signum(value) * Math.sqrt(Math.abs(value));
     }
+
+    public static double RPMtoRPS(double value) {
+        return value / 60;
+    }
 }

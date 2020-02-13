@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import frc.robot.Constants;
 import frc.robot.subsystems.drivetrain.enums.GearBoxSides;
+import frc.robot.utilities.Utilities;
 
 public class GearBox {
     private CANSparkMax master, slave1, follow2;
@@ -46,7 +47,8 @@ public class GearBox {
     }
 
     public double getVelocity() {
-        return master.getEncoder().getVelocity();
+        double velocity = Utilities.RPMtoRPS(master.getEncoder().getVelocity() * Constants.Robot.WHEEL_CIRCUMFERENCE);
+        return velocity;
     }
 
     public void setVoltage(double voltage) {
