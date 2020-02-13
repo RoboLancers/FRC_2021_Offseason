@@ -6,7 +6,7 @@ import frc.robot.subsystems.intake.enums.IntakePivotState;
 import frc.robot.subsystems.intake.IntakePivot;
 import frc.robot.subsystems.misc.IRSensor;
 
-/**STORAGE FULL SHOULD BE ITS OWN SEPARATE COMMAND*/
+
 public class ToggleIntakePivot extends InstantCommand {
     private final IntakePivot intakePivot;
     private IRSensor irSensor;
@@ -19,13 +19,5 @@ public class ToggleIntakePivot extends InstantCommand {
     @Override
     public void initialize(){
         this.intakePivot.set(intakePivot.getState() == IntakePivotState.INTAKEUP ? IntakePivotState.INTAKEDOWN : IntakePivotState.INTAKEUP);
-
-        //if all 4 ir sensors detect, pivot goes IntakePivotState,INTAKEUP
-
-        if(irSensor.isStorageFull()){
-            intakePivot.set(IntakePivotState.INTAKEUP);
-        } else{
-            intakePivot.set(IntakePivotState.INTAKEDOWN);
-        }
     }
 }
