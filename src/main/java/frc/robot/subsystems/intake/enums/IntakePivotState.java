@@ -7,7 +7,11 @@ public enum IntakePivotState {
 
     private DoubleSolenoid.Value value;
 
-    IntakePivotState(DoubleSolenoid.Value value){this.value = value;}
+    IntakePivotState(DoubleSolenoid.Value value) {
+        this.value = value;
+    }
 
-    public DoubleSolenoid.Value getValue(){return value;}
+    public DoubleSolenoid.Value getValue() {
+        return value;
+    }
 }

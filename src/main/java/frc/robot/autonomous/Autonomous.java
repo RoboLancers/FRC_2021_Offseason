@@ -1,39 +1,29 @@
 package frc.robot.autonomous;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.controller.RamseteController;
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.misc.Limelight;
+import frc.robot.subsystems.shooter.Shooter;
 
-public class Autonomous extends RamseteCommand{
-    public Autonomous(Odometry odometry, Drivetrain drivetrain, Trajectory trajectory) {
-        super(trajectory,
-                odometry::getPose2d,
-                new RamseteController(Constants.Trajectory.kBETA, Constants.Trajectory.kZETA),
-                new SimpleMotorFeedforward(Constants.Trajectory.kSTATIC,
-                        Constants.Trajectory.kVELOCITY,
-                        Constants.Trajectory.kACCELERATION),
-                odometry.getKinematics(),
-                odometry::getWheelSpeeds,
-                new PIDController(0.005, 0, 0),
-                new PIDController(0.005, 0, 0),
-                drivetrain::setVoltage,
-                drivetrain);
+public class Autonomous {
+    private Command autonomousCommand;
+
+    private Drivetrain drivetrain;
+    private Shooter shooter;
+    private Intake intake;
+    private Odometry odometry;
+    private Limelight limelight;
+
+    public Autonomous(Drivetrain drivetrain, Shooter shooter, Intake intake, Odometry odometry, Limelight limelight) {
+        this.drivetrain = drivetrain;
+        this.shooter = shooter;
+        this.intake = intake;
+        this.odometry = odometry;
+        this.limelight = limelight;
     }
 
-    @Override
-    public void initialize() {
-        super.initialize();
+    public void update() {
 
-        RobotContainer.drivetrain.getLeft().resetEncoder();
-        RobotContainer.drivetrain.getRight().resetEncoder();
-        RobotContainer.gyro.resetHeading();
-        RobotContainer.odometry.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
     }
 }
