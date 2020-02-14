@@ -25,11 +25,7 @@ public class Intake extends SubsystemBase {
     public TalonSRX getTransferMotor() {return transfer;}
 
     public boolean spiked(){
-        if(Math.abs((Constants.Intake.AVERAGE_CURRENT - transfer.getSupplyCurrent())) > Constants.Intake.SPIKE_TOLERANCE){
-            return true;
-        }else{
-            return false;
-        }
+        return transfer.getSupplyCurrent() > Constants.Shooter.MAX_RPM;
     }
 //unjam balls, get transfer motor current values, take the highest average, and if motor spikes, revert motors
 }
