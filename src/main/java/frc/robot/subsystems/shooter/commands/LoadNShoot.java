@@ -18,6 +18,7 @@ public class LoadNShoot extends CommandBase {
     @Override
     public void execute(){
         shooter.getLoaderMotor().set(ControlMode.PercentOutput, 0.7777);
+        intake.getTransferMotor().set(ControlMode.PercentOutput, 0.7777);
         intake.getIntakeMotor().set(ControlMode.PercentOutput, 0.7777);
     }
 }
