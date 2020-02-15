@@ -10,10 +10,8 @@ package frc.robot;
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Units;
-import javafx.geometry.Pos;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -68,10 +66,10 @@ public final class Constants {
         public static final double kBETA = 2.0;
         public static final double kZETA = 0.7;
 
-        private static final double START_X = 0;
+        private static final double START_X = 11.0;
         private static final double LOADING_STATION_START_Y = 0;
-        private static final double CENTER_START_Y = 0;
-        private static final double SHOOTING_START_Y = 0;
+        private static final double CENTER_START_Y = 12.0;
+        private static final double SHOOTING_START_Y = 18.5;
 
         public static final Pose2d LOADING_STATION_START = new Pose2d(START_X, LOADING_STATION_START_Y, new Rotation2d(Units.degreesToRadians(0)));
         public static final Pose2d CENTER_START = new Pose2d(START_X, CENTER_START_Y, new Rotation2d(Units.degreesToRadians(0)));
