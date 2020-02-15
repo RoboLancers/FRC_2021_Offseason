@@ -7,15 +7,21 @@
 
 package frc.robot;
 
-import frc.robot.autonomous.*;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.autonomous.AutoTargetAiming;
+import frc.robot.autonomous.Ramsete;
+import frc.robot.autonomous.Odometry;
+import frc.robot.autonomous.Trajectories;
 import frc.robot.subsystems.climber.Climber;
+import frc.robot.subsystems.climber.commands.UseClimber;
 import frc.robot.subsystems.drivetrain.GearShifter;
 import frc.robot.subsystems.drivetrain.commands.UseDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakePivot;
-import frc.robot.subsystems.intake.commands.AutoIntakePivot;
 import frc.robot.subsystems.misc.*;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.commands.LoadNShoot;
@@ -57,44 +63,42 @@ public class RobotContainer {
 
   public RobotContainer() {
     drivetrain = new Drivetrain();
+    gyro = new Gyro();
     odometry = new Odometry(drivetrain);
     trajectories = new Trajectories(odometry);
-    limelight = new Limelight();
-    gyro = new Gyro();
-    colorSensor = new ColorSensor();
+//    limelight = new Limelight();
+
+//    colorSensor = new ColorSensor();
     climber = new Climber();
-    spinner = new Spinner();
-    intake = new Intake();
-    shooter = new Shooter();
-    intakePivot = new IntakePivot();
-    gearShifter = new GearShifter();
-    spinnerPivot = new SpinnerPivot();
-    pneumatics = new Pneumatics();
-    irsensor = new IRSensor();
+//    spinner = new Spinner();
+//    intake = new Intake();
+//    shooter = new Shooter();
+//    intakePivot = new IntakePivot();
+//    gearShifter = new GearShifter();
+//    spinnerPivot = new SpinnerPivot();
+//    pneumatics = new Pneumatics();
+//    irsensor = new IRSensor();
 
 
     // Configure the button bindings
     drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, driverXboxController));
-    intakePivot.setDefaultCommand(new AutoIntakePivot(intakePivot));
     configureButtonBindings();
 //    this.shooter = new Shooter();
   }
 
   private void configureButtonBindings() {
-  //buttonWhenPressed(new changeShooterSpeed(this.shooter, 0.05));
-    //buttonWhenPressed(new changeShooterSpeed(this.shooter, -0.05));
-//    xboxController.whenPressed(XboxController.Button.RIGHT_BUMPER, new ChangeShooterSpeed(this.shooter, 0.05));
-//    xboxController.whenPressed(XboxController.Button.LEFT_BUMPER, new ChangeShooterSpeed(this.shooter, 0.05));
-//    driverXboxController.whileHeld(XboxController.Button.A, new HoldTargetAiming(drivetrain, limelight));
-    driverXboxController.whileHeld(XboxController.Button.B,
-            new RevUpShooter(shooter, 9000)
-            .alongWith(new AutoTargetAiming(drivetrain, limelight))
-            .andThen(new LoadNShoot(shooter, intake)));
+//    driverXboxController.whileHeld(XboxController.Trigger.RIGHT_TRIGGER,
+//            new RevUpShooter(shooter, 9000)
+//            .alongWith(new AutoTargetAiming(drivetrain, limelight))
+//            .andThen(new LoadNShoot(shooter, intake)));
+    driverXboxController.whileHeld(XboxController.Button.B, new UseClimber(0.4));
+    driverXboxController.whileHeld(XboxController.Button.A, new UseClimber(-0.1));
+
 
   }
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new Ramsete(odometry, drivetrain, trajectories.straightForward()).andThen(()-> drivetrain.setVoltage(0,0));
+    return new Ramsete(odometry, drivetrain, trajectories.turnRight()).andThen(()-> drivetrain.setVoltage(0,0));
   }
 }
