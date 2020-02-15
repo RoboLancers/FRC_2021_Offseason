@@ -45,6 +45,12 @@ public final class Constants {
         public static final double SHOOTER_RPM_TOLERANCE = 5;
         public static final double CONVERSION_BOY = (600.0/409600) / 3;
         public static final double MAX_RPM = 18370;
+        public static final double SHOOTER_RADIUS = 3; //inches
+        public static final double ticksPerRev = 4096;
+        public static final double kP = 0;
+        public static final double kI = 0;
+        public static final double kD = 0;
+
     }
 
     public final class Odometry{
