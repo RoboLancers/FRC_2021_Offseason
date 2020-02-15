@@ -88,7 +88,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
 //    driverXboxController.whileHeld(XboxController.Trigger.RIGHT_TRIGGER,
-//            new RevUpShooter(shooter, 9000)
+//            new RevUpShooter(shooter, 50) //Takes in inches Per Second
 //            .alongWith(new AutoTargetAiming(drivetrain, limelight))
 //            .andThen(new LoadNShoot(shooter, intake)));
     driverXboxController.whileHeld(XboxController.Button.B, new UseClimber(0.4));
