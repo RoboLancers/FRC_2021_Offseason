@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import org.opencv.core.Mat;
 
 public class Shooter extends SubsystemBase {
     private TalonSRX master, slave, loader;
     public PIDController pidController;
     private boolean running;
     private double speed;
-    private double kP, kI, kD;
-    private double targetRPM;
+    private double targetRPM, targetVelocity;
     private double maths = Constants.Shooter.CONVERSION_BOY;
 
     //WANT TO: Create encoders and PID
@@ -28,7 +28,7 @@ public class Shooter extends SubsystemBase {
 
         slave.follow(master);
 
-        pidController = new PIDController(kP, kI, kD);
+        pidController = new PIDController(Constants.Shooter.kP, Constants.Shooter.kI, Constants.Shooter.kD);
 
         this.running = false;
         this.speed = 0.5;
@@ -39,8 +39,21 @@ public class Shooter extends SubsystemBase {
         return master;
     }
 
-    public void setTargetRPM(double newRPM){
-        this.targetRPM = newRPM;
+    public void setTargetRPM(double targetRPM){
+        this.targetRPM = targetRPM;
+    }
+
+    public double inchesPerSecToTicksPer100ms(double inchesPerSec){
+        return (inchesPerSec * Constants.Shooter.ticksPerRev) / (1000 * 2 * Constants.Shooter.SHOOTER_RADIUS * Math.PI);
+    }
+
+    public void setTargetInchesPerSec(double targetVelocity) {
+        this.targetVelocity = targetVelocity;
+    }
+
+    public void setMotorToVelocity(){
+        pidController.setSetpoint(targetVelocity);
+        master.set(ControlMode.Velocity, inchesPerSecToTicksPer100ms(this.targetVelocity));
     }
 
     public void setMotorToTarget(){
@@ -50,6 +63,7 @@ public class Shooter extends SubsystemBase {
 
         this.speed = output/Constants.Shooter.MAX_RPM;
 
+        //Control Mode Velocity takes in ticks / 100 ms.
         this.master.set(ControlMode.PercentOutput, this.speed);
     }
 
