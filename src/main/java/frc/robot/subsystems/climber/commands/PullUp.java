@@ -12,12 +12,16 @@ public class PullUp extends CommandBase {
 
     public PullUp(){
         addRequirements(RobotContainer.climber);
+        climber = RobotContainer.climber;
     }
 
     @Override
     public void execute() {
-        pullPower = RobotContainer.manipulatorXboxController.getAxisValue(XboxController.Axis.RIGHT_Y);
+        climber.getPullUpMotor().set(0.3);
+    }
 
-        climber.getPullUpMotor().set(pullPower);
+    @Override
+    public void end(boolean inturrupted) {
+        climber.getPullUpMotor().set(0);
     }
 }

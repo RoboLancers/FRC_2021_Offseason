@@ -6,9 +6,6 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.intake.Intake;
 
-/**NEED TO FIX
- * use IR Sensors to stop second conveyor belt when ready
- */
 
 public class UseIntake extends CommandBase {
     private Intake intake;
@@ -32,5 +29,11 @@ public class UseIntake extends CommandBase {
     @Override
     public boolean isFinished(){
         return false;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        intake.getIntakeMotor().set(ControlMode.PercentOutput, 0);
+        intake.getTransferMotor().set(ControlMode.PercentOutput, 0);
     }
 }

@@ -1,5 +1,6 @@
 package frc.robot.subsystems.shooter.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.shooter.Shooter;
 
@@ -18,17 +19,23 @@ public class RevUpShooter extends CommandBase {
     public void initialize(){
         shooter.resetPID();
         //shooter.setTargetRPM(targetRPM);
-        shooter.setTargetInchesPerSec(targetVelocity);
-
     }
 
     @Override
     public void execute(){
-        shooter.setMotorToVelocity();
+        shooter.setMotorToVelocity(targetVelocity);
+        DriverStation.reportError("this runs", true);
     }
+
 
     @Override
     public boolean isFinished(){
-        return shooter.fastEnough();
+//        return shooter.fastEnough();
+        return false;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        shooter.setTargetInchesPerSec(0);
     }
 }

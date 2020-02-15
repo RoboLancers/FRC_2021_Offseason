@@ -19,6 +19,6 @@ public class UseClimber extends CommandBase {
 
     @Override
     public void execute() {
-        RobotContainer.climber.getHookUpMotor().set(ControlMode.PercentOutput, power);
+//        RobotContainer.climber.getHookUpMotor().set(ControlMode.PercentOutput, power);
     }
 }

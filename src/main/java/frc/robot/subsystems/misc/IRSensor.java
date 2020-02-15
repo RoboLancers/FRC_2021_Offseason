@@ -5,37 +5,37 @@ import frc.robot.RobotMap;
 
 public class IRSensor {
 
-    private DigitalInput rightIR, leftIR, topIR, bottomIR;
+    private DigitalInput IR2, IR4, IR3, IR1;
 
     public IRSensor(){
 
-        rightIR = new DigitalInput(RobotMap.Sensors.IR.RIGHT_IR_PORT);
-        leftIR = new DigitalInput(RobotMap.Sensors.IR.LEFT_IR_PORT);
-        topIR = new DigitalInput(RobotMap.Sensors.IR.TOP_IR_PORT);
-        bottomIR = new DigitalInput(RobotMap.Sensors.IR.BOTTOM_IR_PORT);
+        IR2 = new DigitalInput(RobotMap.Sensors.IR.SECOND_IR_PORT);
+        IR4 = new DigitalInput(RobotMap.Sensors.IR.FOURTH_IR_PORT);
+        IR3 = new DigitalInput(RobotMap.Sensors.IR.THIRD_IR_PORT);
+        IR1 = new DigitalInput(RobotMap.Sensors.IR.FIRST_IR_PORT);
     }
 
-    public boolean getRightIR(){
-        return rightIR.get();
+    public boolean getIR2(){
+        return IR2.get();
     }
 
-    public boolean getLeftIR(){
-        return leftIR.get();
+    public boolean getIR4(){
+        return IR4.get();
     }
 
-    public boolean getTopIR(){
-        return topIR.get();
+    public boolean getIR3(){
+        return IR3.get();
     }
 
-    public boolean getBottomIR(){
-        return bottomIR.get();
+    public boolean getIR1(){
+        return IR1.get();
     }
 
     public boolean isStorageFull(){
-        return rightIR.get() && topIR.get() && leftIR.get() && bottomIR.get();
+        return IR2.get() && IR3.get() && IR4.get() && IR1.get();
 
     }
     public boolean isThreeBallsIn(){
-        return rightIR.get() && topIR.get();
+        return IR2.get() && IR3.get();
     }
 }

@@ -10,7 +10,7 @@ public class HoldTargetAiming extends InstantCommand {
     double leftPower, rightPower, turningOffset, distanceOffset;
     double turningkP = 0.006;
     double distancekP = 0.02;
-    double allowedDistanceError = 20;
+    double allowedDistanceError = -10;
 
     public HoldTargetAiming(Drivetrain drivetrain, Limelight limelight) {
         this.drivetrain = drivetrain;
@@ -23,8 +23,8 @@ public class HoldTargetAiming extends InstantCommand {
         if (limelight.hasTarget()) {
             turningOffset = limelight.getXOffset();
             distanceOffset = allowedDistanceError - limelight.getYOffset();
-            leftPower = (distanceOffset * distancekP) + (turningOffset * turningkP);
-            rightPower = (distanceOffset * distancekP) - (turningOffset * turningkP);
+            leftPower = (distanceOffset * distancekP) - (turningOffset * turningkP);
+            rightPower = (distanceOffset * distancekP) + (turningOffset * turningkP);
             drivetrain.getLeft().getMaster().set(leftPower);
             drivetrain.getRight().getMaster().set(rightPower);
         }

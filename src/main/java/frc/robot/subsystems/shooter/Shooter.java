@@ -27,6 +27,8 @@ public class Shooter extends SubsystemBase {
         master.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 
         slave.follow(master);
+        slave.setInverted(true);
+        loader.setInverted(true);
 
         pidController = new PIDController(Constants.Shooter.kP, Constants.Shooter.kI, Constants.Shooter.kD);
 
@@ -51,9 +53,9 @@ public class Shooter extends SubsystemBase {
         this.targetVelocity = targetVelocity;
     }
 
-    public void setMotorToVelocity(){
-        pidController.setSetpoint(targetVelocity);
-        master.set(ControlMode.Velocity, inchesPerSecToTicksPer100ms(this.targetVelocity));
+    public void setMotorToVelocity(double target){
+        pidController.setSetpoint(target);
+        master.set(ControlMode.Velocity, inchesPerSecToTicksPer100ms(target));
     }
 
     public void setMotorToTarget(){
@@ -82,13 +84,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void changeShooterSpeed(double speed){
-        if(this.speed <= 0){
-            this.speed = 0;
-        } else if (this.speed >= 1){
-            this.speed = 1;
-        } else {
-            this.speed += speed;
-        }
+        master.set(ControlMode.PercentOutput, speed);
     }
 
     public boolean fastEnough(){

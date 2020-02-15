@@ -14,6 +14,8 @@ public class Intake extends SubsystemBase {
         intake = new TalonSRX(RobotMap.Manipulator.Intake.INTAKE_PORT);
         transfer = new TalonSRX(RobotMap.Manipulator.Intake.INTAKE2_PORT);
 
+        transfer.setInverted(true);
+
         intake.setNeutralMode(NeutralMode.Brake);
         transfer.setNeutralMode(NeutralMode.Brake);
     }
@@ -25,7 +27,7 @@ public class Intake extends SubsystemBase {
     public TalonSRX getTransferMotor() {return transfer;}
 
     public boolean spiked(){
-        return transfer.getSupplyCurrent() > Constants.Shooter.MAX_RPM;
+        return transfer.getSupplyCurrent() > Constants.Intake.MAX_CURRENT;
     }
 //unjam balls, get transfer motor current values, take the highest average, and if motor spikes, revert motors
 }

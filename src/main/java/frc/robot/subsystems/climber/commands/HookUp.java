@@ -20,6 +20,6 @@ public class HookUp extends CommandBase {
     public void execute() {
         hookPower = RobotContainer.manipulatorXboxController.getAxisValue(XboxController.Axis.LEFT_Y);
 
-        climber.getHookUpMotor().set(ControlMode.PercentOutput, hookPower);
+//        climber.getHookUpMotor().set(ControlMode.PercentOutput, hookPower);
     }
 }

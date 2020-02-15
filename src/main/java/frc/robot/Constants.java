@@ -38,7 +38,7 @@ public final class Constants {
     }
 
     public final class Intake {
-        public static final double INTAKE_POWER = 0.5;
+        public static final double INTAKE_POWER = 0.2;
         public static final double MAX_CURRENT = 20;
     }
     public final class Shooter{
@@ -47,7 +47,7 @@ public final class Constants {
         public static final double MAX_RPM = 18370;
         public static final double SHOOTER_RADIUS = 3; //inches
         public static final double ticksPerRev = 4096;
-        public static final double kP = 0;
+        public static final double kP = 0.01;
         public static final double kI = 0;
         public static final double kD = 0;
 

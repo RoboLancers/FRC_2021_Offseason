@@ -50,15 +50,17 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Angle", RobotContainer.gyro.getFusedHeading());
-    RobotContainer.odometry.updateOdometry();
-    SmartDashboard.putNumber("X", RobotContainer.odometry.getPose2d().getTranslation().getX());
-    SmartDashboard.putNumber("Y", RobotContainer.odometry.getPose2d().getTranslation().getY());
+//    SmartDashboard.putNumber("Angle", RobotContainer.gyro.getFusedHeading());
+//    RobotContainer.odometry.updateOdometry();
+//    SmartDashboard.putNumber("X", RobotContainer.odometry.getPose2d().getTranslation().getX());
+//    SmartDashboard.putNumber("Y", RobotContainer.odometry.getPose2d().getTranslation().getY());
     SmartDashboard.putNumber("left encoder", RobotContainer.drivetrain.getLeft().getDistance());
     SmartDashboard.putNumber("right encoder", RobotContainer.drivetrain.getRight().getDistance());
 
-//    SmartDashboard.putNumber("Turning Offset", Limelight.getInstance().getXOffset());
-//    SmartDashboard.putNumber("Distance Offset", Limelight.getInstance().getYOffset());
+    SmartDashboard.putNumber("Turning Offset", RobotContainer.limelight.getXOffset());
+    SmartDashboard.putNumber("Distance Offset", RobotContainer.limelight.getYOffset());
+
+    SmartDashboard.putNumber("Shooter Encoder Velocity", RobotContainer.shooter.getMaster().getSelectedSensorVelocity());
 
 
   }

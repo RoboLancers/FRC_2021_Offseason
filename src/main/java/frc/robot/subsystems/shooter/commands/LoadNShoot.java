@@ -17,8 +17,15 @@ public class LoadNShoot extends CommandBase {
 
     @Override
     public void execute(){
-        shooter.getLoaderMotor().set(ControlMode.PercentOutput, 0.7777);
-        intake.getTransferMotor().set(ControlMode.PercentOutput, 0.7777);
-        intake.getIntakeMotor().set(ControlMode.PercentOutput, 0.7777);
+        shooter.getLoaderMotor().set(ControlMode.PercentOutput, 0.7);
+//        intake.getTransferMotor().set(ControlMode.PercentOutput, 0.7);
+//        intake.getIntakeMotor().set(ControlMode.PercentOutput, 0.7);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        shooter.getLoaderMotor().set(ControlMode.PercentOutput, 0);
+        intake.getIntakeMotor().set(ControlMode.PercentOutput, 0);
+        intake.getTransferMotor().set(ControlMode.PercentOutput, 0);
     }
 }

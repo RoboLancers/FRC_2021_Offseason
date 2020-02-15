@@ -6,11 +6,11 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.misc.IRSensor;
 
-public class AutoStopConveyor2 extends CommandBase {
+public class AutoStopConveyor extends CommandBase {
     private Intake intake;
     private IRSensor irSensor;
 
-    public AutoStopConveyor2(Intake intake) {
+    public AutoStopConveyor(Intake intake) {
         this.intake = intake;
         addRequirements(intake);
     }

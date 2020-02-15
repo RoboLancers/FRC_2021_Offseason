@@ -16,7 +16,7 @@ public class ChangeShooterSpeed extends InstantCommand {
 
     @Override
     public void initialize(){
-        this.shooter.setShooterSpeed(this.speed);
+        this.shooter.changeShooterSpeed(this.speed);
     }
 
 }
