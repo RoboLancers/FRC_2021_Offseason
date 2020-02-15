@@ -33,7 +33,7 @@ public class Trajectories {
     public Trajectory straightForward() {
         return TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(0, 0, new Rotation2d(0)),
-                new Pose2d(3, 0, new Rotation2d(0))),
+                new Pose2d(Units.feetToMeters(3), 0, new Rotation2d(0))),
                 this.config
         );
     }
@@ -41,7 +41,7 @@ public class Trajectories {
     public Trajectory turnRight() {
         return TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(0, 0, new Rotation2d(0)),
-                new Pose2d(6, -3, new Rotation2d(Units.degreesToRadians(-90)))),
+                new Pose2d(Units.feetToMeters(6), Units.feetToMeters(-3), new Rotation2d(Units.degreesToRadians(0)))),
                 this.config
         );
     }
@@ -53,4 +53,30 @@ public class Trajectories {
                 this.config.setReversed(true)
         );
     }
+
+    public Trajectory shootingStartToAimingPosition() {
+        return TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                Constants.Trajectory.SHOOTING_START,
+                new Pose2d(Units.feetToMeters(14.0), Units.feetToMeters(18.5), new Rotation2d(Units.degreesToRadians(0)))),
+                this.config.setReversed(true)
+        );
+    }
+
+    public Trajectory centerStartToAimingPosition() {
+        return TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                Constants.Trajectory.CENTER_START,
+                new Pose2d(Units.feetToMeters(15.0), Units.feetToMeters(15.0), new Rotation2d(Units.degreesToRadians(-20)))),
+                this.config.setReversed(true)
+        );
+    }
+
+    public Trajectory loadingStartToAimingPosition() {
+        return TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                Constants.Trajectory.LOADING_STATION_START,
+                new Pose2d(Units.feetToMeters(16.0), Units.feetToMeters(12.0), new Rotation2d(Units.degreesToRadians(-25)))),
+                this.config.setReversed(true)
+        );
+    }
+
+
 }
