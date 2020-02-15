@@ -7,14 +7,9 @@
 
 package frc.robot;
 
-import frc.robot.autonomous.AutoTargetAiming;
-import frc.robot.autonomous.Autonomous;
-import frc.robot.autonomous.Odometry;
-import frc.robot.autonomous.Trajectories;
+import frc.robot.autonomous.*;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.drivetrain.GearShifter;
-import frc.robot.subsystems.drivetrain.commands.AutoTargetAiming;
-import frc.robot.subsystems.drivetrain.commands.HoldTargetAiming;
 import frc.robot.subsystems.drivetrain.commands.UseDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drivetrain.Drivetrain;
@@ -80,7 +75,7 @@ public class RobotContainer {
 
     // Configure the button bindings
     drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, driverXboxController));
-    intakePivot.setDefaultCommand(new AutoIntakePivot(intakePivot, irsensor));
+    intakePivot.setDefaultCommand(new AutoIntakePivot(intakePivot));
     configureButtonBindings();
 //    this.shooter = new Shooter();
   }
@@ -100,6 +95,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new Autonomous(odometry, drivetrain, trajectories.straightForward()).andThen(()-> drivetrain.setVoltage(0,0));
+    return new Ramsete(odometry, drivetrain, trajectories.straightForward()).andThen(()-> drivetrain.setVoltage(0,0));
   }
 }
