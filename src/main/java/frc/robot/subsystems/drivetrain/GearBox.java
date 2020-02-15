@@ -37,12 +37,12 @@ public class GearBox {
         master.getEncoder().setPosition(0);
     }
 
-    public double getEncoderCount(){
+    public double getEncoderRevolutions(){
         return master.getEncoder().getPosition();
     }
 
     public double getDistance() {
-        return (getEncoderCount() / Constants.Robot.ENCODER_COUNT) * Constants.Robot.GEAR_RATIO * (Constants.Robot.WHEEL_DIAMETER * Math.PI);
+        return (getEncoderRevolutions() / Constants.Robot.GEAR_RATIO) * Constants.Robot.WHEEL_CIRCUMFERENCE;
     }
 
     public double getVelocity() {
