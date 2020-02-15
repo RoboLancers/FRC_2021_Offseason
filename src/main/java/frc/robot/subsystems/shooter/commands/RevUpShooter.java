@@ -6,23 +6,25 @@ import frc.robot.subsystems.shooter.Shooter;
 /**SHOULD NOT REQUIRE A TARGET RPM*/
 public class RevUpShooter extends CommandBase {
     private final Shooter shooter;
-    private double targetRPM;
+    private double targetRPM, targetVelocity;
 
-    public RevUpShooter(Shooter shooter, double targetRPM){
+    public RevUpShooter(Shooter shooter, double targetVelocity){
         this.shooter = shooter;
-        this.targetRPM = targetRPM;
+        this.targetVelocity = targetVelocity;
         addRequirements(shooter);
     }
 
     @Override
     public void initialize(){
         shooter.resetPID();
-        shooter.setTargetRPM(targetRPM);
+        //shooter.setTargetRPM(targetRPM);
+        shooter.setTargetInchesPerSec(targetVelocity);
+
     }
 
     @Override
     public void execute(){
-        shooter.setMotorToTarget();
+        shooter.setMotorToVelocity();
     }
 
     @Override
