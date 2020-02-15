@@ -30,11 +30,11 @@ public class Drivetrain extends SubsystemBase{
     }
 
     public double getLeftEncoder(){
-        return left.getEncoderCount();
+        return left.getEncoderRevolutions();
     }
 
     public double getRightEncoder(){
-        return right.getEncoderCount();
+        return right.getEncoderRevolutions();
     }
 
     public void setVoltage(double leftVoltage, double rightVoltage) {
