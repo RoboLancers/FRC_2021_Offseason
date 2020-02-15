@@ -21,6 +21,12 @@ public class UseDrivetrain extends CommandBase {
         throttle = xboxController.getAxisValue(XboxController.Axis.LEFT_Y);
         turn = xboxController.getAxisValue(XboxController.Axis.RIGHT_X);
 
+        if(turn < 0){
+            turn = -(turn * turn);
+        }else{
+            turn = turn * turn;
+        }
+
         leftPower = throttle + turn;
         rightPower = throttle - turn;
 
