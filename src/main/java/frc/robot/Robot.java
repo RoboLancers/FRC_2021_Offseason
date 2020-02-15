@@ -8,12 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.misc.Gyro;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -55,8 +52,10 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Angle", RobotContainer.gyro.getFusedHeading());
     RobotContainer.odometry.updateOdometry();
-    SmartDashboard.putNumber("X", RobotContainer.odometry.getPose2dFeet().getTranslation().getX());
-    SmartDashboard.putNumber("Y", RobotContainer.odometry.getPose2dFeet().getTranslation().getY());
+    SmartDashboard.putNumber("X", RobotContainer.odometry.getPose2d().getTranslation().getX());
+    SmartDashboard.putNumber("Y", RobotContainer.odometry.getPose2d().getTranslation().getY());
+    SmartDashboard.putNumber("left encoder", RobotContainer.drivetrain.getLeft().getDistance());
+    SmartDashboard.putNumber("right encoder", RobotContainer.drivetrain.getRight().getDistance());
 
 //    SmartDashboard.putNumber("Turning Offset", Limelight.getInstance().getXOffset());
 //    SmartDashboard.putNumber("Distance Offset", Limelight.getInstance().getYOffset());
@@ -97,8 +96,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    RobotContainer.odometry.resetOdometry(new Pose2d(0,0,new Rotation2d(0)));
-    RobotContainer.gyro.resetHeading();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
