@@ -9,22 +9,21 @@ public class RevUpShooter extends CommandBase {
     private final Shooter shooter;
     private double targetRPM, targetVelocity;
 
-    public RevUpShooter(Shooter shooter, double targetVelocity){
+    public RevUpShooter(Shooter shooter, double targetRPM){
         this.shooter = shooter;
-        this.targetVelocity = targetVelocity;
+        this.targetRPM = targetRPM;
         addRequirements(shooter);
     }
 
     @Override
     public void initialize(){
         shooter.resetPID();
-        //shooter.setTargetRPM(targetRPM);
+        shooter.setTargetRPM(targetRPM);
     }
 
     @Override
     public void execute(){
-        shooter.setMotorToVelocity(targetVelocity);
-        DriverStation.reportError("this runs", true);
+        shooter.setMotorToTarget();
     }
 
 

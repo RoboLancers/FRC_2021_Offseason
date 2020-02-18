@@ -14,12 +14,12 @@ public class HookUp extends CommandBase {
 
     public HookUp(){
         addRequirements(RobotContainer.climber);
+        climber = RobotContainer.climber;
     }
 
     @Override
     public void execute() {
         hookPower = RobotContainer.manipulatorXboxController.getAxisValue(XboxController.Axis.LEFT_Y);
-
-//        climber.getHookUpMotor().set(ControlMode.PercentOutput, hookPower);
+        climber.getHookUpMotor().set(ControlMode.PercentOutput, hookPower);
     }
 }

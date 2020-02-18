@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.util.Units;
 public final class Constants {
     public final class Robot{
         public static final int ENCODER_COUNT = 42;
-        public static final double RAMP_RATE = 0.30;
+        public static final double RAMP_RATE = 0.5;
         public static final double GEAR_RATIO = 10.75;
         public static final double WHEEL_DIAMETER = 0.1524;
         public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
@@ -72,10 +72,10 @@ public final class Constants {
         public static final double kBETA = 2.0;
         public static final double kZETA = 0.7;
 
-        private static final double START_X = 11.0;
-        private static final double LOADING_STATION_START_Y = 0;
-        private static final double CENTER_START_Y = 12.0;
-        private static final double SHOOTING_START_Y = 18.5;
+        private static final double START_X = Units.feetToMeters(11.0);
+        private static final double LOADING_STATION_START_Y = Units.feetToMeters(0);
+        private static final double CENTER_START_Y = Units.feetToMeters(12.0);
+        private static final double SHOOTING_START_Y = Units.feetToMeters(18.5);
 
         public static final Pose2d LOADING_STATION_START = new Pose2d(START_X, LOADING_STATION_START_Y, new Rotation2d(Units.degreesToRadians(0)));
         public static final Pose2d CENTER_START = new Pose2d(START_X, CENTER_START_Y, new Rotation2d(Units.degreesToRadians(0)));
