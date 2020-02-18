@@ -1,6 +1,7 @@
 package frc.robot.subsystems.drivetrain.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Constants;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.misc.Limelight;
 
@@ -23,8 +24,8 @@ public class HoldTargetAiming extends InstantCommand {
         if (limelight.hasTarget()) {
             turningOffset = limelight.getXOffset();
             distanceOffset = allowedDistanceError - limelight.getYOffset();
-            leftPower = (distanceOffset * distancekP) - (turningOffset * turningkP);
-            rightPower = (distanceOffset * distancekP) + (turningOffset * turningkP);
+            leftPower = (distanceOffset * distancekP) - (turningOffset * turningkP) + Constants.Trajectory.kSTATIC;
+            rightPower = (distanceOffset * distancekP) + (turningOffset * turningkP) + Constants.Trajectory.kSTATIC;
             drivetrain.getLeft().getMaster().set(leftPower);
             drivetrain.getRight().getMaster().set(rightPower);
         }

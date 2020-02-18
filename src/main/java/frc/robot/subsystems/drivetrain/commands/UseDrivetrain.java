@@ -27,8 +27,8 @@ public class UseDrivetrain extends CommandBase {
             turn = turn * turn;
         }
 
-        leftPower = throttle + turn;
-        rightPower = throttle - turn;
+        leftPower = throttle - turn;
+        rightPower = throttle + turn;
 
         drivetrain.getLeft().getMaster().set(leftPower);
         drivetrain.getRight().getMaster().set(rightPower);

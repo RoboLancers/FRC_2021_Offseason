@@ -22,4 +22,9 @@ public class HookUp extends CommandBase {
         hookPower = RobotContainer.manipulatorXboxController.getAxisValue(XboxController.Axis.LEFT_Y);
         climber.getHookUpMotor().set(ControlMode.PercentOutput, hookPower);
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        climber.getHookUpMotor().set(ControlMode.PercentOutput, 0.25);
+    }
 }
