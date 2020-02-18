@@ -12,8 +12,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 public class Ramsete extends RamseteCommand{
-    private Pose2d startPostion;
-    public Ramsete(Odometry odometry, Drivetrain drivetrain, Trajectory trajectory, Pose2d startPosition) {
+    public Ramsete(Odometry odometry, Drivetrain drivetrain, Trajectory trajectory) {
         super(trajectory,
                 odometry::getPose2d,
                 new RamseteController(Constants.Trajectory.kBETA, Constants.Trajectory.kZETA),
@@ -26,16 +25,5 @@ public class Ramsete extends RamseteCommand{
                 new PIDController(0.0, 0, 0),
                 drivetrain::setVoltage,
                 drivetrain);
-        this.startPostion = startPosition;
-    }
-
-    @Override
-    public void initialize() {
-        super.initialize();
-
-        RobotContainer.drivetrain.getLeft().resetEncoder();
-        RobotContainer.drivetrain.getRight().resetEncoder();
-        RobotContainer.gyro.resetHeading();
-        RobotContainer.odometry.resetOdometry(startPostion);
     }
 }

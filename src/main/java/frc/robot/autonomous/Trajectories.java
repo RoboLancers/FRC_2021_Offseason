@@ -78,5 +78,13 @@ public class Trajectories {
         );
     }
 
+    public Trajectory pickUpThreePowerCells(Pose2d currentPose) {
+        return TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                currentPose,
+                new Pose2d(Units.feetToMeters(19.0), Units.feetToMeters(24.5), new Rotation2d(Units.degreesToRadians(0)))),
+                this.config.setReversed(true)
+        );
+    }
+
 
 }
