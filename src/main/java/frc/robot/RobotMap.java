@@ -20,8 +20,8 @@ public class RobotMap {
         }
         public static final class Spinner {
             public static final int SPINNER_PORT = 4;
-            public static final int SPINNER_PIVOT_PORT_DOWN = 10;
-            public static final int SPINNER_PIVOT_PORT_UP = 11;
+            public static final int SPINNER_PIVOT_PORT_DOWN = 0;
+            public static final int SPINNER_PIVOT_PORT_UP = 1;
         }
         public static final class Intake {
             public static final int INTAKE_PORT = 6;
