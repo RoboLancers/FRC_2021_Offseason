@@ -4,9 +4,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.autonomous.AutoTargetAiming;
 import frc.robot.autonomous.Odometry;
 import frc.robot.autonomous.Trajectories;
-import frc.robot.subsystems.climber.Climber;
-import frc.robot.subsystems.climber.commands.HookUp;
-import frc.robot.subsystems.climber.commands.PullUp;
+import frc.robot.subsystems.climber.HookUp;
+import frc.robot.subsystems.climber.PullUp;
+import frc.robot.subsystems.climber.commands.UseHookUp;
+import frc.robot.subsystems.climber.commands.UsePullUp;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.drivetrain.GearShifter;
 import frc.robot.subsystems.drivetrain.commands.HoldTargetAiming;
@@ -28,7 +29,8 @@ public class RobotContainer {
   public static NetworkInterface networkInterface;
 
   public static Drivetrain drivetrain;
-  public static Climber climber;
+  public static PullUp pullUp;
+  public static HookUp hookUp;
   public static Spinner spinner;
   public static Intake intake;
   public static IntakePivot intakePivot;
@@ -63,7 +65,9 @@ public class RobotContainer {
     intake = new Intake();
     shooter = new Shooter();
     //    irsensor = new IRSensor();
-    climber = new Climber();
+    pullUp = new PullUp();
+    hookUp = new HookUp();
+
 
 //    colorSensor = new ColorSensor();
     //    spinner = new Spinner();
@@ -72,7 +76,8 @@ public class RobotContainer {
 
     // Configure the button bindings
     drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, driverXboxController));
-    climber.setDefaultCommand(new HookUp());
+    //pullUp.setDefaultCommand(new UseHookUp());
+    pullUp.setDefaultCommand(new UsePullUp());
     configureButtonBindings();
 //    this.shooter = new Shooter();
   }
@@ -87,7 +92,7 @@ public class RobotContainer {
     driverXboxController.whileHeld(XboxController.Button.A, new LoadNShoot(shooter, intake));
     driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new HoldTargetAiming(drivetrain, limelight));
     driverXboxController.whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter));
-    driverXboxController.whileHeld(XboxController.Button.Y, new PullUp());
+    driverXboxController.whileHeld(XboxController.Button.Y, new UsePullUp());
 //    driverXboxController.whileHeld(XboxController.Button.X, new UseIntake());
 
 
