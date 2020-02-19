@@ -42,4 +42,7 @@ public class Drivetrain extends SubsystemBase{
         right.setVoltage(rightVoltage);
     }
 
+    public void stop(){
+        setVoltage(0, 0);
+    }
 }

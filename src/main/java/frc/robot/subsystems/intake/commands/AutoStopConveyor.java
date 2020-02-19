@@ -2,7 +2,6 @@ package frc.robot.subsystems.intake.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.misc.IRSensor;
 
@@ -10,8 +9,10 @@ public class AutoStopConveyor extends CommandBase {
     private Intake intake;
     private IRSensor irSensor;
 
-    public AutoStopConveyor(Intake intake) {
+    public AutoStopConveyor(Intake intake, IRSensor irSensor) {
         this.intake = intake;
+        this.irSensor = irSensor;
+
         addRequirements(intake);
     }
 

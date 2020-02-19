@@ -17,11 +17,7 @@ public class Gyro {
     }
 
     public double getFusedHeading() {
-        double angle = pigeonIMU.getFusedHeading();
-//        while(Math.abs(angle) > 180) {
-//            angle = angle > 0 ? angle - 360 : angle + 360;
-//        }
-        return angle;
+        return Math.IEEEremainder(pigeonIMU.getFusedHeading(), 360);
     }
 
     public double getYaw() {

@@ -2,6 +2,7 @@ package frc.robot.subsystems.drivetrain.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.utilities.Utilities;
 import frc.robot.utilities.XboxController;
 
 public class UseDrivetrain extends CommandBase {
@@ -17,21 +18,15 @@ public class UseDrivetrain extends CommandBase {
 
     @Override
     public void execute() {
-
         throttle = xboxController.getAxisValue(XboxController.Axis.LEFT_Y);
         turn = xboxController.getAxisValue(XboxController.Axis.RIGHT_X);
 
-        if(turn < 0){
-            turn = -(turn * turn);
-        }else{
-            turn = turn * turn;
-        }
 
         leftPower = throttle - turn;
         rightPower = throttle + turn;
 
-        drivetrain.getLeft().getMaster().set(leftPower);
-        drivetrain.getRight().getMaster().set(rightPower);
+        drivetrain.getLeft().getMaster().set(Utilities.squareKeepSign(leftPower));
+        drivetrain.getRight().getMaster().set(Utilities.squareKeepSign(rightPower));
     }
 
     @Override

@@ -1,25 +1,20 @@
 package frc.robot.subsystems.spinner.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.spinner.SpinnerPivot;
 import frc.robot.subsystems.spinner.enums.SpinnerPivotState;
-
-import static frc.robot.RobotContainer.spinnerPivot;
 
 /**UNFINISHED CODE*/
 public class ToggleSpinnerPivot extends InstantCommand {
-    private SpinnerPivotState spinnerPivotState;
+    private SpinnerPivot spinnerPivot;
 
-    public ToggleSpinnerPivot(){
+    public ToggleSpinnerPivot(SpinnerPivot spinnerPivot){
+        this.spinnerPivot = spinnerPivot;
         addRequirements(spinnerPivot);
     }
 
     @Override
     public void initialize(){
-
-        if(spinnerPivot.getSpinnerPivot() == spinnerPivotState.DOWN){
-            spinnerPivot.setSpinnerPivot(SpinnerPivotState.UP);
-        }else{
-
-        }
+        spinnerPivot.setSpinnerPivot(spinnerPivot.getSpinnerPivot() == SpinnerPivotState.UP ? SpinnerPivotState.DOWN : SpinnerPivotState.UP);
     }
 }

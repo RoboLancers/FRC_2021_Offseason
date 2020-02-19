@@ -9,28 +9,29 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.misc.Gyro;
 import frc.robot.subsystems.misc.Limelight;
+import frc.robot.subsystems.shooter.Loader;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.commands.LoadNShoot;
 import frc.robot.subsystems.shooter.commands.RevUpShooter;
 
 public class ShootThreePowerCells extends SequentialCommandGroup {
-    public ShootThreePowerCells(Drivetrain drivetrain, Gyro gyro, Shooter shooter, Intake intake, Odometry odometry, Limelight limelight, StartingPosition startingPosition) {
-        new InitializeCommand(drivetrain, odometry, gyro, startingPosition);
+    public ShootThreePowerCells(Drivetrain drivetrain, Gyro gyro, Loader loader, Shooter shooter, Intake intake, Odometry odometry, Limelight limelight, StartingPosition startingPosition, Trajectories trajectories) {
+        addCommands(new InitializeCommand(drivetrain, odometry, gyro, startingPosition));
         switch (startingPosition) {
             case LOADING_STATION:
-                new Ramsete(odometry, drivetrain, RobotContainer.trajectories.loadingStartToAimingPosition());
+                addCommands(new Ramsete(odometry, drivetrain, trajectories.loadingStartToAimingPosition()));
                 break;
             case CENTER:
-                new Ramsete(odometry, drivetrain, RobotContainer.trajectories.centerStartToAimingPosition());
+                addCommands(new Ramsete(odometry, drivetrain, trajectories.centerStartToAimingPosition()));
                 break;
             case SHOOTING:
-                new Ramsete(odometry, drivetrain, RobotContainer.trajectories.shootingStartToAimingPosition());
+                addCommands(new Ramsete(odometry, drivetrain, trajectories.shootingStartToAimingPosition()));
                 break;
         }
-        new ParallelCommandGroup(
+        addCommands(new ParallelCommandGroup(
                 new RevUpShooter(shooter, 54316351),
                 new AutoTargetAiming(drivetrain, limelight)
-        );
-        new LoadNShoot(shooter, intake);
+        ));
+        addCommands(new LoadNShoot(loader, intake));
     }
 }

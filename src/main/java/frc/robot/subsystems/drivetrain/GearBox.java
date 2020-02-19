@@ -46,16 +46,10 @@ public class GearBox {
     }
 
     public double getVelocity() {
-        double velocity = Utilities.RPMtoRPS(master.getEncoder().getVelocity() * Constants.Robot.WHEEL_CIRCUMFERENCE);
-        return velocity;
+        return Utilities.RPMtoRPS(master.getEncoder().getVelocity() * Constants.Robot.WHEEL_CIRCUMFERENCE);
     }
 
     public void setVoltage(double voltage) {
         master.setVoltage(voltage);
-    }
-
-    public void restoreFactoryDefaults() {
-        master.restoreFactoryDefaults();
-        slave1.restoreFactoryDefaults();
     }
 }

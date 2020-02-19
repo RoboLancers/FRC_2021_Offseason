@@ -29,5 +29,4 @@ public class Intake extends SubsystemBase {
     public boolean spiked(){
         return transfer.getSupplyCurrent() > Constants.Intake.MAX_CURRENT;
     }
-//unjam balls, get transfer motor current values, take the highest average, and if motor spikes, revert motors
 }

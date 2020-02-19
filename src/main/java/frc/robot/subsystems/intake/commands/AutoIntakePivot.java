@@ -8,14 +8,16 @@ import frc.robot.subsystems.misc.IRSensor;
 public class AutoIntakePivot extends CommandBase {
     private IntakePivot intakePivot;
     private IRSensor irSensor;
-    public AutoIntakePivot(IntakePivot intakePivot){
-    this.intakePivot = intakePivot;
-    addRequirements(intakePivot);
+
+    public AutoIntakePivot(IntakePivot intakePivot, IRSensor irSensor) {
+        this.intakePivot = intakePivot;
+        this.irSensor = irSensor;
+        addRequirements(intakePivot);
     }
 
     @Override
     public void execute() {
-        if(irSensor.isStorageFull()){
+        if (irSensor.isStorageFull()) {
             intakePivot.set(IntakePivotState.INTAKEUP);
         } else {
             intakePivot.set(IntakePivotState.INTAKEDOWN);
@@ -23,5 +25,7 @@ public class AutoIntakePivot extends CommandBase {
     }
 
     @Override
-    public boolean isFinished() { return false; }
+    public boolean isFinished() {
+        return false;
+    }
 }

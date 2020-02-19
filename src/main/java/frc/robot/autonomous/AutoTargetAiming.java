@@ -34,9 +34,6 @@ public class AutoTargetAiming extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(limelight.hasTarget()) {
-            return Math.abs(turningOffset) < TURNING_TARGET && Math.abs(distanceOffset) < ALLOWED_DISTANCE_ERROR;
-        };
-        return false;
+        return limelight.hasTarget() &&  Math.abs(turningOffset) < TURNING_TARGET && Math.abs(distanceOffset) < ALLOWED_DISTANCE_ERROR;
     }
 }

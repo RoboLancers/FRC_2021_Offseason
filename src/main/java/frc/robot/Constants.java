@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public final class Robot{
+    public static final class Robot{
         public static final int ENCODER_COUNT = 42;
         public static final double RAMP_RATE = 0.5;
         public static final double GEAR_RATIO = 10.75;
@@ -37,23 +37,28 @@ public final class Constants {
         public static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
     }
 
-    public final class Intake {
+    public static final class Intake {
         public static final double INTAKE_POWER = 0.2;
         public static final double MAX_CURRENT = 20;
     }
-    public final class Shooter{
-        public static final double SHOOTER_RPM_TOLERANCE = 5;
-        public static final double CONVERSION_BOY = (600.0/409600) / 3;
+    public static final class Shooter{
+        public static final double SHOOTER_RPM_TOLERANCE = 100;
+        public static final double ticksPerRev = 4096;
+        public static final double CONVERSION_BOY = (600.0 / (ticksPerRev * 100)) / 3;
         public static final double MAX_RPM = 18370;
         public static final double SHOOTER_RADIUS = 3; //inches
-        public static final double ticksPerRev = 4096;
         public static final double kP = 0.01;
         public static final double kI = 0;
         public static final double kD = 0;
-
     }
 
-    public final class Odometry{
+    public static final class Climber{
+        public static final double K_GRAVITY = 0.2;
+        public static final double PULLER_RAMP_RATE = 0.30;
+        public static final double HOOKER_RAMP_RATE = 0.3;
+    }
+
+    public static final class Odometry{
         public static final double MAX_VELOCITY = 3.9624;
         public static final double MAX_VELOCITY_SIDE = 0;
         public static final double ANGULAR_VELOCITY = 0;
@@ -73,9 +78,9 @@ public final class Constants {
         public static final double kZETA = 0.7;
 
         private static final double START_X = Units.feetToMeters(11.0);
-        private static final double LOADING_STATION_START_Y = Units.feetToMeters(0);
-        private static final double CENTER_START_Y = Units.feetToMeters(12.0);
-        private static final double SHOOTING_START_Y = Units.feetToMeters(18.5);
+        private static final double LOADING_STATION_START_Y = Units.feetToMeters(6);
+        private static final double CENTER_START_Y = Units.feetToMeters(11);
+        private static final double SHOOTING_START_Y = Units.feetToMeters(17);
 
         public static final Pose2d LOADING_STATION_START = new Pose2d(START_X, LOADING_STATION_START_Y, new Rotation2d(Units.degreesToRadians(0)));
         public static final Pose2d CENTER_START = new Pose2d(START_X, CENTER_START_Y, new Rotation2d(Units.degreesToRadians(0)));

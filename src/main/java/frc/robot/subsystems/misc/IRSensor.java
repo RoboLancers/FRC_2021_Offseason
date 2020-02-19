@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.RobotMap;
 
 public class IRSensor {
-
     private DigitalInput IR2, IR4, IR3, IR1;
 
     public IRSensor(){

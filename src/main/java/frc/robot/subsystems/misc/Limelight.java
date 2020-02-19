@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 
 public class Limelight implements Subsystem {
     NetworkTable table;
-    private static Limelight instance;
     private double target, x, y, area;
 
     public Limelight() {
@@ -30,22 +29,18 @@ public class Limelight implements Subsystem {
     }
 
     public boolean hasTarget() {
-        target = table.getEntry("tv").getDouble(0.0);
-        return target == 1.0;
+        return table.getEntry("tv").getDouble(0.0) == 1.0;
     }
 
     public double getXOffset() {
-        x = table.getEntry("tx").getDouble(0.0);
-        return x;
+        return table.getEntry("tx").getDouble(0.0);
     }
 
     public double getYOffset() {
-        y = table.getEntry("ty").getDouble(0.0);
-        return y;
+        return table.getEntry("ty").getDouble(0.0);
     }
 
     public double getArea() {
-        area = table.getEntry("ta").getDouble(0.0);
-        return area;
+        return table.getEntry("ta").getDouble(0.0);
     }
 }

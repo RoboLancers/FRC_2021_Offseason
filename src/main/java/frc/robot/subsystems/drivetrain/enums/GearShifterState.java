@@ -7,8 +7,11 @@ public enum GearShifterState {
 
     private DoubleSolenoid.Value value;
 
-    GearShifterState(DoubleSolenoid.Value value){this.value = value;}
-
-    public DoubleSolenoid.Value getValue(){return value;}
-
+    GearShifterState(DoubleSolenoid.Value value) {
+        this.value = value;
     }
+
+    public DoubleSolenoid.Value getValue() {
+        return value;
+    }
+}

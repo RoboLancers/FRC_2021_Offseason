@@ -1,39 +1,38 @@
 package frc.robot.subsystems.shooter.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.shooter.Shooter;
 
 /**SHOULD NOT REQUIRE A TARGET RPM*/
 public class RevUpShooter extends CommandBase {
     private final Shooter shooter;
-    private double targetRPM, targetVelocity;
+    private final PIDController pidController;
+    private double targetRPM;
 
     public RevUpShooter(Shooter shooter, double targetRPM){
         this.shooter = shooter;
         this.targetRPM = targetRPM;
+        this.pidController = shooter.getPidController();
+
         addRequirements(shooter);
     }
 
     @Override
     public void initialize(){
-        shooter.resetPID();
-        shooter.setTargetRPM(targetRPM);
+        pidController.reset();
+        pidController.setSetpoint(targetRPM);
     }
 
     @Override
     public void execute(){
-        shooter.setMotorToTarget();
+        shooter.getMaster().set(ControlMode.PercentOutput, pidController.calculate(shooter.getMaster().getSelectedSensorVelocity() * Constants.Shooter.CONVERSION_BOY));
     }
-
 
     @Override
     public boolean isFinished(){
-//        return shooter.fastEnough();
-        return false;
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        shooter.setTargetInchesPerSec(0);
+        return pidController.atSetpoint();
     }
 }

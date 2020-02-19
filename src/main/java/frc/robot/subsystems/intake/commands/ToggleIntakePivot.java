@@ -11,7 +11,7 @@ public class ToggleIntakePivot extends InstantCommand {
     private final IntakePivot intakePivot;
     private IRSensor irSensor;
 
-    public ToggleIntakePivot(final IntakePivot intakePivot ){
+    public ToggleIntakePivot(final IntakePivot intakePivot){
         this.intakePivot = intakePivot;
         addRequirements(intakePivot);
     }
