@@ -48,6 +48,7 @@ public class RobotContainer {
     public Limelight limelight;
     public ColorSensor colorSensor;
     public IRSensor irsensor;
+    public Camera camera;
     public Odometry odometry;
     public Trajectories trajectories;
 
@@ -77,6 +78,7 @@ public class RobotContainer {
         puller = new Puller();
 
         colorSensor = new ColorSensor();
+        camera = new Camera();
         spinner = new Spinner();
         spinnerPivot = new SpinnerPivot();
 
@@ -93,10 +95,10 @@ public class RobotContainer {
     }
 
     private void configureButtonBindings() {
-        driverXboxController.whileHeld(XboxController.Trigger.RIGHT_TRIGGER,
-                new RevUpShooter(shooter, 50)
-                        .alongWith(new AutoTargetAiming(drivetrain, limelight))
-                        .andThen(new LoadNShoot(loader, intake)));
+//        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER,
+//                new RevUpShooter(shooter, 50)
+//                        .alongWith(new AutoTargetAiming(drivetrain, limelight))
+//                        .andThen(new LoadNShoot(loader, intake)));
 
         driverXboxController.whileHeld(XboxController.Button.A, new LoadNShoot(loader, intake));
         driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new HoldTargetAiming(drivetrain, limelight));
