@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.autonomous.AutoTargetAiming;
@@ -17,15 +18,16 @@ import frc.robot.subsystems.drivetrain.commands.ToggleGearShifter;
 import frc.robot.subsystems.drivetrain.commands.UseDrivetrain;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakePivot;
-import frc.robot.subsystems.intake.commands.AutoIntakePivot;
-import frc.robot.subsystems.intake.commands.AutoStopConveyor;
+import frc.robot.subsystems.intake.commands.*;
 import frc.robot.subsystems.misc.*;
 import frc.robot.subsystems.shooter.Loader;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.commands.LoadNShoot;
 import frc.robot.subsystems.shooter.commands.RevUpShooter;
+import frc.robot.subsystems.shooter.commands.UseLoaderMotor;
 import frc.robot.subsystems.spinner.Spinner;
 import frc.robot.subsystems.spinner.SpinnerPivot;
+import frc.robot.utilities.FlightController;
 import frc.robot.utilities.XboxController;
 
 public class RobotContainer {
@@ -56,6 +58,7 @@ public class RobotContainer {
 
     public static XboxController driverXboxController = new XboxController(0, 0.2);
     public static XboxController manipulatorXboxController = new XboxController(1, 0.2);
+    public static FlightController flightController = new FlightController(0,0.2);
 
 //  private final Shooter shooter;
 
@@ -104,6 +107,22 @@ public class RobotContainer {
         driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new HoldTargetAiming(drivetrain, limelight));
         driverXboxController.whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter));
 //        driverXboxController.whileHeld(XboxController.Button.X, new UseIntake());
+
+        manipulatorXboxController.toggleWhenPressed(XboxController.Button.X, new ToggleIntakePivot(intakePivot));
+        manipulatorXboxController.toggleWhenPressed(XboxController.Button.B, new UseIntake(intake, 1, 1));
+
+        //Only intake motor
+        manipulatorXboxController.toggleWhenPressed(XboxController.Button.A, new UseIntake(intake, 1,0));
+        manipulatorXboxController.toggleWhenPressed(XboxController.Button.Y, new UseIntake(intake, -1, 0));
+
+        //Only transfer motor
+        manipulatorXboxController.toggleWhenPressed(XboxController.Button.LEFT_BUMPER, new UseIntake(intake, 0,1));
+        manipulatorXboxController.toggleWhenPressed(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 0,-1));
+
+        //Only loader motor
+        manipulatorXboxController.toggleWhenPressed(XboxController.Trigger.LEFT_TRIGGER, new UseLoaderMotor(loader, 1));
+        manipulatorXboxController.toggleWhenPressed(XboxController.Trigger.RIGHT_TRIGGER, new UseLoaderMotor(loader, -1));
+
     }
 
     public Command getAutonomousCommand() {
