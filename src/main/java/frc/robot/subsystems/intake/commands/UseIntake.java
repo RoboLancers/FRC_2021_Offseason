@@ -7,18 +7,19 @@ import frc.robot.subsystems.intake.Intake;
 
 public class UseIntake extends CommandBase {
     private Intake intake;
-    private double intakePower;
+    private double intakeMotorPower, transferMotorPower;
 
-    public UseIntake(Intake intake, double intakePower){
-        this.intakePower = intakePower;
+    public UseIntake(Intake intake, double intakeMotorPower, double transferMotorPower){
+        this.intakeMotorPower = intakeMotorPower;
+        this.transferMotorPower = transferMotorPower;
         addRequirements(intake);
         this.intake = intake;
     }
 
     @Override
     public void execute(){
-        intake.getIntakeMotor().set(ControlMode.PercentOutput, intakePower);
-        intake.getTransferMotor().set(ControlMode.PercentOutput, intakePower);
+        intake.getIntakeMotor().set(ControlMode.PercentOutput, intakeMotorPower);
+        intake.getTransferMotor().set(ControlMode.PercentOutput, transferMotorPower);
     }
 
     @Override
