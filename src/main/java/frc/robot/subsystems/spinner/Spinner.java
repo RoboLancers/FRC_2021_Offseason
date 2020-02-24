@@ -14,7 +14,7 @@ public class Spinner extends SubsystemBase {
         spinner.setNeutralMode(NeutralMode.Brake);
     }
 
-    public void set(int power) {
+    public void set(double power) {
         spinner.set(ControlMode.PercentOutput, power);
     }
 

@@ -10,10 +10,12 @@ public class UseSpinner extends CommandBase {
 
     public UseSpinner(Spinner spinner, double spinnerPower) {
         addRequirements(spinner);
+        this.spinnerPower = spinnerPower;
+        this.spinner = spinner;
     }
 
     @Override
     public void execute() {
-
+        spinner.set(spinnerPower);
     }
 }
