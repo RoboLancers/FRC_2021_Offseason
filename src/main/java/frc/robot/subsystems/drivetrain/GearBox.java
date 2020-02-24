@@ -18,13 +18,17 @@ public class GearBox {
         slave1.restoreFactoryDefaults();
         slave2.restoreFactoryDefaults();
 
+        master.getEncoder();
+        slave1.getEncoder();
+        slave2.getEncoder();
+
         slave1.follow(master);
         slave2.follow(master);
 
         master.setOpenLoopRampRate(Constants.Robot.RAMP_RATE);
         slave1.setOpenLoopRampRate(Constants.Robot.RAMP_RATE);
 
-        if(side == GearBoxSides.LEFT){
+        if(side == GearBoxSides.RIGHT){
            master.setInverted(true);
         }
     }

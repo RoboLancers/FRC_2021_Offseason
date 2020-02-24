@@ -23,7 +23,7 @@ public class InitializeCommand extends InstantCommand {
     public void execute() {
         drivetrain.getLeft().resetEncoder();
         drivetrain.getRight().resetEncoder();
-        gyro.resetHeading();
+        gyro.setHeading(180);
         odometry.resetOdometry(startingPosition.getPose2d());
     }
 }

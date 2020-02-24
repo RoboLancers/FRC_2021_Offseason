@@ -38,4 +38,8 @@ public class Gyro {
     public void resetHeading() {
         pigeonIMU.setFusedHeading(0);
     }
+
+    public void setHeading(double degree) {
+        pigeonIMU.setFusedHeading(degree);
+    }
 }

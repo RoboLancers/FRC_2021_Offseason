@@ -1,6 +1,7 @@
 package frc.robot.subsystems.climber.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -19,6 +20,12 @@ public class HookUp extends CommandBase {
 
     @Override
     public void execute() {
-        hooker.set(RobotContainer.manipulatorXboxController.getAxisValue(XboxController.Axis.LEFT_Y) + Constants.Climber.K_GRAVITY);
+//        DriverStation.getInstance().getMatchTime();
+        double power = RobotContainer.manipulatorXboxController.getAxisValue(XboxController.Axis.LEFT_Y) / 2;
+        if (power >= 0) {
+            hooker.set(power);
+        } else if (power <= 0){
+            hooker.set(power / 2);
+        }
     }
 }

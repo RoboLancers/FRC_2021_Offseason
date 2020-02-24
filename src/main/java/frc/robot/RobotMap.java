@@ -16,10 +16,10 @@ public class RobotMap {
     public static final class Manipulator{
         public static final class Climber {
             public static final int NEO_PORT = 7;
-            public static final int TALONSRX_PORT = 0;
+            public static final int TALONSRX_PORT = 5;
         }
         public static final class Spinner {
-            public static final int SPINNER_PORT = 4;
+            public static final int SPINNER_PORT = 9;
             public static final int SPINNER_PIVOT_PORT_DOWN = 0;
             public static final int SPINNER_PIVOT_PORT_UP = 1;
         }

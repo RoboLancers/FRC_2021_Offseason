@@ -12,6 +12,7 @@ public class Hooker extends SubsystemBase {
     public Hooker(){
         hookUp = new TalonSRX(RobotMap.Manipulator.Climber.TALONSRX_PORT);
         hookUp.configOpenloopRamp(Constants.Climber.HOOKER_RAMP_RATE);
+        hookUp.setInverted(true);
     }
 
     public void set(double power) {

@@ -18,7 +18,11 @@ public class UseIntake extends CommandBase {
 
     @Override
     public void execute(){
-        intake.getIntakeMotor().set(ControlMode.PercentOutput, intakeMotorPower);
+        if(intake.isStale()) {
+            intake.getIntakeMotor().set(ControlMode.PercentOutput, 0);
+        } else {
+            intake.getIntakeMotor().set(ControlMode.PercentOutput, intakeMotorPower);
+        }
         intake.getTransferMotor().set(ControlMode.PercentOutput, transferMotorPower);
     }
 

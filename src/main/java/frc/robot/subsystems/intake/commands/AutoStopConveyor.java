@@ -21,6 +21,10 @@ public class AutoStopConveyor extends CommandBase {
         if (irSensor.isThreeBallsIn()) {
             this.intake.getTransferMotor().set(ControlMode.PercentOutput, 0);
         }
+
+        if(intake.getIntakeMotor().getStatorCurrent() > 50) {
+            intake.getIntakeMotor().set(ControlMode.PercentOutput, 0);
+        }
     }
 
     @Override

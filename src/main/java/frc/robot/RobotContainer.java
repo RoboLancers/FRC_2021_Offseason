@@ -3,10 +3,7 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.autonomous.AutoTargetAiming;
-import frc.robot.autonomous.Autonomous;
-import frc.robot.autonomous.Odometry;
-import frc.robot.autonomous.Trajectories;
+import frc.robot.autonomous.*;
 import frc.robot.subsystems.climber.Hooker;
 import frc.robot.subsystems.climber.Puller;
 import frc.robot.subsystems.climber.commands.HookUp;
@@ -20,10 +17,12 @@ import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakePivot;
 import frc.robot.subsystems.intake.commands.*;
 import frc.robot.subsystems.misc.*;
+import frc.robot.subsystems.misc.commands.UseCompressor;
 import frc.robot.subsystems.shooter.Loader;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.commands.LoadNShoot;
 import frc.robot.subsystems.shooter.commands.RevUpShooter;
+import frc.robot.subsystems.shooter.commands.ShooterSpeed;
 import frc.robot.subsystems.shooter.commands.UseLoaderMotor;
 import frc.robot.subsystems.spinner.Spinner;
 import frc.robot.subsystems.spinner.SpinnerPivot;
@@ -50,7 +49,6 @@ public class RobotContainer {
     public Limelight limelight;
     public ColorSensor colorSensor;
     public IRSensor irsensor;
-    public Camera camera;
     public Odometry odometry;
     public Trajectories trajectories;
 
@@ -81,7 +79,6 @@ public class RobotContainer {
         puller = new Puller();
 
         colorSensor = new ColorSensor();
-        camera = new Camera();
         spinner = new Spinner();
         spinnerPivot = new SpinnerPivot();
 
@@ -91,8 +88,9 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, driverXboxController));
         hooker.setDefaultCommand(new HookUp(hooker));
         puller.setDefaultCommand(new PullUp(puller));
-        intakePivot.setDefaultCommand(new AutoIntakePivot(intakePivot, irsensor));
-        intake.setDefaultCommand(new AutoStopConveyor(intake, irsensor));
+        pneumatics.setDefaultCommand(new UseCompressor(pneumatics));
+//        intakePivot.setDefaultCommand(new AutoIntakePivot(intakePivot, irsensor));
+//        intake.setDefaultCommand(new AutoStopConveyor(intake, irsensor));
 
         configureButtonBindings();
     }
@@ -104,29 +102,33 @@ public class RobotContainer {
 //                        .andThen(new LoadNShoot(loader, intake)));
 
         driverXboxController.whileHeld(XboxController.Button.A, new LoadNShoot(loader, intake));
-        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new HoldTargetAiming(drivetrain, limelight));
-        driverXboxController.whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter));
-//        driverXboxController.whileHeld(XboxController.Button.X, new UseIntake());
+        driverXboxController.whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight));
+//        driverXboxController.whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter));
+        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake,    0.4, 0.5));
+        driverXboxController.whenPressed(XboxController.Button.B, new ShooterSpeed(shooter, 1));
+        driverXboxController.whenReleased(XboxController.Button.B, new ShooterSpeed(shooter, 0));
 
         manipulatorXboxController.toggleWhenPressed(XboxController.Button.X, new ToggleIntakePivot(intakePivot));
-        manipulatorXboxController.toggleWhenPressed(XboxController.Button.B, new UseIntake(intake, 1, 1));
+        manipulatorXboxController.whileHeld(XboxController.Button.B, new UseIntake(intake, 0.4, 0.5));
+        manipulatorXboxController.whileHeld(XboxController.Button.START, new UseIntake(intake, -0.5, -0.5));
 
         //Only intake motor
-        manipulatorXboxController.toggleWhenPressed(XboxController.Button.A, new UseIntake(intake, 1,0));
-        manipulatorXboxController.toggleWhenPressed(XboxController.Button.Y, new UseIntake(intake, -1, 0));
+        manipulatorXboxController.whileHeld(XboxController.Button.A, new UseIntake(intake, 0.4,0));
+
+        manipulatorXboxController.whileHeld(XboxController.Button.Y, new UseIntake(intake, -0.5, 0));
 
         //Only transfer motor
-        manipulatorXboxController.toggleWhenPressed(XboxController.Button.LEFT_BUMPER, new UseIntake(intake, 0,1));
-        manipulatorXboxController.toggleWhenPressed(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 0,-1));
+        manipulatorXboxController.whileHeld(XboxController.Button.LEFT_BUMPER, new UseIntake(intake, 0,0.5));
+        manipulatorXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 0,-0.5));
 
         //Only loader motor
-        manipulatorXboxController.toggleWhenPressed(XboxController.Trigger.LEFT_TRIGGER, new UseLoaderMotor(loader, 1));
-        manipulatorXboxController.toggleWhenPressed(XboxController.Trigger.RIGHT_TRIGGER, new UseLoaderMotor(loader, -1));
+//        manipulatorXboxController.toggleWhenPressed(XboxController.Trigger.LEFT_TRIGGER, new UseLoaderMotor(loader, 0.5));
+//        manipulatorXboxController.toggleWhenPressed(XboxController.Trigger.RIGHT_TRIGGER, new UseLoaderMotor(loader, -1));
 
     }
 
     public Command getAutonomousCommand() {
-        return autonomous.getAutonomousCommand();
+        return new Ramsete(odometry, drivetrain, trajectories.centerStartToAimingPosition()).andThen(()-> drivetrain.setVoltage(0, 0));
     }
 
     public void update(){

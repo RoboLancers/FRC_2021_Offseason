@@ -1,6 +1,7 @@
 package frc.robot.subsystems.shooter;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,6 +15,9 @@ public class Shooter extends SubsystemBase {
     public Shooter() {
         master = new TalonSRX(RobotMap.Manipulator.Shooter.SHOOTER_MASTER_PORT);
         slave = new TalonSRX(RobotMap.Manipulator.Shooter.SHOOTER_SLAVE_PORT);
+
+        master.setNeutralMode(NeutralMode.Coast);
+        slave.setNeutralMode(NeutralMode.Coast);
 
         master.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 

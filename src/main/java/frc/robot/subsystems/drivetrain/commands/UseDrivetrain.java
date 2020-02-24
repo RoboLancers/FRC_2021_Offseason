@@ -19,11 +19,11 @@ public class UseDrivetrain extends CommandBase {
     @Override
     public void execute() {
         throttle = xboxController.getAxisValue(XboxController.Axis.LEFT_Y);
-        turn = xboxController.getAxisValue(XboxController.Axis.RIGHT_X);
+        turn = xboxController.getAxisValue(XboxController.Axis.RIGHT_X) / 1.5;
 
 
-        leftPower = throttle - turn;
-        rightPower = throttle + turn;
+        leftPower = throttle + turn;
+        rightPower = throttle - turn;
 
         drivetrain.getLeft().getMaster().set(Utilities.squareKeepSign(leftPower));
         drivetrain.getRight().getMaster().set(Utilities.squareKeepSign(rightPower));

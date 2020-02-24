@@ -1,5 +1,6 @@
 package frc.robot.subsystems.intake;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,7 +27,7 @@ public class Intake extends SubsystemBase {
 
     public TalonSRX getTransferMotor() {return transfer;}
 
-    public boolean spiked(){
-        return transfer.getSupplyCurrent() > Constants.Intake.MAX_CURRENT;
+    public boolean isStale(){
+        return (intake.getStatorCurrent() > 50);
     }
 }

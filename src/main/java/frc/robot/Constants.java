@@ -44,7 +44,7 @@ public final class Constants {
     public static final class Shooter{
         public static final double SHOOTER_RPM_TOLERANCE = 100;
         public static final double ticksPerRev = 4096;
-        public static final double CONVERSION_BOY = (600.0 / (ticksPerRev * 100)) / 3;
+        public static final double CONVERSION_BOY = (600.0 /ticksPerRev);
         public static final double MAX_RPM = 18370;
         public static final double SHOOTER_RADIUS = 3; //inches
         public static final double kP = 0.01;
@@ -53,7 +53,7 @@ public final class Constants {
     }
 
     public static final class Climber{
-        public static final double K_GRAVITY = 0.2;
+        public static final double K_GRAVITY = 0.3;
         public static final double PULLER_RAMP_RATE = 0.30;
         public static final double HOOKER_RAMP_RATE = 0.3;
     }
@@ -62,7 +62,7 @@ public final class Constants {
         public static final double MAX_VELOCITY = 3.9624;
         public static final double MAX_VELOCITY_SIDE = 0;
         public static final double ANGULAR_VELOCITY = 0;
-        public static final double ROBOT_WIDTH = 0.5991;
+        public static final double ROBOT_WIDTH = 0.8763 ;
     }
 
     public static final class Trajectory{
