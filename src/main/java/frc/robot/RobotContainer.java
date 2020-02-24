@@ -101,25 +101,20 @@ public class RobotContainer {
 //                        .alongWith(new AutoTargetAiming(drivetrain, limelight))
 //                        .andThen(new LoadNShoot(loader, intake)));
 
-        driverXboxController.whileHeld(XboxController.Button.A, new LoadNShoot(loader, intake));
-        driverXboxController.whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight));
-//        driverXboxController.whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter));
-        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake,    0.4, 0.5));
-        driverXboxController.whenPressed(XboxController.Button.B, new ShooterSpeed(shooter, 1));
-        driverXboxController.whenReleased(XboxController.Button.B, new ShooterSpeed(shooter, 0));
+        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 0.4, 0.4))
+                .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake))
+                .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
+                .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight))
+                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new ShooterSpeed(shooter, 1))
+                .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new ShooterSpeed(shooter, 0));
 
-        manipulatorXboxController.toggleWhenPressed(XboxController.Button.X, new ToggleIntakePivot(intakePivot));
-        manipulatorXboxController.whileHeld(XboxController.Button.B, new UseIntake(intake, 0.4, 0.5));
-        manipulatorXboxController.whileHeld(XboxController.Button.START, new UseIntake(intake, -0.5, -0.5));
 
-        //Only intake motor
-        manipulatorXboxController.whileHeld(XboxController.Button.A, new UseIntake(intake, 0.4,0));
-
-        manipulatorXboxController.whileHeld(XboxController.Button.Y, new UseIntake(intake, -0.5, 0));
-
-        //Only transfer motor
-        manipulatorXboxController.whileHeld(XboxController.Button.LEFT_BUMPER, new UseIntake(intake, 0,0.5));
-        manipulatorXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 0,-0.5));
+        manipulatorXboxController.toggleWhenPressed(XboxController.POV.DOWN, new ToggleIntakePivot(intakePivot))
+                .whileHeld(XboxController.Button.X, new UseIntake(intake, 0.4, 0))
+                .whileHeld(XboxController.Button.A, new UseIntake(intake, -0.4, 0))
+                .whileHeld(XboxController.Button.Y, new UseIntake(intake, 0, 0.4))
+                .whileHeld(XboxController.Button.B, new UseIntake(intake, 0, -0.4))
+                .whenPressed(XboxController.Button.RIGHT_BUMPER, new ToggleIntakePivot(intakePivot));
 
         //Only loader motor
 //        manipulatorXboxController.toggleWhenPressed(XboxController.Trigger.LEFT_TRIGGER, new UseLoaderMotor(loader, 0.5));
@@ -144,6 +139,6 @@ public class RobotContainer {
         SmartDashboard.putNumber("Turning Offset", limelight.getXOffset());
         SmartDashboard.putNumber("Distance Offset", limelight.getYOffset());
 
-        SmartDashboard.putNumber("Shooter Encoder Velocity", shooter.getMaster().getSelectedSensorVelocity());
+//        SmartDashboard.putNumber("Shooter Encoder Velocity", shooter.getMaster().getSelectedSensorVelocity());
     }
 }

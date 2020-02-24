@@ -24,9 +24,10 @@ public class Robot extends TimedRobot {
         m_robotContainer.update();
         SmartDashboard.putNumber("Climber Axis", RobotContainer.manipulatorXboxController.getAxisValue(XboxController.Axis.LEFT_Y));
         SmartDashboard.putBoolean("Stale?", m_robotContainer.intake.isStale());
-        SmartDashboard.putNumber("Shooter RPM", m_robotContainer.shooter.getMaster().getSelectedSensorVelocity());
-        SmartDashboard.putNumber("Shooter Velocity", (m_robotContainer.shooter.getMaster().getSelectedSensorVelocity()) * Constants.Shooter.CONVERSION_BOY);
+        SmartDashboard.putNumber("Shooter RPM", m_robotContainer.shooter.getMaster().getEncoder().getCountsPerRevolution());
+        SmartDashboard.putNumber("Shooter Velocity", (m_robotContainer.shooter.getMaster().getEncoder().getVelocity()) * Constants.Shooter.CONVERSION_BOY);
         SmartDashboard.putString("GearShifter", m_robotContainer.gearShifter.getState().getValue().name());
+        SmartDashboard.putBoolean("Trigger Pressed", RobotContainer.driverXboxController.getState(XboxController.Trigger.RIGHT_TRIGGER));
     }
 
     @Override
