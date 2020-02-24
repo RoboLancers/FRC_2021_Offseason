@@ -15,7 +15,7 @@ public class ShooterSpeed extends InstantCommand {
 
     @Override
     public void execute() {
-        shooter.getMaster().set(ControlMode.PercentOutput, power);
+        shooter.getMaster().set(power);
     }
 
 }
