@@ -5,7 +5,10 @@ import frc.robot.subsystems.spinner.Spinner;
 
 /**UNFNISHED CODE*/
 public class UseSpinner extends CommandBase {
-    public UseSpinner(Spinner spinner) {
+    private Spinner spinner;
+    private double spinnerPower;
+
+    public UseSpinner(Spinner spinner, double spinnerPower) {
         addRequirements(spinner);
     }
 
