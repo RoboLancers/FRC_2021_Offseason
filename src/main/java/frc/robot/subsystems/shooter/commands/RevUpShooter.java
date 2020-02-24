@@ -30,7 +30,7 @@ public class RevUpShooter extends CommandBase {
 
     @Override
     public void execute() {
-        shooter.getMaster().set(ControlMode.PercentOutput, pidController.calculate(shooter.getMaster().getSelectedSensorVelocity() * Constants.Shooter.CONVERSION_BOY));
+        shooter.getMaster().set(pidController.calculate(shooter.getMaster().getEncoder().getVelocity() *Constants.Shooter.CONVERSION_BOY));
 //        if (shooter.getMaster().getSelectedSensorVelocity() * Constants.Shooter.CONVERSION_BOY < targetRPM) {
 //            shooter.getMaster().set(ControlMode.PercentOutput, 1);
 //        } else {
