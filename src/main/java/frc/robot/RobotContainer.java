@@ -116,6 +116,7 @@ public class RobotContainer {
                 .whileHeld(XboxController.Button.B, new UseIntake(intake, 0, -0.4))
                 .whenPressed(XboxController.Button.RIGHT_BUMPER, new ToggleIntakePivot(intakePivot));
 
+
         //Only loader motor
 //        manipulatorXboxController.toggleWhenPressed(XboxController.Trigger.LEFT_TRIGGER, new UseLoaderMotor(loader, 0.5));
 //        manipulatorXboxController.toggleWhenPressed(XboxController.Trigger.RIGHT_TRIGGER, new UseLoaderMotor(loader, -1));
@@ -139,6 +140,6 @@ public class RobotContainer {
         SmartDashboard.putNumber("Turning Offset", limelight.getXOffset());
         SmartDashboard.putNumber("Distance Offset", limelight.getYOffset());
 
-//        SmartDashboard.putNumber("Shooter Encoder Velocity", shooter.getMaster().getSelectedSensorVelocity());
+        SmartDashboard.putNumber("Shooter Encoder Velocity", shooter.getMaster().getEncoder().getVelocity());
     }
 }
