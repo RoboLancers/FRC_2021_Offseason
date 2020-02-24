@@ -16,7 +16,7 @@ public class UseSpinner extends CommandBase {
 
     @Override
     public void execute() {
-        spinner.getSpinner().set(ControlMode.PercentOutput, 1);
+        spinner.getSpinner().set(ControlMode.PercentOutput, spinnerPower);
     }
 
     @Override
