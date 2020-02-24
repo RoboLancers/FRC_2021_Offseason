@@ -3,23 +3,25 @@ package frc.robot.subsystems.shooter;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
-    private TalonSRX master, slave;
+    private CANSparkMax master, slave;
     private PIDController pidController;
 
     public Shooter() {
-        master = new TalonSRX(RobotMap.Manipulator.Shooter.SHOOTER_MASTER_PORT);
-        slave = new TalonSRX(RobotMap.Manipulator.Shooter.SHOOTER_SLAVE_PORT);
+        master = new CANSparkMax(RobotMap.Manipulator.Shooter.SHOOTER_MASTER_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        slave = new CANSparkMax(RobotMap.Manipulator.Shooter.SHOOTER_SLAVE_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-        master.setNeutralMode(NeutralMode.Coast);
-        slave.setNeutralMode(NeutralMode.Coast);
+        master.restoreFactoryDefaults();
+        slave.restoreFactoryDefaults();
 
-        master.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+        master.getEncoder();
 
         slave.follow(master);
         slave.setInverted(true);
@@ -28,7 +30,7 @@ public class Shooter extends SubsystemBase {
         pidController.setTolerance(Constants.Shooter.SHOOTER_RPM_TOLERANCE);
     }
 
-    public TalonSRX getMaster(){
+    public CANSparkMax getMaster(){
         return master;
     }
 
@@ -37,6 +39,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public void resetEncoder(){
-        master.setSelectedSensorPosition(0);
+        master.getEncoder().setPosition(0);
     }
 }
