@@ -9,6 +9,8 @@ public class UseSpinner extends CommandBase {
     private double spinnerPower;
 
     public UseSpinner(Spinner spinner, double spinnerPower) {
+        addRequirements(spinner);
+        this.spinnerPower = spinnerPower;
         this.spinnerPower = spinnerPower;
         addRequirements(spinner);
         this.spinner = spinner;
@@ -16,7 +18,8 @@ public class UseSpinner extends CommandBase {
 
     @Override
     public void execute() {
-        spinner.getSpinner().set(ControlMode.PercentOutput, spinnerPower);
+        spinner.set(spinnerPower);
+        spinner.getSpinner().set(ControlMode.PercentOutput, 1);
     }
 
     @Override
