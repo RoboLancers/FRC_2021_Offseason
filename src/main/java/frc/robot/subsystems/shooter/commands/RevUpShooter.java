@@ -2,7 +2,6 @@ package frc.robot.subsystems.shooter.commands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.shooter.Shooter;
 
 /**
@@ -29,22 +28,16 @@ public class RevUpShooter extends CommandBase {
 
     @Override
     public void execute() {
-        shooter.getMaster().set(pidController.calculate(shooter.getMaster().getEncoder().getVelocity() *Constants.Shooter.CONVERSION_BOY));
-//        if (shooter.getMaster().getSelectedSensorVelocity() * Constants.Shooter.CONVERSION_BOY < targetRPM) {
-//            shooter.getMaster().set(ControlMode.PercentOutput, 1);
-//        } else {
-//            shooter.getMaster().set(ControlMode.PercentOutput, 0.5);
-//        }
+        shooter.getMaster().set(pidController.calculate(shooter.getMaster().getEncoder().getVelocity()));
 
 //    @Override
 //    public boolean isFinished(){
 ////        return pidController.atSetpoint();
 //        return false;
-//    }
+    }
 //
-//    @Override
-//    public void end(boolean interrupted) {
-//        shooter.getMaster().set(ControlMode.PercentOutput, 0);
-//    }
+    @Override
+    public void end(boolean interrupted) {
+        shooter.getMaster().set(0);
     }
 }
