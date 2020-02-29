@@ -19,20 +19,24 @@ public class ShootSixPowerCells extends SequentialCommandGroup {
         addCommands(new InitializeCommand(drivetrain, odometry, gyro, startingPosition));
         switch (startingPosition) {
             case LOADING_STATION:
+                addCommands(new Ramsete(odometry, drivetrain, trajectories.loadingStartToAimingPosition()));
                 break;
             case CENTER:
                 addCommands(new Ramsete(odometry, drivetrain, trajectories.centerStartToAimingPosition()));
                 break;
             case SHOOTING:
-                addCommands(new Ramsete(odometry, drivetrain, trajectories.shootingStartToAimingPosition()));
                 break;
         }
         addCommands(new ParallelCommandGroup(
-                new RevUpShooter(shooter, 54316351),
+                new RevUpShooter(shooter, 3000),
                 new AutoTargetAiming(drivetrain, limelight)
         ));
         addCommands(new LoadNShoot(loader, intake));
         addCommands(new Ramsete(odometry, drivetrain, trajectories.aimingPositionToThreePowerCells(odometry.getPose2d())));
         addCommands(new Ramsete(odometry, drivetrain, trajectories.pickUpThreePowerCells(odometry.getPose2d())));
+        addCommands(new ParallelCommandGroup(
+                new RevUpShooter(shooter, 3000),
+                new AutoTargetAiming(drivetrain, limelight)
+        ));
     }
 }
