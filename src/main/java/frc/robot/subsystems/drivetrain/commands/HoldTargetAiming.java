@@ -3,6 +3,7 @@ package frc.robot.subsystems.drivetrain.commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.enums.AimingTarget;
 import frc.robot.subsystems.misc.Limelight;
 
 public class HoldTargetAiming extends InstantCommand {
@@ -11,11 +12,12 @@ public class HoldTargetAiming extends InstantCommand {
     double leftPower, rightPower, turningOffset, distanceOffset;
     double turningkP = 0.006;
     double distancekP = 0.02;
-    double allowedDistanceError = -10;
+    double allowedDistanceError;
 
-    public HoldTargetAiming(Drivetrain drivetrain, Limelight limelight) {
+    public HoldTargetAiming(Drivetrain drivetrain, Limelight limelight, AimingTarget aimingTarget) {
         this.drivetrain = drivetrain;
         this.limelight = limelight;
+        this.allowedDistanceError = aimingTarget.getDistance();
         addRequirements(drivetrain);
     }
 

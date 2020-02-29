@@ -13,6 +13,7 @@ import frc.robot.subsystems.drivetrain.GearShifter;
 import frc.robot.subsystems.drivetrain.commands.HoldTargetAiming;
 import frc.robot.subsystems.drivetrain.commands.ToggleGearShifter;
 import frc.robot.subsystems.drivetrain.commands.UseDrivetrain;
+import frc.robot.subsystems.drivetrain.enums.AimingTarget;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakePivot;
 import frc.robot.subsystems.intake.commands.*;
@@ -104,7 +105,7 @@ public class RobotContainer {
         driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 0.4, 0.4))
                 .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
-                .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight))
+                .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
                 .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new ShooterSpeed(shooter, 1))
                 .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new ShooterSpeed(shooter, 0));
 
