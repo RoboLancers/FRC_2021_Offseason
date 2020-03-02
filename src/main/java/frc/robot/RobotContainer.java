@@ -1,6 +1,9 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.autonomous.*;
@@ -33,6 +36,7 @@ import frc.robot.utilities.XboxController;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     public NetworkInterface networkInterface;
+    public NetworkTableEntry shooterSpeed;
 
     public Drivetrain drivetrain;
     public Hooker hooker;
@@ -63,6 +67,8 @@ public class RobotContainer {
 
     public RobotContainer() {
         networkInterface = new NetworkInterface();
+        shooterSpeed = NetworkTableInstance.getDefault().getEntry("Shooter Speed");
+
         drivetrain = new Drivetrain();
         gyro = new Gyro();
         odometry = new Odometry(drivetrain, gyro);
@@ -106,8 +112,8 @@ public class RobotContainer {
                 .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
-                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new ShooterSpeed(shooter, 1))
-                .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new ShooterSpeed(shooter, 0));
+                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(0)))
+                .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, 0));
 
 
         manipulatorXboxController.toggleWhenPressed(XboxController.POV.DOWN, new ToggleIntakePivot(intakePivot))

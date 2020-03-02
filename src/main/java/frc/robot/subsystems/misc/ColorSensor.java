@@ -76,6 +76,6 @@ public class ColorSensor extends SubsystemBase {
 
     @Override
     public void periodic(){
-        updateDash();
+//        updateDash();
     }
 }

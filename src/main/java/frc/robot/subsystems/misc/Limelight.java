@@ -6,26 +6,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 public class Limelight implements Subsystem {
-    NetworkTable table;
-    private double target, x, y, area;
+    private NetworkTable table;
 
     public Limelight() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        target = table.getEntry("tv").getDouble(0.0);
-        x = table.getEntry("tx").getDouble(0.0);
-        y = table.getEntry("ty").getDouble(0.0);
-        area = table.getEntry("ta").getDouble(0.0);
-    }
-
-    public void updateValues() {
-        target = table.getEntry("tv").getDouble(0.0);
-        x = table.getEntry("tx").getDouble(0.0);
-        y = table.getEntry("ty").getDouble(0.0);
-        area = table.getEntry("ta").getDouble(0.0);
-        SmartDashboard.putNumber("Target", target);
-        SmartDashboard.putNumber("LimelightX", x);
-        SmartDashboard.putNumber("LimelightY", y);
-        SmartDashboard.putNumber("LimelightArea", area);
     }
 
     public boolean hasTarget() {
@@ -40,7 +24,11 @@ public class Limelight implements Subsystem {
         return table.getEntry("ty").getDouble(0.0);
     }
 
-    public double getArea() {
-        return table.getEntry("ta").getDouble(0.0);
+    public double getDistance(){
+        return (106.0) / Math.tan(getYOffset() + 35 + 24.85);
+    }
+
+    public void turnOnLight(boolean on) {
+        table.getEntry("ledMde").setNumber(on ? 3 : 1);
     }
 }

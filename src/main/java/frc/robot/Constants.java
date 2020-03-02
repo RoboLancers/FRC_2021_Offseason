@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Units;
+import frc.robot.utilities.math.InterpolatingDouble;
+import frc.robot.utilities.math.InterpolatingTreeMap;
+import frc.robot.utilities.math.PolynomialRegression;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -43,13 +46,34 @@ public final class Constants {
     }
     public static final class Shooter{
         public static final double SHOOTER_RPM_TOLERANCE = 100;
-        public static final double ticksPerRev = 4096;
-        public static final double CONVERSION_BOY = (600.0 /ticksPerRev);
-        public static final double MAX_RPM = 18370;
-        public static final double SHOOTER_RADIUS = 3; //inches
-        public static final double kP = 0.01;
+        public static final double MAX_RPM = 5560;
+        public static final double kP = 0.0001;
         public static final double kI = 0;
         public static final double kD = 0;
+        public static final double kFF = 1 / MAX_RPM;
+
+        public static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> kFlywheelAutoAimMap = new InterpolatingTreeMap<>();
+        public static PolynomialRegression kFlywheelAutoAimPolynomial;
+
+        public static double[][] kFlywheelOffsetRpmValues = {
+                { -24, 2890.0 },
+                { -20.0, 2940.0 },
+                { -16.0, 2990.0 },
+                { -12.0, 3025.0 },
+                { -8.0, 3075.0 },
+                { -4.0, 3125.0 },
+                { 0.0, 3175.0 },
+                { 4.0, 3225.0 },
+                { 8.0, 3275.0 },
+        };
+
+        static {
+            for (double[] pair : kFlywheelOffsetRpmValues) {
+                kFlywheelAutoAimMap.put(new InterpolatingDouble(pair[0]), new InterpolatingDouble(pair[1]));
+            }
+            kFlywheelAutoAimPolynomial = new PolynomialRegression(kFlywheelOffsetRpmValues, 2);
+        }
+
     }
 
     public static final class Climber{

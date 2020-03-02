@@ -15,7 +15,7 @@ public class RobotMap {
     }
     public static final class Manipulator{
         public static final class Climber {
-            public static final int NEO_PORT = 7;
+            public static final int NEO_PORT = 9;
             public static final int TALONSRX_PORT = 5;
         }
         public static final class Spinner {
@@ -30,8 +30,8 @@ public class RobotMap {
             public static final int INTAKE_PIVOT_PORT_DOWN = 3;
         }
         public static final class Shooter{
-            public static final int SHOOTER_MASTER_PORT = 2;
-            public static final int SHOOTER_SLAVE_PORT = 6;
+            public static final int SHOOTER_MASTER_PORT = 7;
+            public static final int SHOOTER_SLAVE_PORT = 8;
             public static final int SHOOTER_LOADER_PORT = 4;
         }
         public static final class GearShifter{
@@ -43,10 +43,10 @@ public class RobotMap {
         public static final int PIGEON_PORT = 1;
 
         public final class IR{
-        public static final int THIRD_IR_PORT = 2;
-        public static final int FIRST_IR_PORT = 3;
+        public static final int THIRD_IR_PORT = 3;
+        public static final int FIRST_IR_PORT = 1;
         public static final int FOURTH_IR_PORT = 4;
-        public static final int SECOND_IR_PORT = 5;
+        public static final int SECOND_IR_PORT = 2;
         }
     }
 }
