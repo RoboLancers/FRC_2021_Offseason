@@ -1,6 +1,7 @@
 package frc.robot.subsystems.climber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -11,6 +12,7 @@ public class Hooker extends SubsystemBase {
 
     public Hooker(){
         hookUp = new TalonSRX(RobotMap.Manipulator.Climber.TALONSRX_PORT);
+        hookUp.setNeutralMode(NeutralMode.Brake);
         hookUp.configOpenloopRamp(Constants.Climber.HOOKER_RAMP_RATE);
         hookUp.setInverted(true);
     }
