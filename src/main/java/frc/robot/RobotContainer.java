@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.autonomous.*;
+import frc.robot.autonomous.enums.StartingPosition;
 import frc.robot.subsystems.climber.Hooker;
 import frc.robot.subsystems.climber.Puller;
 import frc.robot.subsystems.climber.commands.HookUp;
@@ -24,10 +25,7 @@ import frc.robot.subsystems.misc.*;
 import frc.robot.subsystems.misc.commands.UseCompressor;
 import frc.robot.subsystems.shooter.Loader;
 import frc.robot.subsystems.shooter.Shooter;
-import frc.robot.subsystems.shooter.commands.LoadNShoot;
-import frc.robot.subsystems.shooter.commands.RevUpShooter;
-import frc.robot.subsystems.shooter.commands.ShooterSpeed;
-import frc.robot.subsystems.shooter.commands.UseLoaderMotor;
+import frc.robot.subsystems.shooter.commands.*;
 import frc.robot.subsystems.spinner.Spinner;
 import frc.robot.subsystems.spinner.SpinnerPivot;
 import frc.robot.utilities.FlightController;
@@ -93,8 +91,8 @@ public class RobotContainer {
 
         // Configure the button bindings
         drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, driverXboxController));
-        hooker.setDefaultCommand(new HookUp(hooker));
-        puller.setDefaultCommand(new PullUp(puller));
+//        hooker.setDefaultCommand(new HookUp(hooker));
+//        puller.setDefaultCommand(new PullUp(puller));
         pneumatics.setDefaultCommand(new UseCompressor(pneumatics));
 //        intakePivot.setDefaultCommand(new AutoIntakePivot(intakePivot, irsensor));
 //        intake.setDefaultCommand(new AutoStopConveyor(intake, irsensor));
@@ -111,8 +109,8 @@ public class RobotContainer {
         driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 0.4, 0.4))
                 .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
-                .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
-                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(0)))
+                .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.TRENCH))
+                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5500)))
                 .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, 0));
 
 
@@ -131,7 +129,7 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return new Ramsete(odometry, drivetrain, trajectories.centerStartToAimingPosition()).andThen(()-> drivetrain.setVoltage(0, 0));
+        return new InitializeCommand(drivetrain, odometry, gyro, StartingPosition.SHOOTING).andThen(new Ramsete(odometry, drivetrain, trajectories.aimingPositionToThreePowerCells(StartingPosition.SHOOTING.getPose2d()))).andThen(()-> drivetrain.setVoltage(0, 0));
     }
 
     public void update(){
