@@ -1,13 +1,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.misc.IRSensor;
 import frc.robot.utilities.XboxController;
 
 public class Robot extends TimedRobot {
@@ -29,10 +25,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putString("GearShifter", m_robotContainer.gearShifter.getState().getValue().name());
         SmartDashboard.putBoolean("Trigger Pressed", RobotContainer.driverXboxController.getState(XboxController.Trigger.RIGHT_TRIGGER));
 
-        SmartDashboard.putBoolean("IR1", m_robotContainer.irsensor.getIROne());
-        SmartDashboard.putBoolean("IR2", m_robotContainer.irsensor.getIRTwo());
-        SmartDashboard.putBoolean("IR3", m_robotContainer.irsensor.getIRThree());
-        SmartDashboard.putBoolean("IR4", m_robotContainer.irsensor.getIRFour());
+        SmartDashboard.putBoolean("IR4", m_robotContainer.irsensor.get());
     }
 
     @Override
