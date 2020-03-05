@@ -16,7 +16,7 @@ public class UseLoaderMotor extends CommandBase {
 
     @Override
     public void execute() {
-        loader.getLoaderMotor().set(ControlMode.PercentOutput, 0.7);
+        loader.getLoaderMotor().set(ControlMode.PercentOutput, loaderMotorPower);
     }
     @Override
     public void end(boolean interrupted) {

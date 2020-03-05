@@ -14,8 +14,8 @@ public class Intake extends SubsystemBase {
 
         transfer.setInverted(true);
 
-        intake.setNeutralMode(NeutralMode.Brake);
-        transfer.setNeutralMode(NeutralMode.Brake);
+        intake.setNeutralMode(NeutralMode.Coast);
+        transfer.setNeutralMode(NeutralMode.Coast);
     }
 
     public TalonSRX getIntakeMotor() {

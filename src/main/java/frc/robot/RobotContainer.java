@@ -35,6 +35,7 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     public NetworkInterface networkInterface;
     public NetworkTableEntry shooterSpeed;
+    public Camera camera;
 
     public Drivetrain drivetrain;
     public Hooker hooker;
@@ -65,9 +66,13 @@ public class RobotContainer {
 
     public RobotContainer() {
         networkInterface = new NetworkInterface();
+        camera = new Camera();
+
+       // SmartDashboard.putStr
         shooterSpeed = NetworkTableInstance.getDefault().getEntry("Shooter Speed");
 
         drivetrain = new Drivetrain();
+
         gyro = new Gyro();
         odometry = new Odometry(drivetrain, gyro);
         trajectories = new Trajectories(odometry);
@@ -91,10 +96,9 @@ public class RobotContainer {
 
         // Configure the button bindings
         drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, driverXboxController));
-//        hooker.setDefaultCommand(new HookUp(hooker));
-//        puller.setDefaultCommand(new PullUp(puller));
+        hooker.setDefaultCommand(new HookUp(hooker));
+        puller.setDefaultCommand(new PullUp(puller));
         pneumatics.setDefaultCommand(new UseCompressor(pneumatics));
-//        intakePivot.setDefaultCommand(new AutoIntakePivot(intakePivot, irsensor));
 //        intake.setDefaultCommand(new AutoStopConveyor(intake, irsensor));
 
         configureButtonBindings();
@@ -106,26 +110,20 @@ public class RobotContainer {
 //                        .alongWith(new AutoTargetAiming(drivetrain, limelight))
 //                        .andThen(new LoadNShoot(loader, intake)));
 
-        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 0.4, 0.4))
+        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 1, 0.6))
                 .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.TRENCH))
-                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5500)))
+                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(4000)))
                 .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, 0));
 
-
         manipulatorXboxController.toggleWhenPressed(XboxController.POV.DOWN, new ToggleIntakePivot(intakePivot))
-                .whileHeld(XboxController.Button.X, new UseIntake(intake, 0.4, 0))
-                .whileHeld(XboxController.Button.A, new UseIntake(intake, -0.4, 0))
-                .whileHeld(XboxController.Button.Y, new UseIntake(intake, 0, 0.4))
-                .whileHeld(XboxController.Button.B, new UseIntake(intake, 0, -0.4))
-                .whenPressed(XboxController.Button.RIGHT_BUMPER, new ToggleIntakePivot(intakePivot));
-
-
-        //Only loader motor
-//        manipulatorXboxController.toggleWhenPressed(XboxController.Trigger.LEFT_TRIGGER, new UseLoaderMotor(loader, 0.5));
-//        manipulatorXboxController.toggleWhenPressed(XboxController.Trigger.RIGHT_TRIGGER, new UseLoaderMotor(loader, -1));
-
+                .whileHeld(XboxController.Button.X, new UseIntake(intake, 1, 0))
+                .whileHeld(XboxController.Button.A, new UseIntake(intake, -1, 0))
+                .whileHeld(XboxController.Button.Y, new UseIntake(intake, 0, 0.6))
+                .whileHeld(XboxController.Button.B, new UseIntake(intake, 0, -0.6))
+                .whenPressed(XboxController.Button.RIGHT_BUMPER, new ToggleIntakePivot(intakePivot))
+                .whileHeld(XboxController.Button.LEFT_BUMPER, new UseLoaderMotor(loader,  0.6));
     }
 
     public Command getAutonomousCommand() {

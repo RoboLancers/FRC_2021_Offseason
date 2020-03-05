@@ -21,7 +21,7 @@ public class HookUp extends CommandBase {
     @Override
     public void execute() {
 //        DriverStation.getInstance().getMatchTime();
-        double power = RobotContainer.manipulatorXboxController.getAxisValue(XboxController.Axis.LEFT_Y);
+        double power = RobotContainer.manipulatorXboxController.getAxisValue(XboxController.Axis.LEFT_Y) / 2;
 //        if (power >= 0) {
             hooker.set(power);
 //        } else if (power <= 0){
