@@ -25,7 +25,10 @@ public class Robot extends TimedRobot {
         SmartDashboard.putString("GearShifter", m_robotContainer.gearShifter.getState().getValue().name());
         SmartDashboard.putBoolean("Trigger Pressed", RobotContainer.driverXboxController.getState(XboxController.Trigger.RIGHT_TRIGGER));
 
-        SmartDashboard.putBoolean("IR4", m_robotContainer.irsensor.get());
+        SmartDashboard.putBoolean("IR1", m_robotContainer.irsensor.getIROne());
+        SmartDashboard.putBoolean("IR2", m_robotContainer.irsensor.getIRTwo());
+        SmartDashboard.putBoolean("IR3", m_robotContainer.irsensor.getIRThree());
+        SmartDashboard.putBoolean("IR4", m_robotContainer.irsensor.getIRFour());
     }
 
     @Override

@@ -31,9 +31,9 @@ public class LoadNShoot extends CommandBase {
 
     @Override
     public void execute(){
-        loader.getLoaderMotor().set(ControlMode.PercentOutput, 0.3);
-        intake.getTransferMotor().set(ControlMode.PercentOutput, 0.3);
-        intake.getIntakeMotor().set(ControlMode.PercentOutput, 0.3);
+        loader.getLoaderMotor().set(ControlMode.PercentOutput, 0.5);
+        intake.getTransferMotor().set(ControlMode.PercentOutput, 0.7);
+        intake.getIntakeMotor().set(ControlMode.PercentOutput, 0.7);
 
 //        if(!irSensor.getIRFour()){
 //            timer.start();

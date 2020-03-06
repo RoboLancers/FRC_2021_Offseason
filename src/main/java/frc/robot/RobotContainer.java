@@ -110,7 +110,7 @@ public class RobotContainer {
 //                        .alongWith(new AutoTargetAiming(drivetrain, limelight))
 //                        .andThen(new LoadNShoot(loader, intake)));
 
-        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 1, 0.6))
+        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 0.6, 0.6))
                 .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.TRENCH))
