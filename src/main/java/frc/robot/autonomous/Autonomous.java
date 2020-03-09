@@ -18,7 +18,7 @@ public class Autonomous {
 
     public Autonomous(RobotContainer robotContainer) {
         this.robotContainer = robotContainer;
-        autonomousCommand = new ShootThreePowerCells(robotContainer.drivetrain, robotContainer.gyro, robotContainer.loader, robotContainer.shooter, robotContainer.intake, robotContainer.odometry, robotContainer.limelight, StartingPosition.SHOOTING, robotContainer.trajectories);
+        autonomousCommand = new ShootThreePowerCells(robotContainer.drivetrain, robotContainer.gyro, robotContainer.loader, robotContainer.shooter, robotContainer.irsensor, robotContainer.intake, robotContainer.odometry, robotContainer.limelight, StartingPosition.SHOOTING, robotContainer.trajectories);
     }
 
     public void update() {
@@ -27,7 +27,7 @@ public class Autonomous {
 
         if (selectedObjective != previouslySelectedObjective || selectedStartingPosition != previouslySelectedStartingPosition) {
             if (selectedObjective == Objective.THREE_BALL) {
-                autonomousCommand = new ShootThreePowerCells(robotContainer.drivetrain, robotContainer.gyro, robotContainer.loader, robotContainer.shooter, robotContainer.intake, robotContainer.odometry, robotContainer.limelight, selectedStartingPosition, robotContainer.trajectories);
+                autonomousCommand = new ShootThreePowerCells(robotContainer.drivetrain, robotContainer.gyro, robotContainer.loader, robotContainer.shooter, robotContainer.irsensor, robotContainer.intake, robotContainer.odometry, robotContainer.limelight, selectedStartingPosition, robotContainer.trajectories);
             } else if(selectedObjective == Objective.SIX_BALL) {
                 autonomousCommand = new ShootSixPowerCells(robotContainer.drivetrain, robotContainer.gyro, robotContainer.loader, robotContainer.shooter, robotContainer.irsensor, robotContainer.intake, robotContainer.odometry, robotContainer.limelight, selectedStartingPosition, robotContainer.trajectories);
             }

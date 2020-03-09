@@ -20,7 +20,7 @@ public class InitializeCommand extends InstantCommand {
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
         drivetrain.getLeft().resetEncoder();
         drivetrain.getRight().resetEncoder();
         gyro.resetHeading();

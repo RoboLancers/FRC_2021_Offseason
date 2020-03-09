@@ -14,27 +14,27 @@ public class IRSensor {
 
     }
         public boolean getIRTwo(){
-        return IRTwo.get();
+        return !IRTwo.get();
         }
 
         public boolean getIRFour(){
-            return IRFour.get();
+            return !IRFour.get();
         }
 
         public boolean getIRThree(){
-            return IRThree.get();
+            return !IRThree.get();
         }
 
         public boolean getIROne(){
-            return IROne.get();
+            return !IROne.get();
         }
 
         public boolean isStorageFull(){
-            return IRTwo.get() && IRThree.get() && IRFour.get() && IROne.get();
+            return !IRTwo.get() && !IRThree.get() && !IRFour.get() && !IROne.get();
 
         }
         public boolean isThreeBallsIn(){
-            return IRTwo.get() && IRThree.get();
+            return !IRThree.get() && !IRFour.get();
 
         }
 }

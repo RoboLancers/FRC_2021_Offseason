@@ -12,6 +12,7 @@ public class Puller extends SubsystemBase {
     public Puller(){
         pullUp = new CANSparkMax(RobotMap.Manipulator.Climber.NEO_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
         pullUp.restoreFactoryDefaults();
+        pullUp.setIdleMode(CANSparkMax.IdleMode.kBrake);
         pullUp.setOpenLoopRampRate(Constants.Climber.PULLER_RAMP_RATE);
     }
 

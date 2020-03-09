@@ -1,5 +1,6 @@
 package frc.robot.subsystems.drivetrain.commands;
 
+import com.revrobotics.ControlType;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.drivetrain.Drivetrain;
@@ -10,8 +11,8 @@ public class HoldTargetAiming extends InstantCommand {
     Drivetrain drivetrain;
     Limelight limelight;
     double leftPower, rightPower, turningOffset, distanceOffset;
-    double turningkP = 0.006;
-    double distancekP = 0.02;
+    double turningkP = 0.025;
+    double distancekP = 0.1;
     double allowedDistanceError;
 
     public HoldTargetAiming(Drivetrain drivetrain, Limelight limelight, AimingTarget aimingTarget) {
@@ -26,10 +27,11 @@ public class HoldTargetAiming extends InstantCommand {
         if (limelight.hasTarget()) {
             turningOffset = limelight.getXOffset();
             distanceOffset = -(allowedDistanceError - limelight.getYOffset());
-            leftPower = (distanceOffset * distancekP) + (turningOffset * turningkP) - Constants.Trajectory.kSTATIC;
-            rightPower = (distanceOffset * distancekP) - (turningOffset * turningkP) - Constants.Trajectory.kSTATIC;
-            drivetrain.getLeft().getMaster().set(leftPower);
-            drivetrain.getRight().getMaster().set(rightPower);
+
+            leftPower = (distanceOffset * distancekP) + (turningOffset * turningkP);
+            rightPower = (distanceOffset * distancekP) - (turningOffset * turningkP);
+            drivetrain.getLeft().getMaster().getPIDController().setReference(leftPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
+            drivetrain.getRight().getMaster().getPIDController().setReference(rightPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
         }
     }
 }

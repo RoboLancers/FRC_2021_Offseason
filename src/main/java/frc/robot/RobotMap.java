@@ -26,8 +26,8 @@ public class RobotMap {
         public static final class Intake {
             public static final int INTAKE_PORT = 1;
             public static final int INTAKE2_PORT = 3;
-            public static final int INTAKE_PIVOT_PORT_UP = 2;
-            public static final int INTAKE_PIVOT_PORT_DOWN = 3;
+            public static final int INTAKE_PIVOT_PORT_UP = 4;
+            public static final int INTAKE_PIVOT_PORT_DOWN = 5;
         }
         public static final class Shooter{
             public static final int SHOOTER_MASTER_PORT = 7;
@@ -35,8 +35,8 @@ public class RobotMap {
             public static final int SHOOTER_LOADER_PORT = 4;
         }
         public static final class GearShifter{
-            public static final int GEAR_SHIFTER_HIGH = 5;
-            public static final int GEAR_SHIFTER_LOW = 4;
+            public static final int GEAR_SHIFTER_HIGH = 2;
+            public static final int GEAR_SHIFTER_LOW = 3;
         }
     }
     public static final class Sensors{

@@ -15,10 +15,10 @@ public class LoadNShoot extends CommandBase {
     private IRSensor irSensor;
     private Timer timer;
 
-    public LoadNShoot(Loader loader, Intake intake/*, IRSensor irSensor*/){
+    public LoadNShoot(Loader loader, Intake intake, IRSensor irSensor){
         this.loader = loader;
         this.intake = intake;
-//        this.irSensor = irSensor;
+        this.irSensor = irSensor;
         timer = new Timer();
 
         addRequirements(loader, intake);
@@ -32,8 +32,13 @@ public class LoadNShoot extends CommandBase {
     @Override
     public void execute(){
         loader.getLoaderMotor().set(ControlMode.PercentOutput, 0.5);
-        intake.getTransferMotor().set(ControlMode.PercentOutput, 0.7);
-        intake.getIntakeMotor().set(ControlMode.PercentOutput, 0.7);
+//        if(!irSensor.getIRFour()){
+//            intake.getTransferMotor().set(ControlMode.PercentOutput, 0);
+//            intake.getIntakeMotor().set(ControlMode.PercentOutput, 0);
+//        } else {
+            intake.getTransferMotor().set(ControlMode.PercentOutput, 0.3);
+            intake.getIntakeMotor().set(ControlMode.PercentOutput, 0.3);
+//        }
 
 //        if(!irSensor.getIRFour()){
 //            timer.start();

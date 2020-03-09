@@ -1,7 +1,5 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,12 +18,15 @@ import frc.robot.subsystems.drivetrain.commands.UseDrivetrain;
 import frc.robot.subsystems.drivetrain.enums.AimingTarget;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakePivot;
-import frc.robot.subsystems.intake.commands.*;
+import frc.robot.subsystems.intake.commands.ToggleIntakePivot;
+import frc.robot.subsystems.intake.commands.UseIntake;
 import frc.robot.subsystems.misc.*;
 import frc.robot.subsystems.misc.commands.UseCompressor;
 import frc.robot.subsystems.shooter.Loader;
 import frc.robot.subsystems.shooter.Shooter;
-import frc.robot.subsystems.shooter.commands.*;
+import frc.robot.subsystems.shooter.commands.LoadNShoot;
+import frc.robot.subsystems.shooter.commands.RevUpShooter;
+import frc.robot.subsystems.shooter.commands.UseLoaderMotor;
 import frc.robot.subsystems.spinner.Spinner;
 import frc.robot.subsystems.spinner.SpinnerPivot;
 import frc.robot.utilities.FlightController;
@@ -105,23 +106,18 @@ public class RobotContainer {
     }
 
     private void configureButtonBindings() {
-//        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER,
-//                new RevUpShooter(shooter, 50)
-//                        .alongWith(new AutoTargetAiming(drivetrain, limelight))
-//                        .andThen(new LoadNShoot(loader, intake)));
-
-        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, 0.6, 0.6))
-                .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake))
+        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.6, 0.6))
+                .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake, irsensor))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.TRENCH))
-                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(4000)))
+                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5500)))
                 .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, 0));
 
         manipulatorXboxController.toggleWhenPressed(XboxController.POV.DOWN, new ToggleIntakePivot(intakePivot))
-                .whileHeld(XboxController.Button.X, new UseIntake(intake, 1, 0))
-                .whileHeld(XboxController.Button.A, new UseIntake(intake, -1, 0))
-                .whileHeld(XboxController.Button.Y, new UseIntake(intake, 0, 0.6))
-                .whileHeld(XboxController.Button.B, new UseIntake(intake, 0, -0.6))
+                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,1, 0))
+                .whileHeld(XboxController.Button.A, new UseIntake(intake, irsensor,-1, 0))
+                .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0, 0.6))
+                .whileHeld(XboxController.Button.B, new UseIntake(intake, irsensor,0, -0.6))
                 .whenPressed(XboxController.Button.RIGHT_BUMPER, new ToggleIntakePivot(intakePivot))
                 .whileHeld(XboxController.Button.LEFT_BUMPER, new UseLoaderMotor(loader,  0.6));
     }
@@ -140,7 +136,8 @@ public class RobotContainer {
         SmartDashboard.putNumber("left encoder", drivetrain.getLeft().getDistance());
         SmartDashboard.putNumber("right encoder", drivetrain.getRight().getDistance());
 
-        SmartDashboard.putNumber("Turning Offset", limelight.getXOffset());
+        SmartDashboard.putNumber("Turning Offset",
+                limelight.getXOffset());
         SmartDashboard.putNumber("Distance Offset", limelight.getYOffset());
 
         SmartDashboard.putNumber("Shooter Encoder Velocity", shooter.getMaster().getEncoder().getVelocity());

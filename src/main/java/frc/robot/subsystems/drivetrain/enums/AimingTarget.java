@@ -1,7 +1,7 @@
 package frc.robot.subsystems.drivetrain.enums;
 
 public enum AimingTarget {
-    LINE(-10), TRENCH(-28);
+    LINE(0), TRENCH(-16);
 
     double distance;
 
