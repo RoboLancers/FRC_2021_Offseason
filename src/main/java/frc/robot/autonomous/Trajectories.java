@@ -32,8 +32,8 @@ public class Trajectories {
 
     public Trajectory straightForward() {
         return TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(0, 0, new Rotation2d(0)),
-                new Pose2d(Units.feetToMeters(3), 0, new Rotation2d(0))),
+                new Pose2d(Units.feetToMeters(11), Units.feetToMeters(17), new Rotation2d(0)),
+                new Pose2d(Units.feetToMeters(16), Units.feetToMeters(17), new Rotation2d(0))),
                 this.config
         );
     }

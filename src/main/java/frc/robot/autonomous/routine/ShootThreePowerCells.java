@@ -1,8 +1,6 @@
 package frc.robot.autonomous.routine;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.RobotContainer;
 import frc.robot.autonomous.*;
 import frc.robot.autonomous.enums.StartingPosition;
 import frc.robot.subsystems.drivetrain.Drivetrain;
@@ -12,10 +10,14 @@ import frc.robot.subsystems.misc.IRSensor;
 import frc.robot.subsystems.misc.Limelight;
 import frc.robot.subsystems.shooter.Loader;
 import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.subsystems.shooter.commands.LoadNShoot;
 import frc.robot.subsystems.shooter.commands.RevUpShooter;
 
 public class ShootThreePowerCells extends SequentialCommandGroup {
+
     public ShootThreePowerCells(Drivetrain drivetrain, Gyro gyro, Loader loader, Shooter shooter, IRSensor irSensor, Intake intake, Odometry odometry, Limelight limelight, StartingPosition startingPosition, Trajectories trajectories) {
+        RevUpShooter revUpShooter = new RevUpShooter(shooter, 4500);
+
         addCommands(new InitializeCommand(drivetrain, odometry, gyro, startingPosition));
         switch (startingPosition) {
             case LOADING_STATION:
@@ -27,11 +29,11 @@ public class ShootThreePowerCells extends SequentialCommandGroup {
             case SHOOTING:
                 break;
         }
-        addCommands(new ParallelCommandGroup(
-                new RevUpShooter(shooter, 3000),
-                new AutoTargetAiming(drivetrain, limelight)
-        ));
-//        addCommands(new LoadNShoot(loader, intake, irse));
-        addCommands(new Ramsete(odometry, drivetrain, trajectories.straightForward()));
+        revUpShooter.execute();
+        if (revUpShooter.isFinished()) {
+            new AutoTargetAiming(drivetrain, limelight);
+            new LoadNShoot(loader, intake, irSensor);
+            new Ramsete(odometry, drivetrain, trajectories.straightForward());
+        }
     }
 }

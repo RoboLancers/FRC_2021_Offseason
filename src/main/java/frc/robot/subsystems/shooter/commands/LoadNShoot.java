@@ -40,15 +40,14 @@ public class LoadNShoot extends CommandBase {
             intake.getIntakeMotor().set(ControlMode.PercentOutput, 0.3);
 //        }
 
-//        if(!irSensor.getIRFour()){
-//            timer.start();
-//        }
+        if(!irSensor.getIRFour()){
+            timer.start();
+        }
     }
 
     @Override
     public boolean isFinished() {
-//        return !irSensor.getIRFour() && timer.hasPeriodPassed(3);
-        return false;
+        return !irSensor.getIRFour() && timer.hasPeriodPassed(3);
     }
 
     @Override

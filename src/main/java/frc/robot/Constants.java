@@ -90,9 +90,9 @@ public final class Constants {
     }
 
     public static final class Trajectory{
-        public static final double kSTATIC = 0.202;
-        public static final double kVELOCITY = 1.96;
-        public static final double kACCELERATION = 0.213;
+        public static final double kSTATIC = 0.211;
+        public static final double kVELOCITY = 2.02;
+        public static final double kACCELERATION = 0.499;
 
         public static final double MAX_VOLTAGE = 10;
         public static final double MAX_VELOCITY_CONSTRAINT = 2.72;

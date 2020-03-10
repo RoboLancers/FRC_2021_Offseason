@@ -2,10 +2,15 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.autonomous.*;
 import frc.robot.autonomous.enums.StartingPosition;
+import frc.robot.autonomous.routine.ShootThreePowerCells;
 import frc.robot.subsystems.climber.Hooker;
 import frc.robot.subsystems.climber.Puller;
 import frc.robot.subsystems.climber.commands.HookUp;
@@ -61,7 +66,7 @@ public class RobotContainer {
 
     public static XboxController driverXboxController = new XboxController(0, 0.2);
     public static XboxController manipulatorXboxController = new XboxController(1, 0.2);
-    public static FlightController flightController = new FlightController(0,0.2);
+    public static XboxController testController = new XboxController(2,0.2);
 
 //  private final Shooter shooter;
 
@@ -109,8 +114,8 @@ public class RobotContainer {
         driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.6, 0.6))
                 .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake, irsensor))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
-                .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.TRENCH))
-                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5500)))
+                .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
+                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5000)))
                 .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, 0));
 
         manipulatorXboxController.toggleWhenPressed(XboxController.POV.DOWN, new ToggleIntakePivot(intakePivot))
@@ -120,10 +125,14 @@ public class RobotContainer {
                 .whileHeld(XboxController.Button.B, new UseIntake(intake, irsensor,0, -0.6))
                 .whenPressed(XboxController.Button.RIGHT_BUMPER, new ToggleIntakePivot(intakePivot))
                 .whileHeld(XboxController.Button.LEFT_BUMPER, new UseLoaderMotor(loader,  0.6));
+        testController.whenPressed(XboxController.Button.RIGHT_BUMPER,  new InstantCommand(() -> odometry.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)))))
+        .whenPressed(XboxController.Button.LEFT_BUMPER, new InitializeCommand(drivetrain, odometry, gyro, StartingPosition.SHOOTING));
+
     }
 
     public Command getAutonomousCommand() {
-        return new InitializeCommand(drivetrain, odometry, gyro, StartingPosition.SHOOTING).andThen(new Ramsete(odometry, drivetrain, trajectories.aimingPositionToThreePowerCells(StartingPosition.SHOOTING.getPose2d()))).andThen(()-> drivetrain.setVoltage(0, 0));
+//        return new Ramsete(odometry, drivetrain, trajectories.straightForward()).andThen(() -> drivetrain.setVoltage(0, 0));
+        return new ShootThreePowerCells(drivetrain, gyro, loader, shooter, irsensor, intake, odometry, limelight, StartingPosition.SHOOTING, trajectories).andThen(()-> drivetrain.setVoltage(0, 0));
     }
 
     public void update(){
@@ -131,8 +140,8 @@ public class RobotContainer {
         autonomous.update();
 
         SmartDashboard.putNumber("Angle", gyro.getFusedHeading());
-        SmartDashboard.putNumber("X", odometry.getPose2d().getTranslation().getX());
-        SmartDashboard.putNumber("Y", odometry.getPose2d().getTranslation().getY());
+        SmartDashboard.putNumber("X", Units.metersToFeet(odometry.getPose2d().getTranslation().getX()));
+        SmartDashboard.putNumber("Y", Units.metersToFeet(odometry.getPose2d().getTranslation().getY()));
         SmartDashboard.putNumber("left encoder", drivetrain.getLeft().getDistance());
         SmartDashboard.putNumber("right encoder", drivetrain.getRight().getDistance());
 
