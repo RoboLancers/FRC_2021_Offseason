@@ -36,6 +36,10 @@ public class Shooter extends SubsystemBase {
         return master;
     }
 
+    public CANSparkMax getSlave(){
+        return slave;
+    }
+
     public CANPIDController getPidController() {
         return pidController;
     }

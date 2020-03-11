@@ -1,5 +1,6 @@
 package frc.robot.autonomous.routine;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.autonomous.*;
 import frc.robot.autonomous.enums.StartingPosition;
@@ -16,7 +17,6 @@ import frc.robot.subsystems.shooter.commands.RevUpShooter;
 public class ShootThreePowerCells extends SequentialCommandGroup {
 
     public ShootThreePowerCells(Drivetrain drivetrain, Gyro gyro, Loader loader, Shooter shooter, IRSensor irSensor, Intake intake, Odometry odometry, Limelight limelight, StartingPosition startingPosition, Trajectories trajectories) {
-        RevUpShooter revUpShooter = new RevUpShooter(shooter, 4500);
 
         addCommands(new InitializeCommand(drivetrain, odometry, gyro, startingPosition));
         switch (startingPosition) {
@@ -29,11 +29,11 @@ public class ShootThreePowerCells extends SequentialCommandGroup {
             case SHOOTING:
                 break;
         }
-        revUpShooter.execute();
-        if (revUpShooter.isFinished()) {
-            new AutoTargetAiming(drivetrain, limelight);
-            new LoadNShoot(loader, intake, irSensor);
-            new Ramsete(odometry, drivetrain, trajectories.straightForward());
-        }
+        addCommands(new ParallelCommandGroup(
+                new RevUpShooter(shooter, 4500),
+                new AutoTargetAiming(drivetrain, limelight)
+        ));
+        new LoadNShoot(loader, intake, irSensor);
+        new Ramsete(odometry, drivetrain, trajectories.straightForward());
     }
 }

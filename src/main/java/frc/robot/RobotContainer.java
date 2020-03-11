@@ -115,6 +115,9 @@ public class RobotContainer {
                 .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake, irsensor))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
+                .whileHeld(XboxController.Button.A, new HoldTargetAiming(drivetrain, limelight, AimingTarget.TRENCH))
+                .whenPressed(XboxController.Trigger.LEFT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5500)))
+                .whenReleased(XboxController.Trigger.LEFT_TRIGGER, new RevUpShooter(shooter, 0))
                 .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5000)))
                 .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, 0));
 
@@ -148,7 +151,9 @@ public class RobotContainer {
         SmartDashboard.putNumber("Turning Offset",
                 limelight.getXOffset());
         SmartDashboard.putNumber("Distance Offset", limelight.getYOffset());
-
         SmartDashboard.putNumber("Shooter Encoder Velocity", shooter.getMaster().getEncoder().getVelocity());
+        SmartDashboard.putNumber("Timer", loader.getTimer().get());
+        SmartDashboard.putNumber("Shooter Current 1", shooter.getMaster().getOutputCurrent());
+        SmartDashboard.putNumber("Shooter Current 2", shooter.getSlave().getOutputCurrent());
     }
 }

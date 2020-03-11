@@ -13,41 +13,39 @@ public class LoadNShoot extends CommandBase {
     private final Loader loader;
     private final Intake intake;
     private IRSensor irSensor;
-    private Timer timer;
 
-    public LoadNShoot(Loader loader, Intake intake, IRSensor irSensor){
+    public LoadNShoot(Loader loader, Intake intake, IRSensor irSensor) {
         this.loader = loader;
         this.intake = intake;
         this.irSensor = irSensor;
-        timer = new Timer();
 
         addRequirements(loader, intake);
     }
 
     @Override
     public void initialize() {
-        timer.reset();
+        loader.getTimer().reset();
     }
 
     @Override
-    public void execute(){
-        loader.getLoaderMotor().set(ControlMode.PercentOutput, 0.5);
+    public void execute() {
+        loader.getLoaderMotor().set(ControlMode.PercentOutput, 0.6);
 //        if(!irSensor.getIRFour()){
 //            intake.getTransferMotor().set(ControlMode.PercentOutput, 0);
 //            intake.getIntakeMotor().set(ControlMode.PercentOutput, 0);
 //        } else {
-            intake.getTransferMotor().set(ControlMode.PercentOutput, 0.3);
-            intake.getIntakeMotor().set(ControlMode.PercentOutput, 0.3);
+        intake.getTransferMotor().set(ControlMode.PercentOutput, 0.3);
+        intake.getIntakeMotor().set(ControlMode.PercentOutput, 0.3);
 //        }
 
-        if(!irSensor.getIRFour()){
-            timer.start();
+        if (!irSensor.getIRFour()) {
+            loader.getTimer().start();
         }
     }
 
     @Override
     public boolean isFinished() {
-        return !irSensor.getIRFour() && timer.hasPeriodPassed(3);
+        return !irSensor.getIRFour() && loader.getTimer().hasPeriodPassed(3);
     }
 
     @Override
