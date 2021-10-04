@@ -21,12 +21,12 @@ import frc.robot.utilities.math.PolynomialRegression;
  * constants.  This class should not be used for any other purpose.  All constants should be
  * declared globally (i.e. public static).  Do not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final class Robot{
-        public static final int ENCODER_COUNT = 42;
+    public static final class Robot {
+        public static final int ENCODER_COUNT = 42; // Never Used
         public static final double RAMP_RATE = 0.5;
         public static final double GEAR_RATIO = 10.75;
         public static final double WHEEL_DIAMETER = 0.1524;
@@ -40,12 +40,13 @@ public final class Constants {
         public static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
     }
 
+    // Not used
     public static final class Intake {
         public static final double INTAKE_POWER = 0.2;
         public static final double MAX_CURRENT = 20;
     }
     public static final class Shooter{
-        public static final double SHOOTER_RPM_TOLERANCE = 100;
+        public static final double SHOOTER_RPM_TOLERANCE = 100; // Not used
         public static final double MAX_RPM = 5560;
         public static final double kP = 0.0001;
         public static final double kI = 0;
@@ -56,15 +57,15 @@ public final class Constants {
         public static PolynomialRegression kFlywheelAutoAimPolynomial;
 
         public static double[][] kFlywheelOffsetRpmValues = {
-                { -24, 2890.0 },
-                { -20.0, 2940.0 },
-                { -16.0, 2990.0 },
-                { -12.0, 3025.0 },
-                { -8.0, 3075.0 },
-                { -4.0, 3125.0 },
-                { 0.0, 3175.0 },
-                { 4.0, 3225.0 },
-                { 8.0, 3275.0 },
+            { -24, 2890.0 },
+            { -20.0, 2940.0 },
+            { -16.0, 2990.0 },
+            { -12.0, 3025.0 },
+            { -8.0, 3075.0 },
+            { -4.0, 3125.0 },
+            { 0.0, 3175.0 },
+            { 4.0, 3225.0 },
+            { 8.0, 3275.0 }
         };
 
         static {
@@ -76,20 +77,20 @@ public final class Constants {
 
     }
 
-    public static final class Climber{
-        public static final double K_GRAVITY = 0.3;
+    public static final class Climber {
+        public static final double K_GRAVITY = 0.3; // Not used
         public static final double PULLER_RAMP_RATE = 0.30;
-        public static final double HOOKER_RAMP_RATE = 0.3;
+        public static final double HOOKER_RAMP_RATE = 0.3; // Not used
     }
 
-    public static final class Odometry{
+    public static final class Odometry {
         public static final double MAX_VELOCITY = 3.9624;
         public static final double MAX_VELOCITY_SIDE = 0;
         public static final double ANGULAR_VELOCITY = 0;
         public static final double ROBOT_WIDTH = 0.8763 ;
     }
 
-    public static final class Trajectory{
+    public static final class Trajectory {
         public static final double kSTATIC = 0.211;
         public static final double kVELOCITY = 2.02;
         public static final double kACCELERATION = 0.499;

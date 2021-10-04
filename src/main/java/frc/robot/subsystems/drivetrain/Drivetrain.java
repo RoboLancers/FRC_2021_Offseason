@@ -5,12 +5,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.drivetrain.enums.GearBoxSides;
 
-public class Drivetrain extends SubsystemBase{
+public class Drivetrain extends SubsystemBase {
+    // Any reason to privatize left and right?
     private GearBox left, right;
 
     public Drivetrain() {
-        left = new GearBox(GearBoxSides.LEFT, RobotMap.Drivetrain.Left.MASTER, RobotMap.Drivetrain.Left.SLAVE_ONE, RobotMap.Drivetrain.Left.SLAVE_TWO);
-        right = new GearBox(GearBoxSides.RIGHT, RobotMap.Drivetrain.Right.MASTER, RobotMap.Drivetrain.Right.SLAVE_ONE, RobotMap.Drivetrain.Right.SLAVE_TWO);
+        left = new GearBox(GearBoxSides.LEFT, RobotMap.Drivetrain.Left.FRONT, RobotMap.Drivetrain.Left.BACK_ONE, RobotMap.Drivetrain.Left.BACK_TWO);
+        right = new GearBox(GearBoxSides.RIGHT, RobotMap.Drivetrain.Right.FRONT, RobotMap.Drivetrain.Right.BACK_ONE, RobotMap.Drivetrain.Right.BACK_TWO);
     }
 
     public GearBox getLeft() {
@@ -21,12 +22,19 @@ public class Drivetrain extends SubsystemBase{
         return right;
     }
 
-    public CANSparkMax getLeftMasterMotor() {
-        return left.getMaster();
+    public void setVoltage(double leftVoltage, double rightVoltage) {
+        left.setVoltage(leftVoltage);
+        right.setVoltage(rightVoltage);
     }
 
-    public CANSparkMax getRightMasterMotor() {
-        return right.getMaster();
+    // The following methods are never used?
+
+    public CANSparkMax getLeftMainMotor() {
+        return left.getMain();
+    }
+
+    public CANSparkMax getRightMainMotor() {
+        return right.getMain();
     }
 
     public double getLeftEncoder(){
@@ -35,11 +43,6 @@ public class Drivetrain extends SubsystemBase{
 
     public double getRightEncoder(){
         return right.getEncoderRevolutions();
-    }
-
-    public void setVoltage(double leftVoltage, double rightVoltage) {
-        left.setVoltage(leftVoltage);
-        right.setVoltage(rightVoltage);
     }
 
     public void stop(){

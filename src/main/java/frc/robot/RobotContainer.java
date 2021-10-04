@@ -38,7 +38,7 @@ import frc.robot.utilities.FlightController;
 import frc.robot.utilities.XboxController;
 
 public class RobotContainer {
-    // The robot's subsystems and commands are defined here...
+    // Robot subsystems and commands
     public NetworkInterface networkInterface;
     public NetworkTableEntry shooterSpeed;
     public Camera camera;
@@ -68,13 +68,12 @@ public class RobotContainer {
     public static XboxController manipulatorXboxController = new XboxController(1, 0.2);
     public static XboxController testController = new XboxController(2,0.2);
 
-//  private final Shooter shooter;
-
     public RobotContainer() {
         networkInterface = new NetworkInterface();
         camera = new Camera();
 
-       // SmartDashboard.putStr
+        // SmartDashboard.putStr
+        // ^ ?
         shooterSpeed = NetworkTableInstance.getDefault().getEntry("Shooter Speed");
 
         drivetrain = new Drivetrain();
@@ -105,39 +104,75 @@ public class RobotContainer {
         hooker.setDefaultCommand(new HookUp(hooker));
         puller.setDefaultCommand(new PullUp(puller));
         pneumatics.setDefaultCommand(new UseCompressor(pneumatics));
-//        intake.setDefaultCommand(new AutoStopConveyor(intake, irsensor));
+        // intake.setDefaultCommand(new AutoStopConveyor(intake, irsensor));
 
         configureButtonBindings();
     }
 
     private void configureButtonBindings() {
-        driverXboxController.whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.6, 0.6))
-                .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake, irsensor))
-                .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
-                .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
+        // Issues:
+        /*
+            Nothing actually toggles the puller, so that means the ports have to be wrong
+            For driver controller, we should made right trigger toggle target shooter rpm, so the button config is simpler
+            Driver controller doesn't do anything with X, which seems inefficient
+            Manipulator controller has right bumper pressed mapped to the same command as dpad down pressed
+            What does left bumper on test controller do?
+        */
+        driverXboxController
+            // Buttons
+                // A Held           ->      HoldTargetAiming(aimingTarget: AimingTarget.TRENCH)
+                // B Held           ->      LoadNShoot()
+                // Y Held           ->      HoldTargetAiming(aimingTarget: AimingTarget.LINE)
                 .whileHeld(XboxController.Button.A, new HoldTargetAiming(drivetrain, limelight, AimingTarget.TRENCH))
+                .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake, irsensor))
+                .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
+            // Bumpers
+                // Left Pressed     ->      ToggleGearShift()
+                // Right Held       ->      UseIntake(intakeMotorPower: 0.6, transferMotorPower: 0.6)
+                .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
+                .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.6, 0.6))
+            // Triggers
+                // Left Pressed     ->      RevUpShooter(targetRPM: 5500)
+                // Left Released    ->      RevUpShooter(targetRPM: 0)
+                // Right Pressed    ->      RevUpShooter(targetRPM: 5000)
+                // Right Released   ->      RevUpShooter(targetRPM: 0)
                 .whenPressed(XboxController.Trigger.LEFT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5500)))
                 .whenReleased(XboxController.Trigger.LEFT_TRIGGER, new RevUpShooter(shooter, 0))
                 .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5000)))
                 .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, 0));
 
-        manipulatorXboxController.toggleWhenPressed(XboxController.POV.DOWN, new ToggleIntakePivot(intakePivot))
-                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,1, 0))
+        manipulatorXboxController
+            // Buttons
+                // A Held           ->      UseIntake(intakeMotorPower: -1, transferMotorPower: 0)
+                // B Held           ->      UseIntake(intakeMotorPower: 0, transferMotorPower: -0.6)
+                // X Held           ->      UseIntake(intakeMotorPower: 1, transferMotorPower: 0)
+                // Y Held           ->      UseIntake(intakeMotorPower: 0, transferMotorPower: 0.6)
                 .whileHeld(XboxController.Button.A, new UseIntake(intake, irsensor,-1, 0))
-                .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0, 0.6))
                 .whileHeld(XboxController.Button.B, new UseIntake(intake, irsensor,0, -0.6))
+                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,1, 0))
+                .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0, 0.6))
+            // Bumpers
+                // Left Held        ->      UseLoaderMotor(loaderMotorPower: 0.6)
+                // Right Pressed    ->      ToggleIntakePivot()
+                .whileHeld(XboxController.Button.LEFT_BUMPER, new UseLoaderMotor(loader,  0.6))
                 .whenPressed(XboxController.Button.RIGHT_BUMPER, new ToggleIntakePivot(intakePivot))
-                .whileHeld(XboxController.Button.LEFT_BUMPER, new UseLoaderMotor(loader,  0.6));
-        testController.whenPressed(XboxController.Button.RIGHT_BUMPER,  new InstantCommand(() -> odometry.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)))))
-        .whenPressed(XboxController.Button.LEFT_BUMPER, new InitializeCommand(drivetrain, odometry, gyro, StartingPosition.SHOOTING));
+            // Pov (Dpad)
+                // Down Pressed     ->      ToggleIntakePivot()
+                .toggleWhenPressed(XboxController.POV.DOWN, new ToggleIntakePivot(intakePivot));
 
+        testController
+            // Bumpers
+                // Left Pressed     ->      Reset Odometry
+                // Right Pressed    ->      ?
+                .whenPressed(XboxController.Button.RIGHT_BUMPER,  new InstantCommand(() -> odometry.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)))))
+                .whenPressed(XboxController.Button.LEFT_BUMPER, new InitializeCommand(drivetrain, odometry, gyro, StartingPosition.SHOOTING));
     }
 
     public Command getAutonomousCommand() {
-//        return new Ramsete(odometry, drivetrain, trajectories.straightForward()).andThen(() -> drivetrain.setVoltage(0, 0));
         return new ShootThreePowerCells(drivetrain, gyro, loader, shooter, irsensor, intake, odometry, limelight, StartingPosition.SHOOTING, trajectories).andThen(()-> drivetrain.setVoltage(0, 0));
     }
 
+    // Update odometry and autonomous, then update smart dashboard
     public void update(){
         odometry.updateOdometry();
         autonomous.update();
@@ -148,8 +183,7 @@ public class RobotContainer {
         SmartDashboard.putNumber("left encoder", drivetrain.getLeft().getDistance());
         SmartDashboard.putNumber("right encoder", drivetrain.getRight().getDistance());
 
-        SmartDashboard.putNumber("Turning Offset",
-                limelight.getXOffset());
+        SmartDashboard.putNumber("Turning Offset", limelight.getXOffset());
         SmartDashboard.putNumber("Distance Offset", limelight.getYOffset());
         SmartDashboard.putNumber("Shooter Encoder Velocity", shooter.getMaster().getEncoder().getVelocity());
         SmartDashboard.putNumber("Timer", loader.getTimer().get());

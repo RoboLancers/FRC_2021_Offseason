@@ -33,6 +33,7 @@ public class InterpolatingDouble implements Interpolable<InterpolatingDouble>, I
         return query_to_lower / upper_to_lower;
     }
 
+    // Never used
     @Override
     public int compareTo(InterpolatingDouble other) {
         if (other.value < value) {

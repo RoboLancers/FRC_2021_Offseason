@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.utilities.XboxController;
 
 public class Robot extends TimedRobot {
+
+    // None of the following code is ever used?
+
     private Command m_autonomousCommand;
 
     private RobotContainer m_robotContainer;

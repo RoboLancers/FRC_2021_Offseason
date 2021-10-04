@@ -7,42 +7,42 @@ import frc.robot.subsystems.drivetrain.enums.GearBoxSides;
 import frc.robot.utilities.Utilities;
 
 public class GearBox {
-    private CANSparkMax master, slave1, slave2;
+    private CANSparkMax main, secondary1, secondary2;
 
     public GearBox(GearBoxSides side, int masterPort, int slave1Port, int follow2Port) {
-        master = new CANSparkMax(masterPort, CANSparkMaxLowLevel.MotorType.kBrushless);
-        slave1 = new CANSparkMax(slave1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
-        slave2 = new CANSparkMax(follow2Port, CANSparkMaxLowLevel.MotorType.kBrushless);
+        main = new CANSparkMax(masterPort, CANSparkMaxLowLevel.MotorType.kBrushless);
+        secondary1 = new CANSparkMax(slave1Port, CANSparkMaxLowLevel.MotorType.kBrushless);
+        secondary2 = new CANSparkMax(follow2Port, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-        master.restoreFactoryDefaults();
-        slave1.restoreFactoryDefaults();
-        slave2.restoreFactoryDefaults();
+        main.restoreFactoryDefaults();
+        secondary1.restoreFactoryDefaults();
+        secondary2.restoreFactoryDefaults();
 
-        master.getEncoder();
-        slave1.getEncoder();
-        slave2.getEncoder();
+        main.getEncoder();
+        secondary1.getEncoder();
+        secondary2.getEncoder();
 
-        slave1.follow(master);
-        slave2.follow(master);
+        secondary1.follow(main);
+        secondary2.follow(main);
 
-        master.setOpenLoopRampRate(Constants.Robot.RAMP_RATE);
-        slave1.setOpenLoopRampRate(Constants.Robot.RAMP_RATE);
+        main.setOpenLoopRampRate(Constants.Robot.RAMP_RATE);
+        secondary1.setOpenLoopRampRate(Constants.Robot.RAMP_RATE);
 
         if(side == GearBoxSides.RIGHT){
-           master.setInverted(true);
+           main.setInverted(true);
         }
     }
 
-    public CANSparkMax getMaster(){
-        return master;
+    public CANSparkMax getMain(){
+        return main;
     }
 
     public void resetEncoder() {
-        master.getEncoder().setPosition(0);
+        main.getEncoder().setPosition(0);
     }
 
     public double getEncoderRevolutions(){
-        return master.getEncoder().getPosition();
+        return main.getEncoder().getPosition();
     }
 
     public double getDistance() {
@@ -50,10 +50,10 @@ public class GearBox {
     }
 
     public double getVelocity() {
-        return Utilities.RPMtoRPS(master.getEncoder().getVelocity() * Constants.Robot.WHEEL_CIRCUMFERENCE);
+        return Utilities.RPMtoRPS(main.getEncoder().getVelocity() * Constants.Robot.WHEEL_CIRCUMFERENCE);
     }
 
     public void setVoltage(double voltage) {
-        master.setVoltage(voltage);
+        main.setVoltage(voltage);
     }
 }

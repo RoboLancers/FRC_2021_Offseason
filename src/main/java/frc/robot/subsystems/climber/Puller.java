@@ -18,5 +18,7 @@ public class Puller extends SubsystemBase {
 
     public void set(double power) {
         pullUp.set(power);
+        // Prevent over pulling:
+        //      set up equivalent of listener on current puller y, and if its max, set power to 0
     }
 }

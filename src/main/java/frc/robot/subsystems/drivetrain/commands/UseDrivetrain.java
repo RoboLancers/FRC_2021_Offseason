@@ -25,8 +25,8 @@ public class UseDrivetrain extends CommandBase {
         leftPower = throttle + turn;
         rightPower = throttle - turn;
 
-        drivetrain.getLeft().getMaster().set(Utilities.squareKeepSign(leftPower));
-        drivetrain.getRight().getMaster().set(Utilities.squareKeepSign(rightPower));
+        drivetrain.getLeft().getMain().set(Utilities.squareKeepSign(leftPower));
+        drivetrain.getRight().getMain().set(Utilities.squareKeepSign(rightPower));
     }
 
     @Override

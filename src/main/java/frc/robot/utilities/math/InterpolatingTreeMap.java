@@ -14,7 +14,7 @@ import java.util.TreeMap;
  */
 public class InterpolatingTreeMap<K extends InverseInterpolable<K> & Comparable<K>, V extends Interpolable<V>>
         extends TreeMap<K, V> {
-    private static final long serialVersionUID = 8347275262778054124L;
+    private static final long serialVersionUID = 8347275262778054124L; // Never used
 
     int max_;
 
@@ -48,6 +48,7 @@ public class InterpolatingTreeMap<K extends InverseInterpolable<K> & Comparable<
         return value;
     }
 
+    // Never used
     @Override
     public void putAll(Map<? extends K, ? extends V> map) {
         System.out.println("Unimplemented Method");

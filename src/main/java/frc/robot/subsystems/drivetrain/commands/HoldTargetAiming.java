@@ -27,17 +27,17 @@ public class HoldTargetAiming extends InstantCommand {
         if (limelight.hasTarget()) {
             turningOffset = limelight.getXOffset();
             if(limelight.getXOffset() < 10) {
-//                turningOffset += 2
-
+                // turningOffset += 2
             } else {
+                // something here?
             }
 
             distanceOffset = -(allowedDistanceError - limelight.getYOffset());
 
             leftPower = (distanceOffset * distancekP) + (turningOffset * turningkP);
             rightPower = (distanceOffset * distancekP) - (turningOffset * turningkP);
-            drivetrain.getLeft().getMaster().getPIDController().setReference(leftPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
-            drivetrain.getRight().getMaster().getPIDController().setReference(rightPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
+            drivetrain.getLeft().getMain().getPIDController().setReference(leftPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
+            drivetrain.getRight().getMain().getPIDController().setReference(rightPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
         }
     }
 }

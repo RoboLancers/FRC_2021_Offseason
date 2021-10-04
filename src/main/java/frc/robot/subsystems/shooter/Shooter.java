@@ -12,8 +12,8 @@ public class Shooter extends SubsystemBase {
     private CANPIDController pidController;
 
     public Shooter() {
-        master = new CANSparkMax(RobotMap.Manipulator.Shooter.SHOOTER_MASTER_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
-        slave = new CANSparkMax(RobotMap.Manipulator.Shooter.SHOOTER_SLAVE_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        master = new CANSparkMax(RobotMap.Manipulator.Shooter.SHOOTER_MAIN_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+        slave = new CANSparkMax(RobotMap.Manipulator.Shooter.SHOOTER_SECONDARY_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
 
         master.restoreFactoryDefaults();
         slave.restoreFactoryDefaults();
