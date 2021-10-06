@@ -68,8 +68,8 @@ public class XboxController extends BaseController {
         LEFT_Y(Axis.LEFT_Y.port),
         LEFT_TRIGGER(Axis.LEFT_TRIGGER.port),
         RIGHT_TRIGGER(Axis.RIGHT_TRIGGER.port),
-        RIGHT_X(Axis.LEFT_X.port),
-        RIGHT_Y(Axis.LEFT_Y.port);
+        RIGHT_X(Axis.RIGHT_X.port),
+        RIGHT_Y(Axis.RIGHT_Y.port);
 
         int port;
         boolean negative;
