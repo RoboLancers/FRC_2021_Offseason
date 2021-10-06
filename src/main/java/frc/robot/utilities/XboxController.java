@@ -64,6 +64,7 @@ public class XboxController extends BaseController {
     }
 
     public enum Trigger {
+        //joysticks?
         LEFT_X(Axis.LEFT_X.port),
         LEFT_Y(Axis.LEFT_Y.port),
         LEFT_TRIGGER(Axis.LEFT_TRIGGER.port),
