@@ -123,9 +123,11 @@ public class RobotContainer {
                 // A Held           ->      HoldTargetAiming(aimingTarget: AimingTarget.TRENCH)
                 // B Held           ->      LoadNShoot()
                 // Y Held           ->      HoldTargetAiming(aimingTarget: AimingTarget.LINE)
+                // X Held           ->      UseLoaderMotor(loaderMotorPower: 0.6)
                 .whileHeld(XboxController.Button.A, new HoldTargetAiming(drivetrain, limelight, AimingTarget.TRENCH))
                 .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake, irsensor))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
+                .whileHeld(XboxController.Button.X, new UseLoaderMotor(loader, 0.6))
             // Bumpers
                 // Left Pressed     ->      ToggleGearShift()
                 // Right Held       ->      UseIntake(intakeMotorPower: 0.6, transferMotorPower: 0.6)
