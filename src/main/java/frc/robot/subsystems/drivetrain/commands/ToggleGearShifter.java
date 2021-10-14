@@ -5,7 +5,9 @@ import frc.robot.subsystems.drivetrain.enums.GearShifterState;
 import frc.robot.subsystems.drivetrain.GearShifter;
 
 public class ToggleGearShifter extends InstantCommand {
+    
     private final GearShifter gearShifter;
+
     public ToggleGearShifter(final GearShifter gearShifter) {
         this.gearShifter = gearShifter;
         addRequirements(gearShifter);
