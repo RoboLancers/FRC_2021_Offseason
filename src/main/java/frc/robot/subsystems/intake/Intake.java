@@ -10,7 +10,7 @@ public class Intake extends SubsystemBase {
 
     public Intake() {
         intake = new TalonSRX(RobotMap.Manipulator.Intake.INTAKE_PORT);
-        transfer = new TalonSRX(RobotMap.Manipulator.Intake.INTAKE2_PORT);
+        transfer = new TalonSRX(RobotMap.Manipulator.Intake.TRANSFER_PORT);
 
         intake.setInverted(true);
 
