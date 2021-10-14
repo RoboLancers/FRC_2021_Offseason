@@ -125,23 +125,25 @@ public class RobotContainer {
                 // Y Held           ->      HoldTargetAiming(aimingTarget: AimingTarget.LINE)
                 // X Held           ->      UseLoaderMotor(loaderMotorPower: 0.6)
                 .whileHeld(XboxController.Button.A, new HoldTargetAiming(drivetrain, limelight, AimingTarget.TRENCH))
-                .whileHeld(XboxController.Button.B, new LoadNShoot(loader, intake, irsensor))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
-                .whileHeld(XboxController.Button.X, new UseLoaderMotor(loader, 0.6))
+
+
             // Bumpers
                 // Left Pressed     ->      ToggleGearShift()
                 // Right Held       ->      UseIntake(intakeMotorPower: 0.6, transferMotorPower: 0.6)
-                .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleGearShifter(gearShifter))
-                .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.6, 0.6))
+                .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
+                .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, -0.8, 0))
+
+
             // Triggers
                 // Left Pressed     ->      RevUpShooter(targetRPM: 5500)
                 // Left Released    ->      RevUpShooter(targetRPM: 0)
-                // Right Pressed    ->      RevUpShooter(targetRPM: 5000)
+                // Right Pressed    ->      
                 // Right Released   ->      RevUpShooter(targetRPM: 0)
-                .whenPressed(XboxController.Trigger.LEFT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5500)))
-                .whenReleased(XboxController.Trigger.LEFT_TRIGGER, new RevUpShooter(shooter, 0))
-                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5000)))
-                .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, 0));
+                .whileHeld(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor,0.6, 0));
+
+                //.whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor, 0.8, 0))
+                //.whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor, 0, 0));
 
         manipulatorXboxController
             // Buttons
@@ -149,15 +151,31 @@ public class RobotContainer {
                 // B Held           ->      UseIntake(intakeMotorPower: 0, transferMotorPower: -0.6)
                 // X Held           ->      UseIntake(intakeMotorPower: 1, transferMotorPower: 0)
                 // Y Held           ->      UseIntake(intakeMotorPower: 0, transferMotorPower: 0.6)
-                .whileHeld(XboxController.Button.A, new UseIntake(intake, irsensor,-1, 0))
+                .whileHeld(XboxController.Button.A, new UseIntake(intake, irsensor,-0.6, 0))
+                    //transfers power cells out of robot
                 .whileHeld(XboxController.Button.B, new UseIntake(intake, irsensor,0, -0.6))
-                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,1, 0))
+                    //takes power cells out of robot
+                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,0.6, 0))
+                    //takes power cells into robot
                 .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0, 0.6))
+                    //transfers power cells into robot
+
+
             // Bumpers
                 // Left Held        ->      UseLoaderMotor(loaderMotorPower: 0.6)
                 // Right Pressed    ->      ToggleIntakePivot()
-                .whileHeld(XboxController.Button.LEFT_BUMPER, new UseLoaderMotor(loader,  0.6))
-                .whenPressed(XboxController.Button.RIGHT_BUMPER, new ToggleIntakePivot(intakePivot))
+                .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
+                    //loads power cells into shooter
+                .whileHeld(XboxController.Button.RIGHT_BUMPER, new LoadNShoot(loader, intake, irsensor))
+
+
+            // Triggers
+                .whileHeld(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, -1, -0.6))
+                // takes & transfers power cells into robot
+                .whenReleased(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, 0, 0))
+                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5500)))
+                .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, 0))
+
             // Pov (Dpad)
                 // Down Pressed     ->      ToggleIntakePivot()
                 .toggleWhenPressed(XboxController.POV.DOWN, new ToggleIntakePivot(intakePivot));
@@ -168,6 +186,7 @@ public class RobotContainer {
                 // Right Pressed    ->      ?
                 .whenPressed(XboxController.Button.RIGHT_BUMPER,  new InstantCommand(() -> odometry.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)))))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new InitializeCommand(drivetrain, odometry, gyro, StartingPosition.SHOOTING));
+
     }
 
     public Command getAutonomousCommand() {
@@ -178,7 +197,7 @@ public class RobotContainer {
     public void update(){
         odometry.updateOdometry();
         autonomous.update();
-
+        
         SmartDashboard.putNumber("Angle", gyro.getFusedHeading());
         SmartDashboard.putNumber("X", Units.metersToFeet(odometry.getPose2d().getTranslation().getX()));
         SmartDashboard.putNumber("Y", Units.metersToFeet(odometry.getPose2d().getTranslation().getY()));
