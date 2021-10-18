@@ -5,7 +5,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 
 public class Camera {
     private static Camera camera;
-    private UsbCamera frontLivecam, backLivecam;
+    private UsbCamera frontLivecam, backLivecam, startAutomaticCapture;
     public Camera(){
         frontLivecam = CameraServer.getInstance().startAutomaticCapture();
         frontLivecam.setResolution(320, 240);
@@ -13,9 +13,9 @@ public class Camera {
         backLivecam = CameraServer.getInstance().startAutomaticCapture();
         backLivecam.setResolution(240, 180);
         backLivecam.setFPS(15);
+        startAutomaticCapture = CameraServer.startAutomaticCapture();
 
     }
-
 
     public UsbCamera getFrontCamera(){
         return frontLivecam;
@@ -23,6 +23,10 @@ public class Camera {
 
     public UsbCamera getBackCamera(){
         return backLivecam;
+    }
+
+    public UsbCamera startAutomaticCapture(){
+        return startAutomaticCapture;
     }
 
 
