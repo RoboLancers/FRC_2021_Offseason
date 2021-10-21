@@ -11,7 +11,6 @@ public class Camera {
         frontLivecam = CameraServer.getInstance().startAutomaticCapture();
         frontLivecam.setResolution(320, 240);
         frontLivecam.setFPS(15);
-        frontLivecam.startAutomaticCapture();
         /*
             Test start automatic capture first
         */
@@ -19,7 +18,6 @@ public class Camera {
         backLivecam = CameraServer.getInstance().startAutomaticCapture();
         backLivecam.setResolution(240, 180);
         backLivecam.setFPS(15);
-        backLivecam.startAutomaticCapture();
         // backLivecam.addAxisCamera();
     }
 
