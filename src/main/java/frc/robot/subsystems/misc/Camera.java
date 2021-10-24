@@ -21,6 +21,16 @@ public class Camera {
         // backLivecam.addAxisCamera();
     }
 
+    public void initializeFrontCamera() {
+        frontLivecam.setResolution(320, 240);
+        frontLivecam.setFPS(15);
+    }
+
+    public void initializeBackCamera() {
+        backLivecam.setResolution(240, 180);
+        backLivecam.setFPS(15);
+    }
+
     public UsbCamera getFrontCamera(){
         return frontLivecam;
     }
