@@ -23,8 +23,8 @@ public class UseDrivetrain extends CommandBase {
         turn = xboxController.getAxisValue(XboxController.Axis.RIGHT_X);
 
 
-        leftPower = throttle + turn;
-        rightPower = throttle - turn;
+        leftPower = (throttle + turn)/1.75;
+        rightPower = (throttle - turn)/1.75;
         
         // values are NEGATIVE b/c of inversion of the y axis
         /*
@@ -32,8 +32,8 @@ public class UseDrivetrain extends CommandBase {
         rightPower = -xboxController.getAxisValue(XboxController.Axis.RIGHT_Y);
         */
 
-        drivetrain.getLeft().getMain().set(Utilities.squareKeepSign(leftPower));
-        drivetrain.getRight().getMain().set(Utilities.squareKeepSign(rightPower));
+        drivetrain.getLeft().getMain().set(Math.pow(leftPower,3));
+        drivetrain.getRight().getMain().set(Math.pow(rightPower,3));
     }
 
     @Override
