@@ -19,7 +19,7 @@ import frc.robot.subsystems.shooter.commands.RevUpShooter;
 
 
 public class NewShootBall extends SequentialCommandGroup {
-    public NewShootBall (Drivetrain drivetrain, Gyro gyro, Loader loader, Shooter shooter, IRSensor irSensor, Intake intake, Odometry odometry, Limelight limelight, StartingPosition startingPosition, Trajectories trajectories) {
+    public NewShootBall (Drivetrain drivetrain, Loader loader, Shooter shooter, IRSensor irSensor, Intake intake) {
         addCommands(new RevUpShooter(shooter, 3000));
         addCommands(new WaitCommand(2.0));
         addCommands(new LoadNShoot(loader, intake, irSensor));
