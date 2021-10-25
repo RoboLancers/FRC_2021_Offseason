@@ -4,7 +4,6 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 
 public class Camera {
-    private static Camera camera;
     private UsbCamera frontLivecam, backLivecam;
 
     public Camera(){
