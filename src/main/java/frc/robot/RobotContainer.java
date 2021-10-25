@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.autonomous.*;
 import frc.robot.autonomous.enums.StartingPosition;
 import frc.robot.autonomous.routine.MoveForward;
+import frc.robot.autonomous.routine.NewShootBall;
 import frc.robot.autonomous.routine.ShootThreePowerCells;
 import frc.robot.subsystems.climber.Hooker;
 import frc.robot.subsystems.climber.Puller;
@@ -114,9 +115,9 @@ public class RobotContainer {
 
         //Autonomous Chooser
         autoChooser = new SendableChooser<>();
-        autoChooser.setDefaultOption("GoForth", new MoveForward);
-
-
+        autoChooser.setDefaultOption("GoForth", new MoveForward(drivetrain, gyro, irsensor, intake, odometry, limelight, null, trajectories, null));
+        autoChooser.addOption("ShootEm", new NewShootBall(drivetrain, loader, shooter, irsensor, intake));
+        autoChooser.addOption("Nothing", null);
 
         configureButtonBindings();
     }
@@ -202,7 +203,7 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return new ShootThreePowerCells(drivetrain, gyro, loader, shooter, irsensor, intake, odometry, limelight, StartingPosition.SHOOTING, trajectories).andThen(()-> drivetrain.setVoltage(0, 0));
+        return autoChooser.getSelected();
     }
 
     // Update odometry and autonomous, then update smart dashboard
@@ -222,7 +223,7 @@ public class RobotContainer {
         SmartDashboard.putNumber("Timer", loader.getTimer().get());
         SmartDashboard.putNumber("Shooter Current 1", shooter.getMaster().getOutputCurrent());
         SmartDashboard.putNumber("Shooter Current 2", shooter.getSlave().getOutputCurrent());
-        
+        SmartDashboard.putData("Autonomous Picker", autoChooser);
  
         
     }
