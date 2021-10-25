@@ -37,6 +37,8 @@ public class Autonomous {
                 robotContainer.networkInterface.getCurrentlySelectedAutonomousEntry().setString(autonomousCommand.getName());
             }
         }
+
+            
         previouslySelectedObjective = selectedObjective;
         previouslySelectedStartingPosition = selectedStartingPosition;
 
