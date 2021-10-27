@@ -36,8 +36,8 @@ public class HoldTargetAiming extends InstantCommand {
 
             leftPower = (distanceOffset * distancekP) + (turningOffset * turningkP);
             rightPower = (distanceOffset * distancekP) - (turningOffset * turningkP);
-            drivetrain.getLeft().getMain().getPIDController().setReference(leftPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
-            drivetrain.getRight().getMain().getPIDController().setReference(rightPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
+            //drivetrain.getLeft().getMain().getPIDController().setReference(leftPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
+            //drivetrain.getRight().getMain().getPIDController().setReference(rightPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
         }
     }
 }

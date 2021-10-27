@@ -21,10 +21,10 @@ public class ShootThreePowerCells extends SequentialCommandGroup {
         addCommands(new InitializeCommand(drivetrain, odometry, gyro, startingPosition));
         switch (startingPosition) {
             case LOADING_STATION:
-                addCommands(new Ramsete(odometry, drivetrain, trajectories.loadingStartToAimingPosition()));
+               // addCommands(new Ramsete(odometry, drivetrain, trajectories.loadingStartToAimingPosition()));
                 break;
             case CENTER:
-                addCommands(new Ramsete(odometry, drivetrain, trajectories.centerStartToAimingPosition()));
+               /// addCommands(new Ramsete(odometry, drivetrain, trajectories.centerStartToAimingPosition()));
                 break;
             case SHOOTING:
                 break;
@@ -34,6 +34,6 @@ public class ShootThreePowerCells extends SequentialCommandGroup {
                 new AutoTargetAiming(drivetrain, limelight)
         ));
         new LoadNShoot(loader, intake, irSensor);
-        new Ramsete(odometry, drivetrain, trajectories.straightForward());
+       // new Ramsete(odometry, drivetrain, trajectories.straightForward());
     }
 }

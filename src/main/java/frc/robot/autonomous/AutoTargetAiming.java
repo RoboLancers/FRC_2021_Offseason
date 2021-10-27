@@ -29,8 +29,8 @@ public class AutoTargetAiming extends CommandBase {
             distanceOffset = -(DISTANCE_TARGET - limelight.getYOffset());
             leftPower = (distanceOffset * distancekP) + (turningOffset * turningkP);
             rightPower = (distanceOffset * distancekP) - (turningOffset * turningkP);
-            drivetrain.getLeft().getMain().getPIDController().setReference(leftPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
-            drivetrain.getRight().getMain().getPIDController().setReference(rightPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
+            //drivetrain.getLeft().getMain().getPIDController().setReference(leftPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
+            //drivetrain.getRight().getMain().getPIDController().setReference(rightPower, ControlType.kDutyCycle, 0, Constants.Trajectory.kSTATIC);
         }
     }
 
@@ -41,6 +41,6 @@ public class AutoTargetAiming extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        drivetrain.setVoltage(0, 0);
+        //drivetrain.setVoltage(0, 0);
     }
 }

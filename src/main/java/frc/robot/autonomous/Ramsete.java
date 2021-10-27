@@ -11,7 +11,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
-public class Ramsete extends RamseteCommand{
+/*public class Ramsete extends RamseteCommand{
     public Ramsete(Odometry odometry, Drivetrain drivetrain, Trajectory trajectory) {
         super(trajectory,
                 odometry::getPose2d,
@@ -26,4 +26,4 @@ public class Ramsete extends RamseteCommand{
                 drivetrain::setVoltage,
                 drivetrain);
     }
-}
+}*/

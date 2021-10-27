@@ -21,8 +21,8 @@ public class InitializeCommand extends InstantCommand {
 
     @Override
     public void initialize() {
-        drivetrain.getLeft().resetEncoder();
-        drivetrain.getRight().resetEncoder();
+        //drivetrain.getLeft().resetEncoder();
+        //drivetrain.getRight().resetEncoder();
         gyro.resetHeading();
         odometry.resetOdometry(startingPosition.getPose2d());
     }

@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,7 +37,6 @@ import frc.robot.subsystems.spinner.Spinner;
 import frc.robot.subsystems.spinner.SpinnerPivot;
 import frc.robot.utilities.FlightController;
 import frc.robot.utilities.XboxController;
-import frc.robot.subsystems.misc.Camera;
 
 public class RobotContainer {
     // Robot subsystems and commands
@@ -45,6 +45,7 @@ public class RobotContainer {
     public Camera camera;
 
     public Drivetrain drivetrain;
+    public SlewRateLimiter Slew;
     public Hooker hooker;
     public Puller puller;
     public Spinner spinner;
@@ -77,8 +78,9 @@ public class RobotContainer {
         // ^ ?
         shooterSpeed = NetworkTableInstance.getDefault().getEntry("Shooter Speed");
 
-        drivetrain = new Drivetrain();
-
+        drivetrain = new Drivetrain();        
+        Slew = new SlewRateLimiter(0.5);
+        // Implement this into the power/voltage
         gyro = new Gyro();
         odometry = new Odometry(drivetrain, gyro);
         trajectories = new Trajectories(odometry);
@@ -107,7 +109,6 @@ public class RobotContainer {
         pneumatics.setDefaultCommand(new UseCompressor(pneumatics));
         // intake.setDefaultCommand(new AutoStopConveyor(intake, irsensor));
 
-
         configureButtonBindings();
     }
 
@@ -126,15 +127,15 @@ public class RobotContainer {
                 // B Held           ->      LoadNShoot()
                 // Y Held           ->      HoldTargetAiming(aimingTarget: AimingTarget.LINE)
                 // X Held           ->      UseLoaderMotor(loaderMotorPower: 0.6)
-                .whileHeld(XboxController.Button.A, new ToggleGearShifter(gearShifter))
-                .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
+                //.whileHeld(XboxController.Button.A, new HoldTargetAiming(drivetrain, limelight, AimingTarget.TRENCH))
+              //  .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
 
 
             // Bumpers
                 // Left Pressed     ->      ToggleGearShift()
                 // Right Held       ->      UseIntake(intakeMotorPower: 0.6, transferMotorPower: 0.6)
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
-                .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.5, 0))
+                .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, -0.8, 0))
 
 
             // Triggers
@@ -142,7 +143,7 @@ public class RobotContainer {
                 // Left Released    ->      RevUpShooter(targetRPM: 0)
                 // Right Pressed    ->      
                 // Right Released   ->      RevUpShooter(targetRPM: 0)
-                .whileHeld(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor, -0.5, 0));
+                .whileHeld(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor,0.6, 0));
 
                 //.whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor, 0.8, 0))
                 //.whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor, 0, 0));
@@ -153,13 +154,13 @@ public class RobotContainer {
                 // B Held           ->      UseIntake(intakeMotorPower: 0, transferMotorPower: -0.6)
                 // X Held           ->      UseIntake(intakeMotorPower: 1, transferMotorPower: 0)
                 // Y Held           ->      UseIntake(intakeMotorPower: 0, transferMotorPower: 0.6)
-                .whileHeld(XboxController.Button.A, new UseIntake(intake, irsensor,-0.5, 0))
+                .whileHeld(XboxController.Button.A, new UseIntake(intake, irsensor,-0.6, 0))
                     //transfers power cells out of robot
-                .whileHeld(XboxController.Button.B, new UseIntake(intake, irsensor,0, -0.4))
+                .whileHeld(XboxController.Button.B, new UseIntake(intake, irsensor,0, -0.6))
                     //takes power cells out of robot
-                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,0.5, 0))
+                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,0.6, 0))
                     //takes power cells into robot
-                .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0.5, 0.4))
+                .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0, 0.6))
                     //transfers power cells into robot
 
 
@@ -192,7 +193,7 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return new ShootThreePowerCells(drivetrain, gyro, loader, shooter, irsensor, intake, odometry, limelight, StartingPosition.SHOOTING, trajectories).andThen(()-> drivetrain.setVoltage(0, 0));
+        return null;
     }
 
     // Update odometry and autonomous, then update smart dashboard
@@ -203,8 +204,8 @@ public class RobotContainer {
         SmartDashboard.putNumber("Angle", gyro.getFusedHeading());
         SmartDashboard.putNumber("X", Units.metersToFeet(odometry.getPose2d().getTranslation().getX()));
         SmartDashboard.putNumber("Y", Units.metersToFeet(odometry.getPose2d().getTranslation().getY()));
-        SmartDashboard.putNumber("left encoder", drivetrain.getLeft().getDistance());
-        SmartDashboard.putNumber("right encoder", drivetrain.getRight().getDistance());
+      //  SmartDashboard.putNumber("left encoder", drivetrain.getLeft().getDistance());
+      //  SmartDashboard.putNumber("right encoder", drivetrain.getRight().getDistance());
 
         SmartDashboard.putNumber("Turning Offset", limelight.getXOffset());
         SmartDashboard.putNumber("Distance Offset", limelight.getYOffset());
@@ -212,8 +213,5 @@ public class RobotContainer {
         SmartDashboard.putNumber("Timer", loader.getTimer().get());
         SmartDashboard.putNumber("Shooter Current 1", shooter.getMaster().getOutputCurrent());
         SmartDashboard.putNumber("Shooter Current 2", shooter.getSlave().getOutputCurrent());
-        
- 
-        
     }
 }
