@@ -27,6 +27,6 @@ public class RevUpShooter extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return shooter.getMaster().getEncoder().getVelocity() == targetRPM;
+        return Math.abs(shooter.getMaster().getEncoder().getVelocity() - targetRPM) < 50;
     }
 }
