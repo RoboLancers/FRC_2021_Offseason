@@ -12,29 +12,30 @@ import frc.robot.subsystems.drivetrain.enums.GearBoxSides;
 
 public class Drivetrain extends SubsystemBase {
     // Any reason to privatize left and right?
-    private SpeedControllerGroup left, right;
+    GearBox left, right;
+    private SpeedControllerGroup leftSCP, rightSCP;
     public DifferentialDrive m_drive;
     private SlewRateLimiter filter;
     public Drivetrain() {
      //   left = new GearBox(GearBoxSides.LEFT, RobotMap.Drivetrain.Left.FRONT, RobotMap.Drivetrain.Left.BACK_ONE, RobotMap.Drivetrain.Left.BACK_TWO);
      //   right = new GearBox(GearBoxSides.RIGHT, RobotMap.Drivetrain.Right.FRONT, RobotMap.Drivetrain.Right.BACK_ONE, RobotMap.Drivetrain.Right.BACK_TWO);
-        left = new SpeedControllerGroup(new Spark(RobotMap.Drivetrain.Left.FRONT), new Spark(RobotMap.Drivetrain.Left.BACK_ONE), new Spark(RobotMap.Drivetrain.Left.BACK_TWO));
-        right = new SpeedControllerGroup(new Spark(RobotMap.Drivetrain.Right.FRONT), new Spark(RobotMap.Drivetrain.Right.BACK_ONE), new Spark(RobotMap.Drivetrain.Right.BACK_TWO));
-        right.setInverted(true);
-        m_drive = new DifferentialDrive(left, right);
+        leftSCP = new SpeedControllerGroup(new Spark(RobotMap.Drivetrain.Left.FRONT), new Spark(RobotMap.Drivetrain.Left.BACK_ONE), new Spark(RobotMap.Drivetrain.Left.BACK_TWO));
+        rightSCP = new SpeedControllerGroup(new Spark(RobotMap.Drivetrain.Right.FRONT), new Spark(RobotMap.Drivetrain.Right.BACK_ONE), new Spark(RobotMap.Drivetrain.Right.BACK_TWO));
+        rightSCP.setInverted(true);
+        m_drive = new DifferentialDrive(leftSCP, rightSCP);
         filter = new SlewRateLimiter(0.1);
 
     
     }
     public void Drive(double throttle, double turn){
         
-        m_drive.arcadeDrive(filter.calculate(throttle), filter.calculate(turn));
+        m_drive.arcadeDrive(throttle, turn);
 
 
     }
-}
+
  
-    /* public GearBox getLeft() {
+     public GearBox getLeft() {
         return left;
     }
 
@@ -69,4 +70,3 @@ public class Drivetrain extends SubsystemBase {
         setVoltage(0, 0);
     }
 }
-*/
