@@ -13,7 +13,7 @@ public class UseDrivetrain extends CommandBase {
     public SlewRateLimiter filter1;
     public SlewRateLimiter filter2;
 
-    double throttle, turn, leftPower, rightPower;
+    double throttle, turn, leftPower, rightPower, maxPower;
 
     public UseDrivetrain(Drivetrain subsystem, XboxController xboxController) {
         this.drivetrain = subsystem;
@@ -25,11 +25,16 @@ public class UseDrivetrain extends CommandBase {
 
     @Override
     public void execute() {
+        //magnitude of the maximum power
+        maxPower = 0.75;
+
+        // forwards & backwards
+        throttle = filter1.calculate(xboxController.getAxisValue(XboxController.Axis.LEFT_Y));
+        // ensures throttle value has magnitude no more than maxPower
+        throttle = (throttle < 0 ? Math.max(-maxPower, throttle) : Math.min(maxPower, throttle));
         
-
-        throttle = filter1.calculate(xboxController.getAxisValue(XboxController.Axis.LEFT_Y))*0.5;
-        turn = (xboxController.getAxisValue(XboxController.Axis.RIGHT_X))*0.5;
-
+        // left & right
+        turn = (xboxController.getAxisValue(XboxController.Axis.RIGHT_X))*0.75;
 
         leftPower = throttle + turn;
         rightPower = throttle - turn;
