@@ -14,12 +14,10 @@ import frc.robot.subsystems.misc.IRSensor;
 import frc.robot.subsystems.misc.Limelight;
 import frc.robot.utilities.XboxController;
  
- 
- 
 public class MoveForward extends SequentialCommandGroup {
     public MoveForward(Drivetrain drivetrain, Gyro gyro, IRSensor irSensor, Intake intake, Odometry odometry, Limelight limelight, StartingPosition startingPosition, Trajectories trajectories, XboxController xboxController) {
         addCommands(new SetDrivePower(drivetrain, -0.5));
-        addCommands(new WaitCommand(2.0));
-        addCommands(new SetDrivePower(drivetrain, 0));
+        addCommands(new WaitCommand(1.0));
+        addCommands(new SetDrivePower(drivetrain, 0));  
     }
 }

@@ -4,12 +4,15 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.autonomous.*;
 import frc.robot.autonomous.enums.StartingPosition;
+import frc.robot.autonomous.routine.MoveForward;
+import frc.robot.autonomous.routine.NewShootBall;
 import frc.robot.autonomous.routine.ShootThreePowerCells;
 import frc.robot.subsystems.climber.Hooker;
 import frc.robot.subsystems.climber.Puller;
@@ -64,6 +67,8 @@ public class RobotContainer {
     public Trajectories trajectories;
 
     public Autonomous autonomous;
+    private SendableChooser<Command> autoChooser;
+
 
     public static XboxController driverXboxController = new XboxController(0, 0.2);
     public static XboxController manipulatorXboxController = new XboxController(1, 0.2);
@@ -72,6 +77,7 @@ public class RobotContainer {
     public RobotContainer() {
         networkInterface = new NetworkInterface();
         camera = new Camera();
+
 
         // SmartDashboard.putStr
         // ^ ?
@@ -107,6 +113,11 @@ public class RobotContainer {
         pneumatics.setDefaultCommand(new UseCompressor(pneumatics));
         // intake.setDefaultCommand(new AutoStopConveyor(intake, irsensor));
 
+        //Autonomous Chooser
+        autoChooser = new SendableChooser<>();
+        autoChooser.setDefaultOption("GoForth", new MoveForward(drivetrain, gyro, irsensor, intake, odometry, limelight, null, trajectories, null));
+        autoChooser.addOption("ShootEm", new NewShootBall(drivetrain, loader, shooter, irsensor, intake));
+        autoChooser.addOption("Nothing", null);
 
         configureButtonBindings();
     }
@@ -192,7 +203,7 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return new ShootThreePowerCells(drivetrain, gyro, loader, shooter, irsensor, intake, odometry, limelight, StartingPosition.SHOOTING, trajectories).andThen(()-> drivetrain.setVoltage(0, 0));
+        return autoChooser.getSelected();
     }
 
     // Update odometry and autonomous, then update smart dashboard
@@ -212,7 +223,7 @@ public class RobotContainer {
         SmartDashboard.putNumber("Timer", loader.getTimer().get());
         SmartDashboard.putNumber("Shooter Current 1", shooter.getMaster().getOutputCurrent());
         SmartDashboard.putNumber("Shooter Current 2", shooter.getSlave().getOutputCurrent());
-        
+        SmartDashboard.putData("Autonomous Picker", autoChooser);
  
         
     }
