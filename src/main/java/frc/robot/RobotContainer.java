@@ -120,6 +120,11 @@ public class RobotContainer {
         autoChooser.addOption("Nothing", null);
 
         configureButtonBindings();
+        camera.getFrontCamera();
+        camera.initializeFrontCamera();
+        camera.getBackCamera();
+        camera.initializeBackCamera();
+
     }
 
     private void configureButtonBindings() {
@@ -145,7 +150,7 @@ public class RobotContainer {
                 // Left Pressed     ->      ToggleGearShift()
                 // Right Held       ->      UseIntake(intakeMotorPower: 0.6, transferMotorPower: 0.6)
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
-                .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.5, 0))
+                .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.65, 0))
 
 
             // Triggers
@@ -153,7 +158,7 @@ public class RobotContainer {
                 // Left Released    ->      RevUpShooter(targetRPM: 0)
                 // Right Pressed    ->      
                 // Right Released   ->      RevUpShooter(targetRPM: 0)
-                .whileHeld(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor, -0.5, 0));
+                .whileHeld(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor, -0.65, 0));
 
                 //.whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor, 0.8, 0))
                 //.whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor, 0, 0));
@@ -168,7 +173,7 @@ public class RobotContainer {
                     //transfers power cells out of robot
                 .whileHeld(XboxController.Button.B, new UseIntake(intake, irsensor,0, -0.4))
                     //takes power cells out of robot
-                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,0.5, 0))
+                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,0.65, 0))
                     //takes power cells into robot
                 .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0.5, 0.4))
                     //transfers power cells into robot

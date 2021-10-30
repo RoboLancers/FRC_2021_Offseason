@@ -8,14 +8,14 @@ public class Camera {
     private UsbCamera frontLivecam, backLivecam;
 
     public Camera(){
-        frontLivecam = CameraServer.getInstance().startAutomaticCapture();
+        frontLivecam = CameraServer.getInstance().startAutomaticCapture(0);
         frontLivecam.setResolution(320, 240);
         frontLivecam.setFPS(15);
         /*
             Test start automatic capture first
         */
         // frontLivecam.addAxisCamera();
-        backLivecam = CameraServer.getInstance().startAutomaticCapture();
+        backLivecam = CameraServer.getInstance().startAutomaticCapture(1);
         backLivecam.setResolution(240, 180);
         backLivecam.setFPS(15);
         // backLivecam.addAxisCamera();
