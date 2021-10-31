@@ -19,7 +19,7 @@ public class UseDrivetrain extends CommandBase {
         this.drivetrain = subsystem;
         this.xboxController = xboxController;
         addRequirements(drivetrain);
-        filter1 = new SlewRateLimiter(0.8);
+        filter1 = new SlewRateLimiter(0.9);
         filter2 = new SlewRateLimiter(0.5);
     }
 
@@ -29,15 +29,15 @@ public class UseDrivetrain extends CommandBase {
         maxPower = 0.75;
 
         // forwards & backwards
-        throttle = filter1.calculate(xboxController.getAxisValue(XboxController.Axis.LEFT_Y));
+        throttle = xboxController.getAxisValue(XboxController.Axis.LEFT_Y);
         // ensures throttle value has magnitude no more than maxPower
         throttle = (throttle < 0 ? Math.max(-maxPower, throttle) : Math.min(maxPower, throttle));
         
         // left & right
-        turn = (xboxController.getAxisValue(XboxController.Axis.RIGHT_X))*0.75;
+        turn = (xboxController.getAxisValue(XboxController.Axis.RIGHT_X))*0.4;
 
-        leftPower = throttle + turn;
-        rightPower = throttle - turn;
+        leftPower = -throttle + turn;
+        rightPower = -throttle - turn;
         
         // values are NEGATIVE b/c of inversion of the y axis
         /*
