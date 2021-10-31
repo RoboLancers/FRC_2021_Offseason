@@ -191,7 +191,7 @@ public class RobotContainer {
                 .whileHeld(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, -1, -0.6))
                 // takes & transfers power cells into robot
                 .whenReleased(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, 0, 0))
-                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5500)))
+                .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5000)))
                 .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, 0))
 
             // Pov (Dpad)
@@ -229,6 +229,7 @@ public class RobotContainer {
         SmartDashboard.putNumber("Shooter Current 1", shooter.getMaster().getOutputCurrent());
         SmartDashboard.putNumber("Shooter Current 2", shooter.getSlave().getOutputCurrent());
         SmartDashboard.putData("Autonomous Picker", autoChooser);
+        SmartDashboard.putNumber("Puller Power", puller.getPower());
  
         
     }
