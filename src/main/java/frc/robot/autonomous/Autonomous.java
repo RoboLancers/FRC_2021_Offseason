@@ -38,8 +38,6 @@ public class Autonomous {
         }
         previouslySelectedObjective = selectedObjective;
         previouslySelectedStartingPosition = selectedStartingPosition;
-
-        
     }
 
     public Command getAutonomousCommand() {
