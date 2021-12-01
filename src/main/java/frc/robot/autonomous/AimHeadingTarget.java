@@ -3,14 +3,13 @@ package frc.robot.autonomous;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.misc.Limelight;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.lang.Math;
 
-public class AutoTargetAiming extends CommandBase {
+public class AimHeadingTarget extends CommandBase {
     /*
         All regular comments are notes
-        All comments with an eclamation point require adjustment / measurement
-        All comments with an star are not necessary in the soley heading based adjustments, and are used to adjust the distance
+        All comments with an exclamation point require adjustment / measurement
+        All comments with an star are not necessary in the solely heading based adjustments, and are used to adjust the distance
     */
     private Drivetrain drivetrain;
     private Limelight limelight;
@@ -36,7 +35,7 @@ public class AutoTargetAiming extends CommandBase {
     // How much the robot should turn every update cycle if it has not found a target yet
     public static double seekingAdjustment = 0.2; // ! Change this
 
-    public AutoTargetAiming(Drivetrain drivetrain, Limelight limelight) {
+    public AimHeadingTarget(Drivetrain drivetrain, Limelight limelight) {
         this.drivetrain = drivetrain;
         this.limelight = limelight;
         addRequirements(drivetrain);
@@ -45,12 +44,12 @@ public class AutoTargetAiming extends CommandBase {
     // Called on update cycles where the robot has a target
     private void adjustWithTarget() {
         double targetX = limelight.getXOffset();
-        double targetY = limelight.getYOffset();
+        // * double targetY = limelight.getYOffset();
 
-        double horizontalAdjustment = -targetX * AutoTargetAiming.horizontalAdjustmentCoefficient;
-        if(Math.abs(horizontalAdjustment) < AutoTargetAiming.requiresAbsoluteAdjustmentThreshold){
-            horizontalAdjustment += Math.signum(horizontalAdjustment) * AutoTargetAiming.minimumAbsoluteAdjustment;
-        };
+        double horizontalAdjustment = -targetX * AimHeadingTarget.horizontalAdjustmentCoefficient;
+        if(Math.abs(horizontalAdjustment) < AimHeadingTarget.requiresAbsoluteAdjustmentThreshold){
+            horizontalAdjustment += Math.signum(horizontalAdjustment) * AimHeadingTarget.minimumAbsoluteAdjustment;
+        }
 
         /*
             tan = opposite / adjacent
@@ -67,16 +66,14 @@ public class AutoTargetAiming extends CommandBase {
         double leftPower = -horizontalAdjustment; // * + distanceAdjustment;
         double rightPower = horizontalAdjustment; // * + distanceAdjustment;
 
-        SmartDashboard.putNumber("current adjust", horizontalAdjustment);
-
         drivetrain.getLeft().getMain().set(leftPower);
         drivetrain.getRight().getMain().set(rightPower);
     }
 
     // Called on update cycles where the robot does not have a target
     private void adjustWithoutTarget() {
-        double leftPower = AutoTargetAiming.seekingAdjustment;
-        double rightPower = -AutoTargetAiming.seekingAdjustment;
+        double leftPower = AimHeadingTarget.seekingAdjustment;
+        double rightPower = -AimHeadingTarget.seekingAdjustment;
 
         drivetrain.getLeft().getMain().set(leftPower);
         drivetrain.getRight().getMain().set(rightPower);
@@ -84,18 +81,11 @@ public class AutoTargetAiming extends CommandBase {
 
     @Override
     public void execute() {
-        SmartDashboard.putBoolean("limelightHasTarget", limelight.hasTarget());
         if(limelight.hasTarget()){
             this.adjustWithTarget();
         } else {
             this.adjustWithoutTarget();
-        };
-    }
-
-    @Override
-    public boolean isFinished() {
-        // what to do for this?
-        return false;
+        }
     }
 
     @Override

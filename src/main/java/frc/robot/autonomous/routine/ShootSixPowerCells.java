@@ -29,14 +29,14 @@ public class ShootSixPowerCells extends SequentialCommandGroup {
         }
         addCommands(new ParallelCommandGroup(
                 new RevUpShooter(shooter, 3000),
-                new AutoTargetAiming(drivetrain, limelight)
+                new AimHeadingTarget(drivetrain, limelight)
         ));
         addCommands(new LoadNShoot(loader, intake, irSensor));
         addCommands(new Ramsete(odometry, drivetrain, trajectories.aimingPositionToThreePowerCells(odometry.getPose2d())));
         addCommands(new Ramsete(odometry, drivetrain, trajectories.pickUpThreePowerCells(odometry.getPose2d())));
         addCommands(new ParallelCommandGroup(
                 new RevUpShooter(shooter, 3000),
-                new AutoTargetAiming(drivetrain, limelight)
+                new AimHeadingTarget(drivetrain, limelight)
         ));
     }
 }
