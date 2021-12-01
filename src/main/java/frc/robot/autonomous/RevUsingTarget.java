@@ -31,9 +31,13 @@ public class RevUsingTarget extends CommandBase {
         SmartDashboard.putNumber("Approximate Target Distance", targetDistance);
         double sin = Math.sin(Math.PI / 180 * RevUsingTarget.shooterReleaseAngle);
         double cos = Math.cos(Math.PI / 180 * RevUsingTarget.shooterReleaseAngle);
-        double time = Math.sqrt((targetDistance * sin - verticalDisplacement * cos) / 4.9);
-        double targetReleaseVelocity = targetDistance / (cos * time);
-        SmartDashboard.putNumber("Approximate Release Velocity", targetReleaseVelocity);
+        if(targetDistance * sin - verticalDisplacement * cos < 0){
+            // oops cant hit
+        } else {
+            double time = Math.sqrt((targetDistance * sin - verticalDisplacement * cos) / 4.9);
+            double targetReleaseVelocity = targetDistance / (cos * time);
+            SmartDashboard.putNumber("Approximate Release Velocity", targetReleaseVelocity);
+        };
     }
 
     @Override
