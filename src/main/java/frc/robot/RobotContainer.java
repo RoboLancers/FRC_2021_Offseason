@@ -127,8 +127,8 @@ public class RobotContainer {
                 .whileHeld(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor, -0.5, 0));
 
         manipulatorXboxController.
-                whileHeld(XboxController.Button.A, new AimHeadingTarget(drivetrain, limelight))
-                .whileHeld(XboxController.Button.B, new RevUsingTarget(shooter, limelight))
+                whileHeld(XboxController.Button.A, new AimHeadingTarget(limelight, drivetrain))
+                .whileHeld(XboxController.Button.B, new RevUsingTarget(limelight, drivetrain, shooter))
                 //.whileHeld(XboxController.Button.A, new UseIntake(intake, irsensor,-0.5, 0))
                     //transfers power cells out of robot
                 // .whileHeld(XboxController.Button.B, new UseIntake(intake, irsensor,0, -0.4))

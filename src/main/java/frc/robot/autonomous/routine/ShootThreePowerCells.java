@@ -31,7 +31,7 @@ public class ShootThreePowerCells extends SequentialCommandGroup {
         }
         addCommands(new ParallelCommandGroup(
                 new RevUpShooter(shooter, 4500),
-                new AimHeadingTarget(drivetrain, limelight)
+                new AimHeadingTarget(limelight, drivetrain)
         ));
         new LoadNShoot(loader, intake, irSensor);
         new Ramsete(odometry, drivetrain, trajectories.straightForward());
