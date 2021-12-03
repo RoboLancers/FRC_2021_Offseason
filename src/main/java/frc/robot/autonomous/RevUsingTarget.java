@@ -35,31 +35,51 @@ public class RevUsingTarget extends CommandBase {
         this.limelight = limelight;
         this.drivetrain = drivetrain;
         this.shooter = shooter;
-        addRequirements(shooter);
+        addRequirements(drivetrain, shooter);
     }
 
     // Called on update cycles where the limelight has a target
     void revWithTarget(){
-        double targetXAxisAngle = limelight.getYOffset() * Math.PI / 180;
+        /*
+            given: ∆x, ∆y, θ
+            solve for: v
+
+            ∆x = v * cos θ * t
+            ∆y = v * sin θ * t - 4.9 * t ^ 2
+            t = ∆x / (v * cos θ)
+            ∆y = tan θ * ∆x - 4.9 * (∆x / (v * cos θ)) ^ 2
+            4.9 * (∆x / (v * cos θ)) ^ 2 = tan θ * ∆x - ∆y
+            (∆x / (v * cos θ)) ^ 2 = (tan θ * ∆x - ∆y) / 4.9
+            ∆x / (v * cos θ) = sqrt((tan θ * ∆x - ∆y) / 4.9)
+            ∆x = (v * cos θ) * sqrt((tan θ * ∆x - ∆y) / 4.9)
+            v = ∆x / (cos θ * sqrt((tan θ * ∆x - ∆y) / 4.9))
+        */
+
         double deltaY = RevUsingTarget.targetHeight - RevUsingTarget.limeLightHeight;
-        double deltaX = deltaY / Math.tan(RevUsingTarget.limeLightMountingAngle + targetXAxisAngle);
-        double cos = Math.cos(RevUsingTarget.shooterReleaseAngle);
-        double sin = Math.sin(RevUsingTarget.shooterReleaseAngle);
-        double timeSquared = (sin * deltaX - cos * deltaY) / (cos * 9.81 / 2);
-        if(timeSquared >= 0){
-            double time = Math.sqrt(timeSquared);
-            double releaseVelocity = deltaX / (cos * time);
-            double rpm = 60 * releaseVelocity / RevUsingTarget.shooterFlywheelRadius;
-            this.shooter.getPidController().setReference(rpm, ControlType.kVelocity);
-            SmartDashboard.putBoolean("real target velocity", true);
-            SmartDashboard.putNumber("target release velocity", releaseVelocity);
-            SmartDashboard.putNumber("target shooter rpm", rpm);
+        double deltaX = deltaY / Math.tan(RevUsingTarget.limeLightMountingAngle + limelight.getYOffset() * Math.PI / 180);
+
+        double targetReleaseVelocity = deltaX / (Math.cos(RevUsingTarget.shooterReleaseAngle) * Math.sqrt((Math.tan(RevUsingTarget.shooterReleaseAngle * deltaX - deltaY)) / 4.9));
+        if(Double.isNaN(targetReleaseVelocity)){
+            SmartDashboard.putNumber("Target Release Velocity", 0);
+            SmartDashboard.putNumber("Target RPM", 0);
+            this.drivetrain.getLeftMainMotor().set(RevUsingTarget.seekAdjustment);
+            this.drivetrain.getRightMainMotor().set(RevUsingTarget.seekAdjustment);
         } else {
-            this.drivetrain.getLeft().getMain().set(RevUsingTarget.seekAdjustment);
-            this.drivetrain.getRight().getMain().set(RevUsingTarget.seekAdjustment);
-            SmartDashboard.putBoolean("real target velocity", true);
-            SmartDashboard.putNumber("target release velocity", 0);
-            SmartDashboard.putNumber("target shooter rpm", 0);
+            SmartDashboard.putNumber("Target Release Velocity", 0);
+            /*
+                v = r * ω
+                ω = v / r
+                ω = ∆θ / t
+                v / r = ∆θ / t
+                ∆θ = v * t / r
+                rotations = ∆θ / 2π
+                rotations = 2π * v * t / r
+                rpm = 60 * 2π * v / r
+            */
+            double targetRPM = 60 * 2 * Math.PI * targetReleaseVelocity / RevUsingTarget.shooterFlywheelRadius;
+            SmartDashboard.putNumber("Target Release Velocity", targetReleaseVelocity);
+            SmartDashboard.putNumber("Target RPM", targetRPM);
+            this.shooter.getPidController().setReference(targetRPM, ControlType.kVelocity);
         }
     }
 
