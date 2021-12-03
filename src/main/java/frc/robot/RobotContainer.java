@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -107,7 +109,7 @@ public class RobotContainer {
         autonomous = new Autonomous(this);
 
         // Configure the button bindings
-        drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, driverXboxController));
+        drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, gearShifter.getState().getValue() == DoubleSolenoid.Value.kForward, driverXboxController));
         hooker.setDefaultCommand(new HookUp(hooker));
         puller.setDefaultCommand(new PullUp(puller));
         pneumatics.setDefaultCommand(new UseCompressor(pneumatics));
@@ -150,7 +152,7 @@ public class RobotContainer {
                 // Left Pressed     ->      ToggleGearShift()
                 // Right Held       ->      UseIntake(intakeMotorPower: 0.6, transferMotorPower: 0.6)
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
-                .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.65, 0))
+                .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.75, 0))
 
 
             // Triggers
@@ -169,11 +171,11 @@ public class RobotContainer {
                 // B Held           ->      UseIntake(intakeMotorPower: 0, transferMotorPower: -0.6)
                 // X Held           ->      UseIntake(intakeMotorPower: 1, transferMotorPower: 0)
                 // Y Held           ->      UseIntake(intakeMotorPower: 0, transferMotorPower: 0.6)
-                .whileHeld(XboxController.Button.A, new UseIntake(intake, irsensor,-0.5, 0))
+                .whileHeld(XboxController.Button.A, new UseIntake(intake, irsensor,-0.75, 0))
                     //transfers power cells out of robot
                 .whileHeld(XboxController.Button.B, new UseIntake(intake, irsensor,0, -0.4))
                     //takes power cells out of robot
-                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,0.65, 0))
+                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,0.75, 0))
                     //takes power cells into robot
                 .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0.5, 0.4))
                     //transfers power cells into robot
@@ -197,13 +199,6 @@ public class RobotContainer {
             // Pov (Dpad)
                 // Down Pressed     ->      ToggleIntakePivot()
                 .toggleWhenPressed(XboxController.POV.DOWN, new ToggleIntakePivot(intakePivot));
-
-        testController
-            // Bumpers
-                // Left Pressed     ->      Reset Odometry
-                // Right Pressed    ->      ?
-                .whenPressed(XboxController.Button.RIGHT_BUMPER,  new InstantCommand(() -> odometry.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)))))
-                .whenPressed(XboxController.Button.LEFT_BUMPER, new InitializeCommand(drivetrain, odometry, gyro, StartingPosition.SHOOTING));
 
     }
 
