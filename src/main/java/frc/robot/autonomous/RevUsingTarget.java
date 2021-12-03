@@ -29,7 +29,7 @@ public class RevUsingTarget extends CommandBase {
     // Radius of the flywheels used to shoot
     public static double shooterFlywheelRadius = 0.0635;
     // Hom much should the robot move backward each update cycle if the robot is too close to be able to hit the target
-    public static double seekAdjustment = -0.05;
+    public static double seekAdjustment = 0.15;
 
     public RevUsingTarget(Limelight limelight, Drivetrain drivetrain, Shooter shooter){
         this.limelight = limelight;
@@ -60,11 +60,13 @@ public class RevUsingTarget extends CommandBase {
 
         double targetReleaseVelocity = deltaX / (Math.cos(RevUsingTarget.shooterReleaseAngle) * Math.sqrt((Math.tan(RevUsingTarget.shooterReleaseAngle * deltaX - deltaY)) / 4.9));
         if(Double.isNaN(targetReleaseVelocity)){
+            this.shooter.getPidController().setReference(0, ControlType.kVelocity);
             SmartDashboard.putNumber("Target Release Velocity", 0);
             SmartDashboard.putNumber("Target RPM", 0);
             this.drivetrain.getLeftMainMotor().set(RevUsingTarget.seekAdjustment);
             this.drivetrain.getRightMainMotor().set(RevUsingTarget.seekAdjustment);
         } else {
+            drivetrain.setVoltage(0, 0);
             SmartDashboard.putNumber("Target Release Velocity", 0);
             /*
                 v = r * ω
@@ -76,7 +78,7 @@ public class RevUsingTarget extends CommandBase {
                 rotations = 2π * v * t / r
                 rpm = 60 * 2π * v / r
             */
-            double targetRPM = 60 * 2 * Math.PI * targetReleaseVelocity / RevUsingTarget.shooterFlywheelRadius;
+            double targetRPM = (2 * Math.PI * 60 * targetReleaseVelocity) / (RevUsingTarget.shooterFlywheelRadius);
             SmartDashboard.putNumber("Target Release Velocity", targetReleaseVelocity);
             SmartDashboard.putNumber("Target RPM", targetRPM);
             this.shooter.getPidController().setReference(targetRPM, ControlType.kVelocity);
@@ -91,8 +93,14 @@ public class RevUsingTarget extends CommandBase {
     }
 
     @Override
+    public void end(boolean interrupted) {
+        drivetrain.setVoltage(0, 0);
+        this.shooter.getPidController().setReference(0, ControlType.kVelocity);
+    }
+
+    @Override
     public boolean isFinished(){
         // how to read the current rpm
-        return true;
+        return false;
     }
 }
