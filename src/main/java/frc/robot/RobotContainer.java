@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -107,7 +109,7 @@ public class RobotContainer {
         autonomous = new Autonomous(this);
 
         // Configure the button bindings
-        drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, driverXboxController));
+        drivetrain.setDefaultCommand(new UseDrivetrain(drivetrain, gearShifter.getState().getValue() == DoubleSolenoid.Value.kForward, driverXboxController));
         hooker.setDefaultCommand(new HookUp(hooker));
         puller.setDefaultCommand(new PullUp(puller));
         pneumatics.setDefaultCommand(new UseCompressor(pneumatics));
