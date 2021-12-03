@@ -4,8 +4,10 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.autonomous.enums.Objective;
 import frc.robot.autonomous.enums.StartingPosition;
+import frc.robot.autonomous.routine.MoveForward;
 
 public class NetworkInterface {
     private ShuffleboardTab competitionTab;
