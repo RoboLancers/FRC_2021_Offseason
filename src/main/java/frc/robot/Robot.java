@@ -1,17 +1,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.utilities.XboxController;
 
 public class Robot extends TimedRobot {
-
-    // None of the following code is ever used?
-
     private Command m_autonomousCommand;
 
     private RobotContainer m_robotContainer;
@@ -37,14 +32,6 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void disabledInit() {
-    }
-
-    @Override
-    public void disabledPeriodic() {
-    }
-
-    @Override
     public void autonomousInit() {
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -54,28 +41,23 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void autonomousPeriodic() {
-    }
-
-    @Override
     public void teleopInit() {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
 
+        m_robotContainer.camera.initializeBackCamera();
+        m_robotContainer.camera.initializeFrontCamera();
 
     }
 
     @Override
     public void teleopPeriodic() {
+
     }
 
     @Override
     public void testInit() {
         CommandScheduler.getInstance().cancelAll();
-    }
-
-    @Override
-    public void testPeriodic() {
     }
 }

@@ -1,6 +1,5 @@
 package frc.robot.autonomous;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.autonomous.enums.StartingPosition;
 import frc.robot.subsystems.drivetrain.Drivetrain;

@@ -1,6 +1,5 @@
 package frc.robot.autonomous;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.autonomous.enums.Objective;
@@ -41,8 +40,6 @@ public class Autonomous {
             
         previouslySelectedObjective = selectedObjective;
         previouslySelectedStartingPosition = selectedStartingPosition;
-
-        
     }
 
     public Command getAutonomousCommand() {
