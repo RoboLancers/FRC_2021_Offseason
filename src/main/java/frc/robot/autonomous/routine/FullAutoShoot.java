@@ -16,8 +16,8 @@ public class FullAutoShoot extends SequentialCommandGroup {
     public FullAutoShoot(Limelight limelight, Drivetrain drivetrain, Shooter shooter, Loader loader, Intake intake, IRSensor irSensor){
         addCommands(
             new AimHeadingTarget(limelight, drivetrain),
-            new RevUsingTarget(limelight, drivetrain, shooter),
-            new LoadNShoot(loader, intake, irSensor)
+            new RevUsingTarget(limelight, drivetrain, shooter)//,
+            //new LoadNShoot(loader, intake, irSensor)
         );
     }
 }

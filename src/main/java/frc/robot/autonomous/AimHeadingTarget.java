@@ -14,10 +14,10 @@ public class AimHeadingTarget extends CommandBase {
     // If the absolute value of the horizontal error is less than this threshold, the heading is accurate enough and the command has finished
     public static double minimumHeadingError = 0.02;
     // If the absolute value of the horizontal error is less than this threshold, add the minimum absolute adjustment value multiplied by the sign of the horizontal error
-    public static double requiresAbsoluteAdjustmentThreshold = 0.04;
-    public static double minimumAbsoluteAdjustment = 0.01;
+    public static double requiresAbsoluteAdjustmentThreshold = 0.02;
+    public static double minimumAbsoluteAdjustment = 0.005;
     // How much the robot should turn each update cycle if it has not found a target yet
-    public static double seekingAdjustment = 0.4;
+    public static double seekingAdjustment = 0.3;
 
     public AimHeadingTarget(Limelight limelight, Drivetrain drivetrain) {
         this.limelight = limelight;
@@ -31,7 +31,7 @@ public class AimHeadingTarget extends CommandBase {
 
         double horizontalAdjustment = -targetX * AimHeadingTarget.adjustmentCoefficient;
         if(Math.abs(horizontalAdjustment) > AimHeadingTarget.requiresAbsoluteAdjustmentThreshold){
-            horizontalAdjustment += Math.signum(horizontalAdjustment) * AimHeadingTarget.minimumAbsoluteAdjustment;
+            horizontalAdjustment -= Math.signum(horizontalAdjustment) * AimHeadingTarget.minimumAbsoluteAdjustment;
         }
 
         double leftPower = -horizontalAdjustment;
@@ -66,6 +66,6 @@ public class AimHeadingTarget extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return Math.abs(this.limelight.getXOffset()) < AimHeadingTarget.minimumHeadingError;
+        return false; // Math.abs(this.limelight.getXOffset()) < AimHeadingTarget.minimumHeadingError;
     }
 }
