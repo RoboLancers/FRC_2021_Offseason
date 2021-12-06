@@ -56,18 +56,15 @@ public class RevUsingTarget extends CommandBase {
         */
 
         double deltaY = RevUsingTarget.targetHeight - RevUsingTarget.limeLightHeight;
-        double deltaX = deltaY / Math.tan(RevUsingTarget.limeLightMountingAngle + limelight.getYOffset() * Math.PI / 180);
+        double deltaX = deltaY / Math.tan(RevUsingTarget.limeLightMountingAngle + this.limelight.getYOffset() * Math.PI / 180);
 
         double targetReleaseVelocity = deltaX / (Math.cos(RevUsingTarget.shooterReleaseAngle) * Math.sqrt((Math.tan(RevUsingTarget.shooterReleaseAngle * deltaX - deltaY)) / 4.9));
         if(Double.isNaN(targetReleaseVelocity)){
             this.shooter.getPidController().setReference(0, ControlType.kVelocity);
-            SmartDashboard.putNumber("Target Release Velocity", 0);
-            SmartDashboard.putNumber("Target RPM", 0);
             this.drivetrain.getLeftMainMotor().set(RevUsingTarget.seekAdjustment);
             this.drivetrain.getRightMainMotor().set(RevUsingTarget.seekAdjustment);
         } else {
             drivetrain.setVoltage(0, 0);
-            SmartDashboard.putNumber("Target Release Velocity", 0);
             /*
                 v = r * ω
                 ω = v / r
@@ -79,8 +76,6 @@ public class RevUsingTarget extends CommandBase {
                 rpm = 60 * 2π * v / r
             */
             double targetRPM = (2 * Math.PI * 60 * targetReleaseVelocity) / (RevUsingTarget.shooterFlywheelRadius);
-            SmartDashboard.putNumber("Target Release Velocity", targetReleaseVelocity);
-            SmartDashboard.putNumber("Target RPM", targetRPM);
             this.shooter.getPidController().setReference(targetRPM, ControlType.kVelocity);
         }
     }
@@ -94,8 +89,7 @@ public class RevUsingTarget extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        drivetrain.setVoltage(0, 0);
-        this.shooter.getPidController().setReference(0, ControlType.kVelocity);
+        this.drivetrain.setVoltage(0, 0);
     }
 
     @Override

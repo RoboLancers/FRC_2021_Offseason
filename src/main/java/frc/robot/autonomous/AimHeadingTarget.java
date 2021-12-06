@@ -10,11 +10,11 @@ public class AimHeadingTarget extends CommandBase {
     private Drivetrain drivetrain;
 
     // Used to weight the horizontal error
-    public static double adjustmentCoefficient = 0.001;
+    public static double adjustmentCoefficient = 0.02;
     // If the absolute value of the horizontal error is less than this threshold, the heading is accurate enough and the command has finished
     public static double minimumHeadingError = 0.02;
     // If the absolute value of the horizontal error is less than this threshold, add the minimum absolute adjustment value multiplied by the sign of the horizontal error
-    public static double requiresAbsoluteAdjustmentThreshold = 0.08;
+    public static double requiresAbsoluteAdjustmentThreshold = 0.04;
     public static double minimumAbsoluteAdjustment = 0.01;
     // How much the robot should turn each update cycle if it has not found a target yet
     public static double seekingAdjustment = 0.4;
@@ -27,18 +27,18 @@ public class AimHeadingTarget extends CommandBase {
 
     // Called on update cycles where the limelight has a target
     private void adjustWithTarget() {
-        double targetX = limelight.getXOffset();
+        double targetX = this.limelight.getXOffset();
 
         double horizontalAdjustment = -targetX * AimHeadingTarget.adjustmentCoefficient;
-        if(Math.abs(horizontalAdjustment) < AimHeadingTarget.requiresAbsoluteAdjustmentThreshold){
+        if(Math.abs(horizontalAdjustment) > AimHeadingTarget.requiresAbsoluteAdjustmentThreshold){
             horizontalAdjustment += Math.signum(horizontalAdjustment) * AimHeadingTarget.minimumAbsoluteAdjustment;
         }
 
         double leftPower = -horizontalAdjustment;
         double rightPower = horizontalAdjustment;
 
-        drivetrain.getLeft().getMain().set(leftPower);
-        drivetrain.getRight().getMain().set(rightPower);
+        this.drivetrain.getLeft().getMain().set(leftPower);
+        this.drivetrain.getRight().getMain().set(rightPower);
     }
 
     // Called on update cycles where the limelight does not have a target
@@ -46,13 +46,13 @@ public class AimHeadingTarget extends CommandBase {
         double leftPower = AimHeadingTarget.seekingAdjustment;
         double rightPower = -AimHeadingTarget.seekingAdjustment;
 
-        drivetrain.getLeft().getMain().set(leftPower);
-        drivetrain.getRight().getMain().set(rightPower);
+        this.drivetrain.getLeft().getMain().set(leftPower);
+        this.drivetrain.getRight().getMain().set(rightPower);
     }
 
     @Override
     public void execute() {
-        if(limelight.hasTarget()){
+        if(this.limelight.hasTarget()){
             this.adjustWithTarget();
         } else {
             this.adjustWithoutTarget();
@@ -61,11 +61,11 @@ public class AimHeadingTarget extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        drivetrain.setVoltage(0, 0);
+        this.drivetrain.setVoltage(0, 0);
     }
 
     @Override
     public boolean isFinished(){
-        return false;// limelight.getXOffset() < AimHeadingTarget.minimumHeadingError;
+        return Math.abs(this.limelight.getXOffset()) < AimHeadingTarget.minimumHeadingError;
     }
 }

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.autonomous.*;
 import frc.robot.autonomous.enums.StartingPosition;
+import frc.robot.autonomous.routine.FullAutoShoot;
 import frc.robot.autonomous.routine.MoveForward;
 import frc.robot.autonomous.routine.NewShootBall;
 import frc.robot.autonomous.routine.ShootThreePowerCells;
@@ -124,46 +125,23 @@ public class RobotContainer {
     }
 
     private void configureButtonBindings() {
-        // Issues:
-        /*
-            Nothing actually toggles the puller, so that means the ports have to be wrong
-            For driver controller, we should made right trigger toggle target shooter rpm, so the button config is simpler
-            Driver controller doesn't do anything with X, which seems inefficient
-            Manipulator controller has right bumper pressed mapped to the same command as dpad down pressed
-            What does left bumper on test controller do?
-        */
         driverXboxController
-            // Buttons
-                // A Held           ->      HoldTargetAiming(aimingTarget: AimingTarget.TRENCH)
-                // B Held           ->      LoadNShoot()
-                // Y Held           ->      HoldTargetAiming(aimingTarget: AimingTarget.LINE)
-                // X Held           ->      UseLoaderMotor(loaderMotorPower: 0.6)
                 .whenPressed(XboxController.Button.A, new ToggleGearShifter(gearShifter))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
-
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
                 .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.75, 0))
-
                 .whileHeld(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor,  -0.65, 0));
 
         manipulatorXboxController.
-                whileHeld(XboxController.Button.A, new AimHeadingTarget(limelight, drivetrain))
+                whileHeld(XboxController.Button.A, new FullAutoShoot(limelight, drivetrain, shooter, loader, intake, irsensor))
                 .whileHeld(XboxController.Button.B, new RevUsingTarget(limelight, drivetrain, shooter))
-                //.whileHeld(XboxController.Button.A, new UseIntake(intake, irsensor,-0.5, 0))
-                    //transfers power cells out of robot
-                // .whileHeld(XboxController.Button.B, new UseIntake(intake, irsensor,0, -0.4))
-                    //takes power cells out of robot
                 .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,0.75, 0))
-                    //takes power cells into robot
                 .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0.5, 0.4))
-                    //transfers power cells into robot
 
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
-                    //loads power cells into shooter
                 .whileHeld(XboxController.Button.RIGHT_BUMPER, new LoadNShoot(loader, intake, irsensor))
 
                 .whileHeld(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, -1, -0.6))
-                // takes & transfers power cells into robot
                 .whenReleased(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, 0, 0))
                 .whenPressed(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, shooterSpeed.getDouble(5000)))
                 .whenReleased(XboxController.Trigger.RIGHT_TRIGGER, new RevUpShooter(shooter, 0))
