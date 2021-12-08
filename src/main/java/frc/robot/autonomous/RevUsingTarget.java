@@ -12,6 +12,7 @@ public class RevUsingTarget extends CommandBase {
     private Limelight limelight;
     private Drivetrain drivetrain;
     private Shooter shooter;
+    private boolean reachedTargetRPM = false;
 
     // All distances in measurements in meters
     // All angles in radians
@@ -76,25 +77,32 @@ public class RevUsingTarget extends CommandBase {
                 rpm = 60 * 2π * v / r
             */
             double targetRPM = (2 * Math.PI * 60 * targetReleaseVelocity) / (RevUsingTarget.shooterFlywheelRadius);
+            if(this.shooter.getMaster().getEncoder().getVelocity() - 100 > targetRPM){
+                this.reachedTargetRPM = true;
+            } else {
+                this.reachedTargetRPM = false;
+            }
             this.shooter.getPidController().setReference(targetRPM, ControlType.kVelocity);
         }
     }
 
     @Override
     public void execute(){
+        SmartDashboard.putNumber("current rpm", this.shooter.getMaster().getEncoder().getVelocity());
         if(limelight.hasTarget()){
             this.revWithTarget();
         }
+        SmartDashboard.putBoolean("reached target rpm", this.reachedTargetRPM);
     }
 
     @Override
     public void end(boolean interrupted) {
         this.drivetrain.setVoltage(0, 0);
-    }
+    } 
 
     @Override
     public boolean isFinished(){
         // how to read the current rpm
-        return false;
+        return false; // reachedTargetRPM;
     }
 }
