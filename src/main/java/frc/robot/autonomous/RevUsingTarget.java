@@ -98,7 +98,8 @@ public class RevUsingTarget extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         this.drivetrain.setVoltage(0, 0);
-    } 
+        this.shooter.getPidController().setReference(0, ControlType.kVelocity);
+    }
 
     @Override
     public boolean isFinished(){
