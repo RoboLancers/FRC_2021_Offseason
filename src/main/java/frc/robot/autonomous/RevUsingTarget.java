@@ -30,7 +30,7 @@ public class RevUsingTarget extends CommandBase {
     // Radius of the flywheels used to shoot
     public static double shooterFlywheelRadius = 0.0635;
     // Hom much should the robot move backward each update cycle if the robot is too close to be able to hit the target
-    public static double seekAdjustment = 0.15;
+    public static double seekAdjustment = 0.25;
 
     public RevUsingTarget(Limelight limelight, Drivetrain drivetrain, Shooter shooter){
         this.limelight = limelight;
@@ -76,8 +76,9 @@ public class RevUsingTarget extends CommandBase {
                 rotations = 2π * v * t / r
                 rpm = 60 * 2π * v / r
             */
-            double targetRPM = (2 * Math.PI * 60 * targetReleaseVelocity) / (RevUsingTarget.shooterFlywheelRadius);
-            if(this.shooter.getMaster().getEncoder().getVelocity() - 100 > targetRPM){
+            double targetRPM = (60 * targetReleaseVelocity) / (2 * Math.PI * RevUsingTarget.shooterFlywheelRadius);
+            SmartDashboard.putNumber("target rpm", targetRPM);
+            if(Math.abs(this.shooter.getMaster().getEncoder().getVelocity() - targetRPM) < 200){
                 this.reachedTargetRPM = true;
             } else {
                 this.reachedTargetRPM = false;
@@ -98,12 +99,12 @@ public class RevUsingTarget extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         this.drivetrain.setVoltage(0, 0);
-        this.shooter.getPidController().setReference(0, ControlType.kVelocity);
+        // this.shooter.getPidController().setReference(0, ControlType.kVelocity);
     }
 
     @Override
     public boolean isFinished(){
         // how to read the current rpm
-        return false; // reachedTargetRPM;
+        return this.reachedTargetRPM;
     }
 }

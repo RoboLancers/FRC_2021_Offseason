@@ -1,5 +1,6 @@
 package frc.robot.autonomous;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.misc.Limelight;
@@ -12,7 +13,7 @@ public class AimHeadingTarget extends CommandBase {
     // Used to weight the horizontal error
     public static double adjustmentCoefficient = 0.02;
     // If the absolute value of the horizontal error is less than this threshold, the heading is accurate enough and the command has finished
-    public static double minimumHeadingError = 0.02;
+    public static double minimumHeadingError = 0.2;
     // If the absolute value of the horizontal error is less than this threshold, add the minimum absolute adjustment value multiplied by the sign of the horizontal error
     public static double requiresAbsoluteAdjustmentThreshold = 0.02;
     public static double minimumAbsoluteAdjustment = 0.005;
@@ -66,6 +67,7 @@ public class AimHeadingTarget extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return false; // Math.abs(this.limelight.getXOffset()) < AimHeadingTarget.minimumHeadingError;
+        SmartDashboard.putBoolean("finished aim", this.limelight.hasTarget() && Math.abs(this.limelight.getXOffset()) < AimHeadingTarget.minimumHeadingError);
+        return this.limelight.hasTarget() && Math.abs(this.limelight.getXOffset()) < AimHeadingTarget.minimumHeadingError;
     }
 }
