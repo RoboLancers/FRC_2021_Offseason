@@ -13,12 +13,12 @@ public class AimHeadingTarget extends CommandBase {
     // Used to weight the horizontal error
     public static double adjustmentCoefficient = 0.02;
     // If the absolute value of the horizontal error is less than this threshold, the heading is accurate enough and the command has finished
-    public static double minimumHeadingError = 0.2;
+    public static double minimumHeadingError = 0.02;
     // If the absolute value of the horizontal error is less than this threshold, add the minimum absolute adjustment value multiplied by the sign of the horizontal error
-    public static double requiresAbsoluteAdjustmentThreshold = 0.02;
-    public static double minimumAbsoluteAdjustment = 0.005;
+    public static double requiresAbsoluteAdjustmentThreshold = 0.3;
+    public static double minimumAbsoluteAdjustment = 0.05;
     // How much the robot should turn each update cycle if it has not found a target yet
-    public static double seekingAdjustment = 0.3;
+    public static double seekAdjustment = 0.4;
 
     public AimHeadingTarget(Limelight limelight, Drivetrain drivetrain) {
         this.limelight = limelight;
@@ -35,20 +35,15 @@ public class AimHeadingTarget extends CommandBase {
             horizontalAdjustment -= Math.signum(horizontalAdjustment) * AimHeadingTarget.minimumAbsoluteAdjustment;
         }
 
-        double leftPower = -horizontalAdjustment;
-        double rightPower = horizontalAdjustment;
-
-        this.drivetrain.getLeft().getMain().set(leftPower);
-        this.drivetrain.getRight().getMain().set(rightPower);
+        this.drivetrain.getLeft().getMain().set(-horizontalAdjustment);
+        this.drivetrain.getRight().getMain().set(horizontalAdjustment);
     }
 
     // Called on update cycles where the limelight does not have a target
     private void adjustWithoutTarget() {
-        double leftPower = AimHeadingTarget.seekingAdjustment;
-        double rightPower = -AimHeadingTarget.seekingAdjustment;
-
-        this.drivetrain.getLeft().getMain().set(leftPower);
-        this.drivetrain.getRight().getMain().set(rightPower);
+        // TODO: Save relative location of the target, and use this to sign the adjustment so it wont ever have to spin more than 180 degrees
+        this.drivetrain.getLeft().getMain().set(AimHeadingTarget.seekAdjustment);
+        this.drivetrain.getRight().getMain().set(-AimHeadingTarget.seekAdjustment);
     }
 
     @Override

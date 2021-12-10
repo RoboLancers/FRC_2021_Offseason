@@ -29,8 +29,10 @@ public class RevUsingTarget extends CommandBase {
     public static double shooterReleaseAngle = 50.0 * Math.PI / 180;
     // Radius of the flywheels used to shoot
     public static double shooterFlywheelRadius = 0.0635;
+    // Target RPM acceptable error threshold
+    public static double minimumRPMError = 100;
     // Hom much should the robot move backward each update cycle if the robot is too close to be able to hit the target
-    public static double seekAdjustment = 0.25;
+    public static double seekAdjustment = 0.75;
 
     public RevUsingTarget(Limelight limelight, Drivetrain drivetrain, Shooter shooter){
         this.limelight = limelight;
@@ -71,14 +73,12 @@ public class RevUsingTarget extends CommandBase {
                 ω = v / r
                 ω = ∆θ / t
                 v / r = ∆θ / t
-                ∆θ = v * t / r
-                rotations = ∆θ / 2π
-                rotations = 2π * v * t / r
-                rpm = 60 * 2π * v / r
+                v / r = rpm * 2π / 60
+                rpm = 60v / (2π * r)
             */
-            double targetRPM = (60 * targetReleaseVelocity) / (2 * Math.PI * RevUsingTarget.shooterFlywheelRadius);
+            double targetRPM = 60 * targetReleaseVelocity / (2 * Math.PI * RevUsingTarget.shooterFlywheelRadius);
             SmartDashboard.putNumber("target rpm", targetRPM);
-            if(Math.abs(this.shooter.getMaster().getEncoder().getVelocity() - targetRPM) < 200){
+            if(Math.abs(this.shooter.getMaster().getEncoder().getVelocity() - targetRPM) < RevUsingTarget.minimumRPMError){
                 this.reachedTargetRPM = true;
             } else {
                 this.reachedTargetRPM = false;
@@ -99,12 +99,10 @@ public class RevUsingTarget extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         this.drivetrain.setVoltage(0, 0);
-        // this.shooter.getPidController().setReference(0, ControlType.kVelocity);
     }
 
     @Override
     public boolean isFinished(){
-        // how to read the current rpm
         return this.reachedTargetRPM;
     }
 }

@@ -19,8 +19,8 @@ public class FullAutoShoot extends SequentialCommandGroup {
         addCommands(
             new AimHeadingTarget(limelight, drivetrain),
             new RevUsingTarget(limelight, drivetrain, shooter),
+            new WaitCommand(0.5),
             new LoadNShoot(loader, intake, irSensor),
-            new WaitCommand(2),
             new RevUpShooter(shooter, 0)
         );
     }
