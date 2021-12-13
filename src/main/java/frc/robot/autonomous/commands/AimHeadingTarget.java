@@ -1,6 +1,5 @@
 package frc.robot.autonomous.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.misc.Limelight;
@@ -9,16 +8,21 @@ import java.lang.Math;
 public class AimHeadingTarget extends CommandBase {
     private Limelight limelight;
     private Drivetrain drivetrain;
+    private boolean hadTargetLastFrame = false;
+    private double lastTargetX = 0;
 
     // Used to weight the horizontal error
     public static double adjustmentCoefficient = 0.02;
+    // If the absolute value of the horizontal error is less than this threshold, add the minimum absolute adjustment value multiplied by the sign of the horizontal error
+    public static double requiresAbsoluteAdjustmentThreshold = 0.04;
+    public static double minimumAbsoluteAdjustment = 0.01;
+    // How much the robot should turn each update cycle if it has not found a target yet
+    public static double seekAdjustment = 0.3;
     // If the absolute value of the horizontal error is less than this threshold, the heading is accurate enough and the command has finished
     public static double minimumHeadingError = 0.02;
-    // If the absolute value of the horizontal error is less than this threshold, add the minimum absolute adjustment value multiplied by the sign of the horizontal error
-    public static double requiresAbsoluteAdjustmentThreshold = 0.3;
-    public static double minimumAbsoluteAdjustment = 0.05;
-    // How much the robot should turn each update cycle if it has not found a target yet
-    public static double seekAdjustment = 0.4;
+    // If the absolute value of the difference between the current target x and last target x is less than this threshold, the robot has properly aligned and come to a stop
+    // Without checking this, the robot can move very fast to match the target, consider it found, and the momentum of the robot will make it keep turing past the target
+    public static double minimumDeltaTargetX = 0.05;
 
     public AimHeadingTarget(Limelight limelight, Drivetrain drivetrain) {
         this.limelight = limelight;
@@ -34,6 +38,10 @@ public class AimHeadingTarget extends CommandBase {
         if(Math.abs(horizontalAdjustment) > AimHeadingTarget.requiresAbsoluteAdjustmentThreshold){
             horizontalAdjustment -= Math.signum(horizontalAdjustment) * AimHeadingTarget.minimumAbsoluteAdjustment;
         }
+
+        if(Math.abs(horizontalAdjustment) < AimHeadingTarget.requiresAbsoluteAdjustmentThreshold){
+            horizontalAdjustment += Math.signum(horizontalAdjustment) * AimHeadingTarget.minimumAbsoluteAdjustment;
+        };
 
         this.drivetrain.getLeft().getMain().set(-horizontalAdjustment);
         this.drivetrain.getRight().getMain().set(horizontalAdjustment);
@@ -62,7 +70,9 @@ public class AimHeadingTarget extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        SmartDashboard.putBoolean("finished aim", this.limelight.hasTarget() && Math.abs(this.limelight.getXOffset()) < AimHeadingTarget.minimumHeadingError);
-        return this.limelight.hasTarget() && Math.abs(this.limelight.getXOffset()) < AimHeadingTarget.minimumHeadingError;
+        boolean finished = this.limelight.hasTarget() && Math.abs(this.limelight.getXOffset()) < AimHeadingTarget.minimumHeadingError && this.hadTargetLastFrame && Math.abs(this.lastTargetX - this.limelight.getXOffset()) < AimHeadingTarget.minimumDeltaTargetX;
+        this.hadTargetLastFrame = this.limelight.hasTarget();
+        this.lastTargetX = this.limelight.getXOffset();
+        return finished;
     }
 }

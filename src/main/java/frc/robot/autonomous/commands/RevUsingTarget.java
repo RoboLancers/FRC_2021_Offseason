@@ -2,7 +2,6 @@ package frc.robot.autonomous.commands;
 
 import com.revrobotics.ControlType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.misc.Limelight;
@@ -77,7 +76,6 @@ public class RevUsingTarget extends CommandBase {
                 rpm = 60v / (2π * r)
             */
             double targetRPM = 60 * targetReleaseVelocity / (2 * Math.PI * RevUsingTarget.shooterFlywheelRadius);
-            SmartDashboard.putNumber("target rpm", targetRPM);
             if(Math.abs(this.shooter.getMaster().getEncoder().getVelocity() - targetRPM) < RevUsingTarget.minimumRPMError){
                 this.reachedTargetRPM = true;
             } else {
@@ -89,11 +87,9 @@ public class RevUsingTarget extends CommandBase {
 
     @Override
     public void execute(){
-        SmartDashboard.putNumber("current rpm", this.shooter.getMaster().getEncoder().getVelocity());
         if(limelight.hasTarget()){
             this.revWithTarget();
         }
-        SmartDashboard.putBoolean("reached target rpm", this.reachedTargetRPM);
     }
 
     @Override
