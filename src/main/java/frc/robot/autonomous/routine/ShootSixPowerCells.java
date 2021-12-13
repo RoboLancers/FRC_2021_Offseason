@@ -3,6 +3,7 @@ package frc.robot.autonomous.routine;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.autonomous.*;
+import frc.robot.autonomous.commands.AimHeadingTarget;
 import frc.robot.autonomous.enums.StartingPosition;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.intake.Intake;

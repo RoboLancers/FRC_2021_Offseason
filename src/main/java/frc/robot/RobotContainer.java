@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.autonomous.*;
+import frc.robot.autonomous.commands.AimHeadingTarget;
 import frc.robot.autonomous.enums.StartingPosition;
 import frc.robot.autonomous.routine.FullAutoShoot;
 import frc.robot.autonomous.routine.MoveForward;
@@ -115,7 +116,7 @@ public class RobotContainer {
         autoChooser.setDefaultOption("GoForth", new MoveForward(drivetrain, gyro, irsensor, intake, odometry, limelight, null, trajectories, null));
         autoChooser.addOption("ShootEm", new NewShootBall(drivetrain, loader, shooter, irsensor, intake));
         autoChooser.addOption("Nothing", null);
-        autoChooser.addOption("FullAutoShoot", new FullAutoShoot(limelight, drivetrain, shooter, loader, intake, irsensor));
+        // autoChooser.addOption("FullAutoShoot", new FullAutoShoot(limelight, drivetrain, shooter, loader, intake, irsensor));
 
         configureButtonBindings();
         camera.getFrontCamera();
@@ -134,9 +135,7 @@ public class RobotContainer {
                 .whileHeld(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor,  -0.65, 0));
 
         manipulatorXboxController.
-                //whileHeld(XBoxController.Button.A, new FullAutoShoot(limelight, drivetrain, shooter, loader, irsensor))
-                whileHeld(XboxController.Button.A, new AimHeadingTarget(limelight, drivetrain))
-                //.whileHeld(XboxController.Button.B, new RevUsingTarget(limelight, drivetrain, shooter))
+                whileHeld(XboxController.Button.A, new FullAutoShoot(limelight, drivetrain, shooter))
                 .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,0.75, 0))
                 .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0.5, 0.4))
 

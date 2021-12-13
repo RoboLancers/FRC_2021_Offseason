@@ -1,4 +1,4 @@
-package frc.robot.autonomous;
+package frc.robot.autonomous.commands;
 
 import com.revrobotics.ControlType;
 
