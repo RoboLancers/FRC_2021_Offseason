@@ -1,19 +1,20 @@
 package frc.robot.autonomous.routine;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.subsystems.misc.Gyro;
 import frc.robot.subsystems.misc.Limelight;
-import frc.robot.autonomous.commands.AimHeadingTarget;
-import frc.robot.autonomous.commands.RevUsingTarget;
+import frc.robot.autonomous.commands.SeekTargetDistance;
+import frc.robot.autonomous.commands.SeekTargetHeader;
 import frc.robot.subsystems.drivetrain.Drivetrain;
-import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.subsystems.drivetrain.commands.TurnToAngle;
 
 public class FullAutoShoot extends SequentialCommandGroup {
     // Fully aims heading toward target, sets rpm using target, then shoots the ball
-    public FullAutoShoot(Limelight limelight, Drivetrain drivetrain, Shooter shooter){
+    public FullAutoShoot(Gyro gyro, Limelight limelight, Drivetrain drivetrain){
         addCommands(
-            new AimHeadingTarget(limelight, drivetrain),
-            new RevUsingTarget(limelight, drivetrain, shooter)
-            // ! set shooter rpm to 0 after shot
+            new SeekTargetHeader(limelight, drivetrain),
+            new TurnToAngle(() -> limelight.getXOffset(), drivetrain, gyro),
+            new SeekTargetDistance(limelight, drivetrain)
         );
     }
 }

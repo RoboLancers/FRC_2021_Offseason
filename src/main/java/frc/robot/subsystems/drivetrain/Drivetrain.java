@@ -27,8 +27,6 @@ public class Drivetrain extends SubsystemBase {
         right.setVoltage(rightVoltage);
     }
 
-    // The following methods are never used?
-
     public CANSparkMax getLeftMainMotor() {
         return left.getMain();
     }

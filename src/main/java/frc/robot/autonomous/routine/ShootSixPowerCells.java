@@ -3,7 +3,7 @@ package frc.robot.autonomous.routine;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.autonomous.*;
-import frc.robot.autonomous.commands.AimHeadingTarget;
+// import frc.robot.autonomous.commands.AimHeadingTarget;
 import frc.robot.autonomous.enums.StartingPosition;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.intake.Intake;
@@ -29,15 +29,15 @@ public class ShootSixPowerCells extends SequentialCommandGroup {
                 break;
         }
         addCommands(new ParallelCommandGroup(
-                new RevUpShooter(shooter, 3000),
-                new AimHeadingTarget(limelight, drivetrain)
+                new RevUpShooter(shooter, 3000)// ,
+                // new AimHeadingTarget(limelight, drivetrain)
         ));
         addCommands(new LoadNShoot(loader, intake, irSensor));
         addCommands(new Ramsete(odometry, drivetrain, trajectories.aimingPositionToThreePowerCells(odometry.getPose2d())));
         addCommands(new Ramsete(odometry, drivetrain, trajectories.pickUpThreePowerCells(odometry.getPose2d())));
         addCommands(new ParallelCommandGroup(
-                new RevUpShooter(shooter, 3000),
-                new AimHeadingTarget(limelight, drivetrain)
+                new RevUpShooter(shooter, 3000)// ,
+                // new AimHeadingTarget(limelight, drivetrain)
         ));
     }
 }
