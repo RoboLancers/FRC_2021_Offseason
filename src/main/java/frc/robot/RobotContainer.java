@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.autonomous.*;
-import frc.robot.autonomous.commands.AimHeadingTarget;
+// import frc.robot.autonomous.commands.AimHeadingTarget;
 import frc.robot.autonomous.enums.StartingPosition;
 import frc.robot.autonomous.routine.FullAutoShoot;
 import frc.robot.autonomous.routine.MoveForward;
@@ -128,15 +128,16 @@ public class RobotContainer {
 
     private void configureButtonBindings() {
         driverXboxController
-                .whenPressed(XboxController.Button.A, new ToggleGearShifter(gearShifter))
+        
+                .whileHeld(XboxController.Button.A, new FullAutoShoot(gyro, limelight, drivetrain))
+                // .whenPressed(XboxController.Button.A, new ToggleGearShifter(gearShifter))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
                 .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.75, 0))
                 .whileHeld(XboxController.Trigger.RIGHT_TRIGGER, new UseIntake(intake, irsensor,  -0.65, 0));
 
         manipulatorXboxController.
-                whileHeld(XboxController.Button.A, new FullAutoShoot(limelight, drivetrain, shooter))
-                .whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,0.75, 0))
+                whileHeld(XboxController.Button.X, new UseIntake(intake, irsensor,0.75, 0))
                 .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0.5, 0.4))
 
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))

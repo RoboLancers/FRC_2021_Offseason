@@ -12,9 +12,9 @@ public class FullAutoShoot extends SequentialCommandGroup {
     // Fully aims heading toward target, sets rpm using target, then shoots the ball
     public FullAutoShoot(Gyro gyro, Limelight limelight, Drivetrain drivetrain){
         addCommands(
-            new SeekTargetHeader(limelight, drivetrain),
-            new TurnToAngle(() -> limelight.getXOffset(), drivetrain, gyro),
-            new SeekTargetDistance(limelight, drivetrain)
+            //new SeekTargetHeader(limelight, drivetrain),
+            new TurnToAngle(() -> 90/*limelight.getXOffset() + gyro.getYaw() % 360*/, drivetrain, gyro)//,
+            // new SeekTargetDistance(limelight, drivetrain)
         );
     }
 }

@@ -39,11 +39,7 @@ public class UseDrivetrain extends CommandBase {
         leftPower = throttle + turn;
         rightPower = throttle - turn;
         
-        // values are NEGATIVE b/c of inversion of the y axis
-        /*
-        leftPower = -xboxController.getAxisValue(XboxController.Axis.LEFT_Y);
-        rightPower = -xboxController.getAxisValue(XboxController.Axis.RIGHT_Y);
-        */
+        
 
         drivetrain.getLeft().getMain().set(leftPower);
         drivetrain.getRight().getMain().set(rightPower);
