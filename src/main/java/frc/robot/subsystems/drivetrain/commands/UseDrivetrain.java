@@ -27,6 +27,7 @@ public class UseDrivetrain extends CommandBase {
     public void execute() {
         //magnitude of the maximum power
         maxPower = 0.75;
+        double turnValue = (xboxController.getAxisValue(XboxController.Axis.RIGHT_X));
 
         // forwards & backwards
         throttle = xboxController.getAxisValue(XboxController.Axis.LEFT_Y);
@@ -34,10 +35,10 @@ public class UseDrivetrain extends CommandBase {
         throttle = (throttle < 0 ? Math.max(-maxPower, throttle) : Math.min(maxPower, throttle));
         
         // left & right
-        turn = (xboxController.getAxisValue(XboxController.Axis.RIGHT_X))*0.4;
+        turn = Math.signum(turnValue) * Math.pow(turnValue,2)*0.7;
 
-        leftPower = -throttle + turn;
-        rightPower = -throttle - turn;
+        leftPower = throttle + turn;
+        rightPower = throttle - turn;
         
         // values are NEGATIVE b/c of inversion of the y axis
         /*

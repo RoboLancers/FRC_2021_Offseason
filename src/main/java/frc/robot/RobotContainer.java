@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -20,6 +21,7 @@ import frc.robot.subsystems.climber.commands.HookUp;
 import frc.robot.subsystems.climber.commands.PullUp;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import frc.robot.subsystems.drivetrain.GearShifter;
+import frc.robot.subsystems.drivetrain.TrajectoryDrive;
 import frc.robot.subsystems.drivetrain.commands.HoldTargetAiming;
 import frc.robot.subsystems.drivetrain.commands.ToggleGearShifter;
 import frc.robot.subsystems.drivetrain.commands.UseDrivetrain;
@@ -208,7 +210,12 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
+        TrajectoryConfig config = new TrajectoryConfig(2.5, 19);
+        config.setKinematics(getKinematics());
+        
         return autoChooser.getSelected();
+        
+
     }
 
     // Update odometry and autonomous, then update smart dashboard

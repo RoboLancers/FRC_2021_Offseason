@@ -14,7 +14,7 @@ public class Drivetrain extends SubsystemBase {
         right = new GearBox(GearBoxSides.RIGHT, RobotMap.Drivetrain.Right.FRONT, RobotMap.Drivetrain.Right.BACK_ONE, RobotMap.Drivetrain.Right.BACK_TWO);
     }
 
-    public GearBox getLeft() {
+    public static GearBox getLeft() {
         return left;
     }
 

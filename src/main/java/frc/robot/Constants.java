@@ -10,6 +10,7 @@ package frc.robot;
 import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.utilities.math.InterpolatingDouble;
@@ -111,4 +112,18 @@ public final class Constants {
         public static final Pose2d CENTER_START = new Pose2d(START_X, CENTER_START_Y, new Rotation2d(Units.degreesToRadians(0)));
         public static final Pose2d SHOOTING_START = new Pose2d(START_X, SHOOTING_START_Y, new Rotation2d(Units.degreesToRadians(0)));
     }
+
+    //Trajectory Test Constants
+    public static final double ksVolts = 0.131;
+    public static final double ksVoltSecondsPerMeter =  4.03;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.521;
+
+    public static final double kTrackWidthMeters = 0.702;
+    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidthMeters);
+
+    public static final double kMaxSpeedMetersPerSecond = 2.5;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 19;
+
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = 0.7;
 }
