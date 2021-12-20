@@ -13,7 +13,7 @@ public class FullAutoShoot extends SequentialCommandGroup {
     public FullAutoShoot(Gyro gyro, Limelight limelight, Drivetrain drivetrain){
         addCommands(
             //new SeekTargetHeader(limelight, drivetrain),
-            new TurnToAngle(() -> 90/*limelight.getXOffset() + gyro.getYaw() % 360*/, drivetrain, gyro)//,
+            new TurnToAngle(gyro.getYaw() + 90, drivetrain, gyro) //,
             // new SeekTargetDistance(limelight, drivetrain)
         );
     }
