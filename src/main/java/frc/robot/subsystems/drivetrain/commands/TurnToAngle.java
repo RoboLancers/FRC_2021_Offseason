@@ -30,7 +30,7 @@ public class TurnToAngle extends ProfiledPIDCommand {
                 )
             ),
             () -> {
-                SmartDashboard.putNumber("heading", gyro.getYaw());
+                SmartDashboard.putNumber("heading", gyro.getYaw() % 360 - 180);
                 return gyro.getYaw();
             },
             () -> targetAngle,
@@ -42,7 +42,7 @@ public class TurnToAngle extends ProfiledPIDCommand {
             drivetrain
         );
         this.getController().enableContinuousInput(-180, 180);
-        this.getController().setTolerance(1.0, 1.0);
+        this.getController().setTolerance(3.0, 3.0);
     }
 
     @Override
