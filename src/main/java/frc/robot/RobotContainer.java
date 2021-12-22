@@ -129,7 +129,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         driverXboxController
         
-                .whileHeld(XboxController.Button.A, new FullAutoShoot(gyro, limelight, drivetrain))
+                .whenPressed(XboxController.Button.A, new FullAutoShoot(gyro, limelight, drivetrain))
                 // .whenPressed(XboxController.Button.A, new ToggleGearShifter(gearShifter))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))

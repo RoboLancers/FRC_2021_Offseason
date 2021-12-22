@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class TurnToAngle extends ProfiledPIDCommand {
-    public static double P = 0.0015;
+    public static double P = 0.0032;
     public static double I = 0.00;
-    public static double D = 0.0005;
+    public static double D = 0.00;
 
     private static double maxTurnVelocityPerSecond = 2;
 
@@ -31,18 +31,18 @@ public class TurnToAngle extends ProfiledPIDCommand {
             ),
             () -> {
                 SmartDashboard.putNumber("heading", gyro.getYaw() % 360 - 180);
-                return gyro.getYaw();
+                return gyro.getYaw() % 360 - 180;
             },
             () -> targetAngle,
             (output, setpoint) -> {
                 SmartDashboard.putNumber("output", output);
-                drivetrain.getLeftMainMotor().set(output.doubleValue());
-                drivetrain.getRightMainMotor().set(-output.doubleValue());
+                drivetrain.getLeftMainMotor().set(-output.doubleValue());
+                drivetrain.getRightMainMotor().set(output.doubleValue());
             },
             drivetrain
         );
         this.getController().enableContinuousInput(-180, 180);
-        this.getController().setTolerance(3.0, 3.0);
+        this.getController().setTolerance(-3.0, 3.0);
     }
 
     @Override
