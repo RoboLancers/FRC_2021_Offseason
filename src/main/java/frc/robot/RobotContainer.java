@@ -1,15 +1,21 @@
 package frc.robot;
 
+import java.util.Arrays;
+
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.autonomous.*;
 import frc.robot.autonomous.enums.StartingPosition;
 import frc.robot.autonomous.routine.MoveForward;
@@ -213,6 +219,26 @@ public class RobotContainer {
         TrajectoryConfig config = new TrajectoryConfig(2.5, 19);
         config.setKinematics(getKinematics());
         
+        Trajectory trajectory = new TrajectoryGenerator.generateTrajectory(
+            Arrays.asList(new Pose2d(), new Pose2d(1.0, 0, new Rotation2d())),
+            config
+        );
+
+        RamseteCommand command = new RamseteCommand (
+            trajectory,
+            //drive::getPose,  drive is a drivetrain object
+            new RamseteController(2.0, 0.7),
+            getFeedforward();
+            getKinematics();
+            //drive::getSpeeds,
+            //drive:getLeftPIDController(),
+            //drive:getRightPIDController(),
+            //drive::setOutput,
+            drive
+
+            
+        );
+        return command;
         return autoChooser.getSelected();
         
 

@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.drivetrain.enums.GearBoxSides;
 import frc.robot.subsystems.drivetrain.GearBox;
@@ -34,7 +35,7 @@ public class TrajectoryDrive extends SubsystemBase {
     PigeonIMU bird = new PigeonIMU(1); //INSERT PORT
 
     DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(0.702);
-    DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(kinematics, getHeading()); // FIX
+    DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading()); // parameters were originally (kinematics, getHeading())
 
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.131, 4.03, 0.521);
 
@@ -59,6 +60,14 @@ public class TrajectoryDrive extends SubsystemBase {
         return Rotation2d.fromDegrees(-bird.getFusedHeading());
     }
 
+    public double leftGetEncoderDistance() {
+        return (leftMaster.getEncoder().getPosition() / Constants.Robot.GEAR_RATIO) * Constants.Robot.WHEEL_CIRCUMFERENCE;
+    }
+
+    public double rightGetEncoderDistance() {
+        return (rightMaster.getEncoder().getPosition() / Constants.Robot.GEAR_RATIO) * Constants.Robot.WHEEL_CIRCUMFERENCE;
+    }
+
     public DifferentialDriveWheelSpeeds getSpeeds() {
         return new DifferentialDriveWheelSpeeds(
             leftMaster.getEncoder().getVelocity() / 15.625 * 2 * Math.PI * 0.0762 / 60, 
@@ -74,17 +83,26 @@ public class TrajectoryDrive extends SubsystemBase {
         return kinematics;
     }
 
-    public PIDController getLeftPidController() {
+    public Pose2d getPose() {
+        return pose;
+    }
+
+    public PIDController getLeftPIDController() {
         return leftPIDController;
     }
 
-    public PIDController getRightPidController() {
+    public PIDController getRightPIDController() {
         return rightPIDController;
+    }
+
+    public void setOutput(double leftVolts, double rightVolts) {
+        leftMaster.set(leftVolts / 12); // why divide by 12?
+        rightMaster.set(rightVolts / 12);
     }
 
     @Override
     public void periodic() {
-        pose = odometry.update(getHeading(), getSpeeds() ); //May or may not want to make two methods for get speeds later
+        pose = odometry.update(getHeading(), leftGetEncoderDistance(), rightGetEncoderDistance() ); //May or may not want to make two methods for get speeds later
     }
 
     }
