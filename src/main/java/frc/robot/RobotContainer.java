@@ -44,6 +44,8 @@ import frc.robot.utilities.XboxController;
 import frc.robot.utilities.XboxController.Button;
 import frc.robot.subsystems.misc.Camera;
 
+import frc.robot.subsystems.drivetrain.commands.TurnToAngle;
+
 public class RobotContainer {
     // Robot subsystems and commands
     public NetworkInterface networkInterface;
@@ -129,7 +131,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         driverXboxController
         
-                .whenPressed(XboxController.Button.A, new FullAutoShoot(gyro, limelight, drivetrain))
+                // .whenPressed(XboxController.Button.A, new FullAutoShoot(gyro, limelight, drivetrain))
                 // .whenPressed(XboxController.Button.A, new ToggleGearShifter(gearShifter))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
@@ -141,7 +143,7 @@ public class RobotContainer {
                 .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0.5, 0.4))
 
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
-                .whileHeld(XboxController.Button.RIGHT_BUMPER, new LoadNShoot(loader, intake, irsensor))
+                .whileHeld(XboxController.Button.RIGHT_BUMPER, new TurnToAngle(90.0, drivetrain, gyro))
 
                 .whileHeld(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, -1, -0.6))
                 .whenReleased(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, 0, 0))
