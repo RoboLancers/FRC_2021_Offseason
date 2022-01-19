@@ -10,13 +10,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class TurnToAngle extends ProfiledPIDCommand {
-    public static double P = 0.001;
+    public static double P = 0.02;
     public static double I = 0.00;
     public static double D = 0.00;
 
     private static double maxTurnVelocityPerSecond = 2;
-
     private static double maxTurnAccelerationPerSecondSquared = 19.1938579655;
+
+    private static double maxAbsoluteDegreesError = 2.0;
 
     public TurnToAngle(double targetAngle, Drivetrain drivetrain, Gyro gyro){
         super(
@@ -30,21 +31,17 @@ public class TurnToAngle extends ProfiledPIDCommand {
                 )
             ),
             () -> {
-                double yaw = gyro.getYaw();
-                SmartDashboard.putNumber("heading", Math.IEEERemainder(yaw, 360.0) - 180);
-                SmartDashboard.putNumber("error", Math.IEEERemainder(targetAngle - yaw, 360.0) - 180);
-                return Math.IEEERemainder(yaw, 360.0) - 180;
+                return Math.IEEEremainder(gyro.getYaw(), 360);
             },
             () -> targetAngle,
             (output, setpoint) -> {
-                SmartDashboard.putNumber("output", output);
-                drivetrain.getLeftMainMotor().set(Math.min(Math.abs(output.doubleValue()), 1.0) * Math.signum(output.doubleValue()));
-                drivetrain.getRightMainMotor().set(-Math.min(Math.abs(output.doubleValue()), 1.0) * Math.signum(output.doubleValue()));
+                drivetrain.getLeftMainMotor().set(output.doubleValue());
+                drivetrain.getRightMainMotor().set(-output.doubleValue());
             },
             drivetrain
         );
-        this.getController().enableContinuousInput(-180, 180);
-        this.getController().setTolerance(-10.0, 10.0);
+        this.getController().enableContinuousInput(0, 360);
+        this.getController().setTolerance(maxAbsoluteDegreesError);
     }
 
     @Override
