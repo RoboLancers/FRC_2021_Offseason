@@ -143,7 +143,7 @@ public class RobotContainer {
                 .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0.5, 0.4))
 
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
-                .whileHeld(XboxController.Button.RIGHT_BUMPER, new TurnToAngle(90.0, drivetrain, gyro))
+                .whenPressed(XboxController.Button.RIGHT_BUMPER, new TurnToAngle(90.0, drivetrain, gyro))
 
                 .whileHeld(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, -1, -0.6))
                 .whenReleased(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, 0, 0))
