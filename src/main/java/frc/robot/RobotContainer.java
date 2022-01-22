@@ -132,7 +132,7 @@ public class RobotContainer {
         driverXboxController
         
                 // .whenPressed(XboxController.Button.A, new FullAutoShoot(gyro, limelight, drivetrain))
-                // .whenPressed(XboxController.Button.A, new ToggleGearShifter(gearShifter))
+                .whenPressed(XboxController.Button.A, new TurnToAngle(90.0, drivetrain, gyro))
                 .whileHeld(XboxController.Button.Y, new HoldTargetAiming(drivetrain, limelight, AimingTarget.LINE))
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
                 .whileHeld(XboxController.Button.RIGHT_BUMPER, new UseIntake(intake, irsensor, 0.75, 0))
@@ -143,7 +143,7 @@ public class RobotContainer {
                 .whileHeld(XboxController.Button.Y, new UseIntake(intake, irsensor, 0.5, 0.4))
 
                 .whenPressed(XboxController.Button.LEFT_BUMPER, new ToggleIntakePivot(intakePivot))
-                .whenPressed(XboxController.Button.RIGHT_BUMPER, new TurnToAngle(90.0, drivetrain, gyro))
+                // .whenPressed(XboxController.Button.RIGHT_BUMPER, new TurnToAngle(90.0, drivetrain, gyro))
 
                 .whileHeld(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, -1, -0.6))
                 .whenReleased(XboxController.Trigger.LEFT_TRIGGER, new UseIntake(intake, irsensor, 0, 0))
