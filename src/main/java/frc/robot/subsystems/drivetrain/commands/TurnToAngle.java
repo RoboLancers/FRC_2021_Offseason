@@ -12,11 +12,11 @@ import frc.robot.subsystems.misc.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // public class TurnToAngle extends CommandBase {
-//     private static double minTurn = 0.1;
-//     private static double maxTurn = 0.5;
+//     private static double minTurn = 0.05;
+//     private static double maxTurn = 0.65;
 //     private static double threshold = 1;
-//     private static double kP = 0.004;
-//     private static double kD = 0.03;
+//     private static double kP = 0.008;
+//     private static double kD = 0.045;
 
 //     private Drivetrain drivetrain;
 //     private Gyro gyro;
@@ -70,46 +70,32 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // }
 
 
-public class TurnToAngle extends ProfiledPIDCommand {
-    public static double P = 0.004;
+public class TurnToAngle extends PIDCommand {
+    public static double P = 0.036;
     public static double I = 0.00;
-    public static double D = 0.03;
+    public static double D = 0.011;
 
-    private static double maxTurnVelocityPerSecond = 2;
-    private static double maxTurnAccelerationPerSecondSquared = 19.1938579655;
-
-    private static double maxAbsoluteDegreesError = 2.0;
+    private static double maxAbsoluteDegreesError = 1.0;
 
     public TurnToAngle(double targetAngle, Drivetrain drivetrain, Gyro gyro){
         super(
-            new ProfiledPIDController(
+            new PIDController(
                 TurnToAngle.P,
                 TurnToAngle.I,
-                TurnToAngle.D,
-                new TrapezoidProfile.Constraints(
-                    TurnToAngle.maxTurnVelocityPerSecond,
-                    TurnToAngle.maxTurnAccelerationPerSecondSquared
-                )
+                TurnToAngle.D
             ),
             () -> {
-                double yaw = gyro.getYaw() % 360;
-                double error = (targetAngle - yaw) % 360;
-                if(error > 180){
-                    error -= 360;
-                }
-                SmartDashboard.putNumber("GYRO", yaw);
-                return error;
+                SmartDashboard.putNumber("GYRO", gyro.getYaw() % 360);
+                return (gyro.getYaw() % 360);
             },
-            () -> 0,
-            (output, setpoint) -> {
-                int direction = output.intValue() < 0 ? -1 : 1;
-                double magnitude = Math.min(Math.max(Math.abs(output.doubleValue()), 0.05), 0.5);
-                SmartDashboard.putNumber("DELTA", magnitude);
-                drivetrain.getLeftMainMotor().set(-direction * magnitude);
-                drivetrain.getRightMainMotor().set(direction * magnitude);
+            () -> targetAngle,
+            (output) -> {
+                drivetrain.getLeftMainMotor().set(-output);
+                drivetrain.getRightMainMotor().set(output);
             },
             drivetrain
         );
+        this.getController().enableContinuousInput(0, 360);
         this.getController().setTolerance(maxAbsoluteDegreesError);
     }
 
@@ -119,6 +105,6 @@ public class TurnToAngle extends ProfiledPIDCommand {
 
     @Override
     public boolean isFinished(){
-        return this.getController().atGoal();
+        return this.getController().atSetpoint();
     }
 }
